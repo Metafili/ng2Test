@@ -1,7 +1,8 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { NewDemoAppComponent, environment } from './app/';
-import { FIREBASE_PROVIDERS, 
+import { 
+  FIREBASE_PROVIDERS, 
   defaultFirebase, 
   AngularFire, 
   AuthMethods, 

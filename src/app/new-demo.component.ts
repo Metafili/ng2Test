@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['new-demo.component.css']
 })
 
-// http://book.mixu.net/node/index.html
+// eBook: http://book.mixu.net/node/index.html
 export class NewDemoAppComponent implements OnInit {
   title = 'new-demo works!';
   itemKey: any;
