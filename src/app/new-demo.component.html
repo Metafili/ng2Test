@@ -37,5 +37,47 @@
 <button (click)="emailLogin()">Login With Email</button>
 <button (click)="twittLogin()">Login With Twitter</button>
 
+<div>
+  <p> Observerable: Operator: Map </p>
+  <a href='http://blog.thoughtram.io/angular/2016/05/16/exploring-rx-operators-map.html'> 
+    Link: Expoloering Rx Operators: Map</a>
+  <a href='http://stackoverflow.com/questions/11922383/access-process-nested-objects-arrays-or-jsonl'> 
+    Link: Access/Process (nested) objects, array or JSON
+  </a>
+  <a href='http://stackoverflow.com/questions/30089879/typescript-and-dot-notation-access-to-objects'> 
+    Link: TypeScript and dot-notation access to objects
+  </a>
+</div>
+
+<div> 
+  <h2>Observable from Event</h2>
+  <input type="text" id="demo" placeholder="key in"/>
+
+  <h2>WiKi Search: Raw Event</h2>
+  <input #term2 type="text" (keyup)="rawSearch(term2.value)" placeholder="Search key in"/>
+
+  <h2>WiKi Search 1: Observable</h2>
+  <input type="text" [ngFormControl]="term" placeholder="Search key in"/>
+
+  <h2>WiKi Search 2: Observable</h2>
+  <input type="text" [ngFormControl]="term" placeholder="Search key in"/>
+
+  <!-- UI for rawSearch/ObsSearch -->
+  <div>
+    <p> Raw Items</p>
+    <ul> 
+
+      <li *ngFor="let item of wikiRawItems">{{item}}</li>
+    </ul>
+  </div>
+
+  <div>  
+    <p> Obs Items</p>
+    <ul> 
+      <li *ngFor="let item of wikiObsItems | async">{{item}}</li>
+    </ul>
+  </div>
+  
+</div>
 
   
