@@ -188,12 +188,13 @@ export class NewDemoAppComponent implements OnInit {
     .catch( e => console.log("Twitter Login: Failed"));
   }
 
+  // http://slides.com/robwormald/everything-is-a-stream#/68
   obsEvent() {
     let demoInput = document.querySelector('#demo');
     let obs = Observable
               .fromEvent(demoInput, 'input')
-              // .map( e => e.target.value ); // dot notation 이 안되는 이유는?
-              .map( e => e['target'].value )
+              .map((e: any) => e.target.value ) // dot notation 이 안되는 이유는?
+              // .map( e => e['target'].value )
               // .filter( value => value > 100 )
               .map(v => { 
                 return {
@@ -219,7 +220,11 @@ export class NewDemoAppComponent implements OnInit {
   // keyup event
   rawSearch (term) {
     this.wikiService.rawSearch(term)
-        // .then(items => this.wikiItems = items);
-        .subscribe(items => this.wikiRawItems = items);
+      .subscribe(items => this.wikiRawItems = items);
+  }
+
+  promiseSearch (term) {
+    this.wikiService.promiseSearch(term)
+      .then(items => this.wikiRawItems = items);
   }
 }

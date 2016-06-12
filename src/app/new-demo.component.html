@@ -38,8 +38,12 @@
 <button (click)="twittLogin()">Login With Twitter</button>
 
 <div>
+  <p> Everything is a stream(Observerable) </p>
+  <a href='http://slides.com/robwormald/everything-is-a-stream#/68l'> 
+
   <p> Observerable: Operator: Map </p>
   <a href='http://blog.thoughtram.io/angular/2016/05/16/exploring-rx-operators-map.html'> 
+  </a>
     Link: Expoloering Rx Operators: Map</a>
   <a href='http://stackoverflow.com/questions/11922383/access-process-nested-objects-arrays-or-jsonl'> 
     Link: Access/Process (nested) objects, array or JSON
@@ -56,17 +60,19 @@
   <h2>WiKi Search: Raw Event</h2>
   <input #term2 type="text" (keyup)="rawSearch(term2.value)" placeholder="Search key in"/>
 
+  <h2>WiKi Search: Promise Event</h2>
+  <input #term3 type="text" (keyup)="promiseSearch(term3.value)" placeholder="Promise key in"/>
+
   <h2>WiKi Search 1: Observable</h2>
-  <input type="text" [ngFormControl]="term" placeholder="Search key in"/>
+  <input type="text" [ngFormControl]="term" placeholder="Obs1 Search key in"/>
 
   <h2>WiKi Search 2: Observable</h2>
-  <input type="text" [ngFormControl]="term" placeholder="Search key in"/>
+  <input type="text" [ngFormControl]="term" placeholder="Obs2 Search key in"/>
 
   <!-- UI for rawSearch/ObsSearch -->
   <div>
     <p> Raw Items</p>
     <ul> 
-
       <li *ngFor="let item of wikiRawItems">{{item}}</li>
     </ul>
   </div>
