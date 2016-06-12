@@ -188,7 +188,7 @@ export class NewDemoAppComponent implements OnInit {
     .catch( e => console.log("Twitter Login: Failed"));
   }
 
-  // http://slides.com/robwormald/everything-is-a-stream#/68
+  // e.target.value: http://stackoverflow.com/questions/33523241/e-target-is-accessible-but-e-target-value-is-not-in-react-component
   obsEvent() {
     let demoInput = document.querySelector('#demo');
     let obs = Observable
