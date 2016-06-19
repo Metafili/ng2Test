@@ -5,18 +5,18 @@ import {
   it,
   inject
 } from '@angular/core/testing';
-import { NewDemoAppComponent } from '../app/ng2-test.component';
+import { Ng2TestAppComponent } from '../app/ng2-test.component';
 
-beforeEachProviders(() => [NewDemoAppComponent]);
+beforeEachProviders(() => [Ng2TestAppComponent]);
 
-describe('App: NewDemo', () => {
+describe('App: Ng2 Test', () => {
   it('should create the app',
-      inject([NewDemoAppComponent], (app: NewDemoAppComponent) => {
+      inject([Ng2TestAppComponent], (app: Ng2TestAppComponent) => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have as title \'new-demo works!\'',
-      inject([NewDemoAppComponent], (app: NewDemoAppComponent) => {
-    expect(app.title).toEqual('new-demo works!');
+  it('should have as title \'Ng2 Test\'',
+      inject([Ng2TestAppComponent], (app: Ng2TestAppComponent) => {
+    expect(app.title).toEqual('Ng2 Test');
   }));
 });

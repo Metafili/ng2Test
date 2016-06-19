@@ -1,2 +1,2 @@
 export {environment}         from './environment';
-export {NewDemoAppComponent} from './ng2-test.component';
+export {Ng2TestAppComponent} from './ng2-test.component';

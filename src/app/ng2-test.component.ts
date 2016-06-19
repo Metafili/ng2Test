@@ -35,8 +35,8 @@ import { LoginComponent }       from './login/login.component';
 })
 
 // eBook: http://book.mixu.net/node/index.html
-export class NewDemoAppComponent implements OnInit {
-  title = 'Angular2 Test';
+export class Ng2TestAppComponent implements OnInit {
+  title = 'Ng2 Test';
 
   constructor() {}
   

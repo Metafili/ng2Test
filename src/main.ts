@@ -1,6 +1,6 @@
 import { bootstrap }      from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
-import { NewDemoAppComponent, environment } from './app/';
+import { Ng2TestAppComponent, environment } from './app/';
 import { 
   FIREBASE_PROVIDERS, 
   defaultFirebase, 
@@ -13,7 +13,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-bootstrap(NewDemoAppComponent, [
+bootstrap(Ng2TestAppComponent, [
   FIREBASE_PROVIDERS, 
   defaultFirebase('https://vivid-torch-3052.firebaseio.com/'),
   firebaseAuthConfig({
