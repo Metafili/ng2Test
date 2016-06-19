@@ -1,0 +1,10 @@
+<h1>
+  {{title}}
+</h1>
+
+<div>
+<!-- Auth Login 
+<div> {{ (af.auth | async).uid }} </div>--> 
+<button (click)="anoLogin()">Login Anonymously</button>
+<button (click)="emailLogin()">Login With Email</button>
+<button (click)="twittLogin()">Login With Twitter</button>

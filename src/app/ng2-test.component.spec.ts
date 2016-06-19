@@ -5,7 +5,7 @@ import {
   it,
   inject
 } from '@angular/core/testing';
-import { NewDemoAppComponent } from '../app/new-demo.component';
+import { NewDemoAppComponent } from '../app/ng2-test.component';
 
 beforeEachProviders(() => [NewDemoAppComponent]);
 

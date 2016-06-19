@@ -1,0 +1,16 @@
+<h1>
+  {{title}}
+</h1>
+
+<div>
+  <nav class="hidden">
+    <ul>
+      <li><a [routerLink]="['Root']">Home</a></li>
+      <li><a [routerLink]="['AngularFire2']">AngularFire2 Exam</a></li>
+      <li><a [routerLink]="['Observabe']">Observable Exam</a></li>
+      <li><a [routerLink]="['WikiSearch']">WiKi Searcg using Observable</a></li>
+      <li><a [routerLink]="['Login']">Login</a></li>
+    </ul>
+  </nav>
+  <router-outlet ></router-outlet>
+</div>

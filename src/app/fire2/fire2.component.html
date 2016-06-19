@@ -1,0 +1,33 @@
+<h1>
+  {{title}}
+</h1>
+
+<ul *ngFor="let item of items | async" >
+  <li class="text">
+    Key: {{item.$key}}, Name: {{item.name}}, Size: {{item.size}}
+    <button (click)="updateItem(newsize.value, item.$key)">Update Item Size</button>
+  </li>
+</ul>
+
+<h1>
+  Retriving data as objects
+</h1>
+<p>
+  {{ item | async | json }}
+</p>
+<input type="text" #newname placeholder="Name" />
+<input type="text" #newsize placeholder="Size" />
+<br/>Item: 
+<button (click)="save(newname.value)">Set Name</button>
+<button (click)="update(newsize.value)">Update Size</button>
+<button (ceick)="delete()">Delete</button>
+<br/>Items:
+<button (click)="push(newname.value)">Push Name</button>
+<!--<button (click)="updateItem(newsize.value, item.$key)">Update Item Size</button>-->
+
+<div>
+  <br/>Rx:Subject: Filter by size
+  <button (click)="filterBy('small')">Small</button>
+  <button (click)="filterBy('medium')">Medium</button>
+  <button (click)="filterBy('large')">Large</button>
+</div>

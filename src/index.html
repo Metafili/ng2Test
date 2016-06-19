@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>NewDemo</title>
+  <title>ng2Test</title>
   <base href="/">
   {{content-for 'head'}}
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -14,14 +14,15 @@
   <script type="text/javascript">
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/worker.js').catch(function(err) {
-        console.log('Error installing service worker: ', err);
+        console.log('Error installing service worke
+        r: ', err);
       });
     }
   </script>
   -->
 </head>
 <body>
-  <new-demo-app>Loading...</new-demo-app>
+  <ng2-test-app>Loading...</ng2-test-app>
 
   <script src="vendor/es6-shim/es6-shim.js"></script>
   <script src="vendor/reflect-metadata/Reflect.js"></script>
