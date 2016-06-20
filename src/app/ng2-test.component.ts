@@ -39,7 +39,7 @@ export class Ng2TestAppComponent implements OnInit {
   title = 'Ng2 Test';
 
   constructor() {}
-  
+
   ngOnInit() {
     console.log("ngOnInit: ");
   }
