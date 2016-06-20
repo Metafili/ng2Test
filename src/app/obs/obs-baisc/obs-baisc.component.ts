@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+
+import { Http, Headers } from '@angular/http';
 import { Observable  } from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/mergemap';
+import 'rxjs/add/operator/switchMap';
 
 // http://ngcourse.rangle.io/handout/observables/using_observables.html
 @Component({
@@ -20,9 +28,9 @@ export class ObsBaiscComponent implements OnInit {
   private href: string = 'http://ngcourse.rangle.io/handout/observables/using_observables.html';
 
   private status: string;
-  private doctors: Array<string>;
+  private doctors: Array<string> = [];
 
-  constructor( private http: Http ) {
+  constructor( private http: Http, cd: ChangeDetectorRef ) {
     this.data = new Observable( observer => {
       setTimeout(() => {
         observer.next(42);
@@ -30,9 +38,11 @@ export class ObsBaiscComponent implements OnInit {
       setTimeout(() => {
         observer.next(43);
       }, 2000);
+      /*
       setTimeout(() => {
         observer.error('Observable Error')
       }, 2500);
+      */
       setTimeout(() => {
         observer.complete();
       }, 3000);
@@ -40,9 +50,14 @@ export class ObsBaiscComponent implements OnInit {
       this.status = 'Started';
     });
 
-    this.http.get('http://jsonplaceholder.typicode.com/posts/1')
+    this.http.get('http://jsonplaceholder.typicode.com/users')
+      .flatMap((data) => data.json())
+      .filter((person: any) => person.id > 5)
+      .map((person: any) => "Dr. " + person.name)
       .subscribe((data) => {
-        this.doctors = data.json().data;
+        this.doctors.push( data )
+        // console.log('msg: ' + this.doctors );
+        cd.detectChanges();
       });
   }
 
