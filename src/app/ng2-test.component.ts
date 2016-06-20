@@ -8,7 +8,6 @@ import {
 import { Fire2Component }       from './fire2/fire2.component';
 import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
-import { WikiServiceService }   from './service/wiki-service.service';
 import { LoginComponent }       from './login/login.component';
 
 

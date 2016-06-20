@@ -1,6 +1,4 @@
-<h1>
-  {{title}}
-</h1>
+<b>{{title}}</b>
 
 <ul *ngFor="let item of items | async" >
   <li class="text">
@@ -9,15 +7,15 @@
   </li>
 </ul>
 
-<h1>
+<b>
   Retriving data as objects
-</h1>
+</b>
 <p>
   {{ item | async | json }}
 </p>
 <input type="text" #newname placeholder="Name" />
 <input type="text" #newsize placeholder="Size" />
-<br/>Item: 
+<br/>Item:
 <button (click)="save(newname.value)">Set Name</button>
 <button (click)="update(newsize.value)">Update Size</button>
 <button (ceick)="delete()">Delete</button>
