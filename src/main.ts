@@ -1,12 +1,13 @@
 import { bootstrap }      from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
+import { HTTP_PROVIDERS  } from '@angular/http';
 import { Ng2TestAppComponent, environment } from './app/';
-import { 
-  FIREBASE_PROVIDERS, 
-  defaultFirebase, 
-  AngularFire, 
-  AuthMethods, 
-  AuthProviders, 
+import {
+  FIREBASE_PROVIDERS,
+  defaultFirebase,
+  AngularFire,
+  AuthMethods,
+  AuthProviders,
   firebaseAuthConfig} from 'angularfire2'
 
 if (environment.production) {
@@ -14,7 +15,8 @@ if (environment.production) {
 }
 
 bootstrap(Ng2TestAppComponent, [
-  FIREBASE_PROVIDERS, 
+   HTTP_PROVIDERS,
+  FIREBASE_PROVIDERS,
   defaultFirebase('https://vivid-torch-3052.firebaseio.com/'),
   firebaseAuthConfig({
     provider: AuthProviders.Password,

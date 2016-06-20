@@ -1,5 +1,6 @@
 <div>
-  <a href="http://ngcourse.rangle.io/handout/observables/using_observables.html" >
+ <!-- <a href="http://ngcourse.rangle.io/handout/observables/using_observables.html" > -->
+  <a href={{href}} >
     <b>Angular 2 Component Using Observables!  </b>
   </a>
 </div>
@@ -8,4 +9,13 @@
   <div>Values: {{values.toString()}}</div>
   <div>Errors? {{anyErrors}}</div>
   <div>Finished? {{finished}}</div>
+  <div>STATUS: {{status}}</div>
+</div>
+
+<div>
+<br>
+<b>Angular 2 HTTP requests using RxJs Observables! </b>
+  <ul>
+    <li *ngFor="let doctor of doctors">{{doctor}}</li>
+  </ul>
 </div>
