@@ -9,6 +9,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/mergemap';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/do';
 
 // http://ngcourse.rangle.io/handout/observables/using_observables.html
 @Component({
@@ -50,13 +51,17 @@ export class ObsBaiscComponent implements OnInit {
       this.status = 'Started';
     });
 
+    // Why we need to usr flatMap
+    // --> http://stackoverflow.com/questions/33471526/why-we-need-to-use-flatmap
     this.http.get('http://jsonplaceholder.typicode.com/users')
-      .flatMap((data) => data.json())
-      .filter((person: any) => person.id > 5)
-      .map((person: any) => "Dr. " + person.name)
+      .do( data => console.log(data))     // _body: 
+      .flatMap((data) => data.json())     // data:T' => data.json():Array<T> => Ovservable<T>
+      .do( data => console.log(data))     // data:T' => debuging code => Observable<T'>
+      .filter((person: any) => person.id > 5) // person:T' => boolean => Observable<T'>
+      // .do( data => console.log(data))
+      .map((person: any) => "Dr. " + person.name) // person:T' => T => Observable<T>
       .subscribe((data) => {
         this.doctors.push( data )
-        // console.log('msg: ' + this.doctors );
         cd.detectChanges();
       });
   }
