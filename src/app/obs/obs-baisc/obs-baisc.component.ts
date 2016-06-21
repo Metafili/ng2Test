@@ -10,6 +10,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/mergemap';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/publish';
+// import 'rxjs/add/operator/connect';
+
 
 // http://ngcourse.rangle.io/handout/observables/using_observables.html
 @Component({
@@ -31,14 +34,28 @@ export class ObsBaiscComponent implements OnInit {
   private status: string;
   private doctors: Array<string> = [];
 
-  constructor( private http: Http, cd: ChangeDetectorRef ) {
+  constructor( private http: Http, private cd: ChangeDetectorRef ) {
+    this.initObservable(); 
+  }
+
+  ngOnInit() {
+    this.obsSubscription();
+  }
+
+  initObservable() { 
     this.data = new Observable( observer => {
       setTimeout(() => {
-        observer.next(42);
+        observer.next(1);
       }, 1000);
       setTimeout(() => {
-        observer.next(43);
+        observer.next(2);
       }, 2000);
+      setTimeout(() => {
+        observer.next(3);
+      }, 3000);
+      setTimeout(() => {
+        observer.next(4);
+      }, 4000);
       /*
       setTimeout(() => {
         observer.error('Observable Error')
@@ -46,27 +63,16 @@ export class ObsBaiscComponent implements OnInit {
       */
       setTimeout(() => {
         observer.complete();
-      }, 3000);
+      }, 6000);
 
       this.status = 'Started';
-    });
+    }).publish();
+  } 
 
-    // Why we need to usr flatMap
-    // --> http://stackoverflow.com/questions/33471526/why-we-need-to-use-flatmap
-    this.http.get('http://jsonplaceholder.typicode.com/users')
-      .do( data => console.log(data))     // _body: 
-      .flatMap((data) => data.json())     // data:T' => data.json():Array<T> => Ovservable<T>
-      .do( data => console.log(data))     // data:T' => debuging code => Observable<T'>
-      .filter((person: any) => person.id > 5) // person:T' => boolean => Observable<T'>
-      // .do( data => console.log(data))
-      .map((person: any) => "Dr. " + person.name) // person:T' => T => Observable<T>
-      .subscribe((data) => {
-        this.doctors.push( data )
-        cd.detectChanges();
-      });
-  }
+  obsSubscription() { 
+    let publish = this.data.publish();
+    // publish.connect();
 
-  ngOnInit() {
     let subscription = this.data.subscribe(
       (value: any) => this.values.push(value),
       error => this.anyErrors = error,
@@ -80,5 +86,30 @@ export class ObsBaiscComponent implements OnInit {
       console.log('forEach Promise finished: ' + v);
       this.status = 'Ended';
     });
+
+    setTimeout(() => {
+      this.data.subscribe(value => console.log(value));
+    }, 0);
+    // Subscription B
+    setTimeout(() => {
+      this.data.subscribe(value => console.log(`      ${value}`));
+    }, 2500);
+  }
+
+  startHttp() {
+    this.doctors.length = 0;
+    // Why we need to usr flatMap
+    // --> http://stackoverflow.com/questions/33471526/why-we-need-to-use-flatmap
+    this.http.get('http://jsonplaceholder.typicode.com/users')
+      .do( data => console.log(data))     // _body: 
+      .flatMap((data) => data.json())     // data:T' => data.json():Array<T> => Ovservable<T>
+      .do( data => console.log(data))     // data:T' => debuging code => Observable<T'>
+      .filter((person: any) => person.id > 5) // person:T' => boolean => Observable<T'>
+      // .do( data => console.log(data))
+      .map((person: any) => "Dr. " + person.name) // person:T' => T => Observable<T>
+      .subscribe((data) => {
+        this.doctors.push( data )
+        this.cd.detectChanges();
+      });
   }
 }
