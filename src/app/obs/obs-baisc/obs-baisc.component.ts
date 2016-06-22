@@ -35,14 +35,14 @@ export class ObsBaiscComponent implements OnInit {
   private doctors: Array<string> = [];
 
   constructor( private http: Http, private cd: ChangeDetectorRef ) {
-    this.initObservable(); 
+    this.initObservable();
   }
 
   ngOnInit() {
     this.obsSubscription();
   }
 
-  initObservable() { 
+  initObservable() {
     this.data = new Observable( observer => {
       setTimeout(() => {
         observer.next(1);
@@ -66,11 +66,11 @@ export class ObsBaiscComponent implements OnInit {
       }, 6000);
 
       this.status = 'Started';
-    }).publish();
-  } 
+    }); // .publish();
+  }
 
-  obsSubscription() { 
-    let publish = this.data.publish();
+  obsSubscription() {
+    // let publish = this.data.publish();
     // publish.connect();
 
     let subscription = this.data.subscribe(
@@ -87,6 +87,7 @@ export class ObsBaiscComponent implements OnInit {
       this.status = 'Ended';
     });
 
+    // Subscription A
     setTimeout(() => {
       this.data.subscribe(value => console.log(value));
     }, 0);
@@ -101,14 +102,15 @@ export class ObsBaiscComponent implements OnInit {
     // Why we need to usr flatMap
     // --> http://stackoverflow.com/questions/33471526/why-we-need-to-use-flatmap
     this.http.get('http://jsonplaceholder.typicode.com/users')
-      .do( data => console.log(data))     // _body: 
-      .flatMap((data) => data.json())     // data:T' => data.json():Array<T> => Ovservable<T>
+      .do( data => console.log(data))     // _body: data
+      .flatMap((data) => data.json())     // data:T' => data.json():Array<T> => Ovservable<Array<T>>
       .do( data => console.log(data))     // data:T' => debuging code => Observable<T'>
       .filter((person: any) => person.id > 5) // person:T' => boolean => Observable<T'>
-      // .do( data => console.log(data))
-      .map((person: any) => "Dr. " + person.name) // person:T' => T => Observable<T>
-      .subscribe((data) => {
-        this.doctors.push( data )
+      .do((person: any) => console.log(person.company.name))
+      .map((person: any) => 'Dr. ' + person.name) // person:T' => T => Observable<T>
+      .do(( name: any) =>  console.log('map: ' + name))
+      .subscribe((name) => {
+        this.doctors.push( name );
         this.cd.detectChanges();
       });
   }

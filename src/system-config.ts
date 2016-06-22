@@ -36,8 +36,8 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/obs/obs-baisc',
   'app/fire2',
+  'app/obs/obs-baisc',
   'app/obs/wiki-search',
   'app/login',
   /** @cli-barrel */
