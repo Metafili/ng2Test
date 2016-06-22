@@ -55,6 +55,7 @@ export class ObsBaiscComponent implements OnInit {
       }, 3000);
       setTimeout(() => {
         observer.next(4);
+        observer.next(Date.now());
       }, 4000);
       /*
       setTimeout(() => {
@@ -80,7 +81,7 @@ export class ObsBaiscComponent implements OnInit {
     );
     let forEach = this.data.forEach(
       (value: any) => {
-        console.log(value);
+        console.log('forEach: ' + value);
       }
     ).then( v => {
       console.log('forEach Promise finished: ' + v);
@@ -89,11 +90,11 @@ export class ObsBaiscComponent implements OnInit {
 
     // Subscription A
     setTimeout(() => {
-      this.data.subscribe(value => console.log(value));
+      this.data.subscribe(value => console.log('subA: ' + value));
     }, 0);
     // Subscription B
     setTimeout(() => {
-      this.data.subscribe(value => console.log(`      ${value}`));
+      this.data.subscribe(value => console.log('    subB: ' + value));
     }, 2500);
   }
 
