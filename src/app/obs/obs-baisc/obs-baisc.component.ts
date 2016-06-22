@@ -54,7 +54,6 @@ export class ObsBaiscComponent implements OnInit {
         observer.next(3);
       }, 3000);
       setTimeout(() => {
-        observer.next(4);
         observer.next(Date.now());
       }, 4000);
       /*
