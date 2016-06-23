@@ -8,6 +8,7 @@ import {
 import { Fire2Component }       from './fire2/fire2.component';
 import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
+import { GesturesComponent }    from './material2/gestures/gestures.component';
 import { LoginComponent }       from './login/login.component';
 
 
@@ -16,6 +17,7 @@ import { LoginComponent }       from './login/login.component';
   {path: '/fire2',       name: 'AngularFire2',component: Fire2Component },
   {path: '/observable',  name: 'Observabe',   component: ObsBaiscComponent },
   {path: '/wikisearch',  name: 'WikiSearch',  component: WikiSearchComponent },
+  {path: '/gestures',    name: 'MdGestures',  component: GesturesComponent },
   {path: '/login',       name: 'Login',       component: LoginComponent }
 ])
 

@@ -13,7 +13,9 @@ module.exports = function(defaults) {
       'rxjs/**/*.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
       'angularfire2/**/*.+(js|js.map)',
-      'firebase/lib/*.+(js|js.map)'
+      'firebase/lib/*.+(js|js.map)',
+      '@angular2-material/**/*',
+      'hammerjs/*.min.+(js|js.map)'
     ]
   });
 };

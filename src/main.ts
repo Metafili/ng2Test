@@ -1,6 +1,8 @@
 import { bootstrap }      from '@angular/platform-browser-dynamic';
-import { enableProdMode } from '@angular/core';
+import { provide, enableProdMode } from '@angular/core';
 import { HTTP_PROVIDERS  } from '@angular/http';
+import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
+import {MdGestureConfig} from '@angular2-material/core/gestures/MdGestureConfig';
 import { Ng2TestAppComponent, environment } from './app/';
 import {
   FIREBASE_PROVIDERS,
@@ -15,7 +17,8 @@ if (environment.production) {
 }
 
 bootstrap(Ng2TestAppComponent, [
-   HTTP_PROVIDERS,
+  HTTP_PROVIDERS,
+  provide(HAMMER_GESTURE_CONFIG, {useClass: MdGestureConfig}),
   FIREBASE_PROVIDERS,
   defaultFirebase('https://vivid-torch-3052.firebaseio.com/'),
   firebaseAuthConfig({
