@@ -1,14 +1,26 @@
 <div class="demo-gestures">
-    <div (drag)="dragCount = dragCount + 1" 
-         (pan)="panCount = panCount + 1"
-         (longpress)="longpressCount = longpressCount + 1" 
-         (press)="pressCount = pressCount + 1"
-         (swipe)="swipeCount = swipeCount + 1">
-        Drag, swipe, or press me.
+    <div (drag)="onDrag( $event )"
+         (dragstart)="onDragStart( $event )"
+         (dragend)="onDragEnd( $event )"
+         (dragleft)="onDragLeft( $event )"
+         (dragright)="onDragRight( $event )"
+         (pan)="onPan( $event )"
+         (press)="onPress( $event )"
+         (longpress)="onLongPress( $event )"
+         (swipe)="onSwipe( $event )"
+         (swipeup)="onSwipeUp( $event )"
+         (swipedown)="onSwipeDown( $event )"
+         (swipeleft)="onSwipeLeft( $event )"
+         (swiperight)="onSwipeRight( $event )" >
+        Drag(Up/Down/Left/Right), swipe, or press me.
     </div>
     <p>Drag: {{dragCount}}</p>
+    <p>DragStart: {{dragStartCount}}, DragEnd: {{dragEndCount}}</p>
+    <p>DragLeft: {{dragLeftCount}}, DragRight: {{dragRightCount}}</p>
     <p>Pan: {{panCount}}</p>
-    <p>Longpress: {{longpressCount}}</p>
-    <p>Press: {{pressCount}}</p>
+    <p>Press: {{pressCount}}, Longpress: {{longPressCount}}</p>
     <p>Swipe: {{swipeCount}}</p>
+    <p>SwipeUp: {{swipeUpCount}}, SwipeDown: {{swipeDownCount}}</p>
+    <p>SwipeLeft: {{swipeLeftCount}}, SwipeRight: {{swipeRightCount}}</p>
+    <p></p>
 </div>
