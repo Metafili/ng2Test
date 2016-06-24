@@ -51,6 +51,7 @@ const barrels: string[] = [
   'app/obs/wiki-search',
   'app/login',
   'app/material2/gestures',
+  'app/material2/grid-list',
   /** @cli-barrel */
 ];
 

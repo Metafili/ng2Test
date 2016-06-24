@@ -39,6 +39,8 @@ export class GesturesComponent implements OnInit {
     this.dragEndCount = this.dragEndCount + 1;
     // this.initGestureCount();
   }
+  onDragUp() {};
+  unDragDown() {}
   onDragLeft( e ) {
     this.dragLeftCount = this.dragLeftCount + 1;
   }
@@ -64,7 +66,6 @@ export class GesturesComponent implements OnInit {
   onSwipeDown( e ) {
     this.swipeDownCount = this.swipeDownCount + 1;
   }
-  // Bug? Not Trigged
   onSwipeLeft( e ) {
     this.swipeLeftCount = this.swipeLeftCount + 1;
   }
