@@ -15,7 +15,9 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
   ]
 })
 export class LoginComponent implements OnInit {
-  title = 'Login';
+  title = 'Login';e
+  email: string;
+  pass: string;
 
   constructor( public af: AngularFire ) {
     this.af.auth.subscribe(auth => { console.log(auth); });
@@ -34,12 +36,20 @@ export class LoginComponent implements OnInit {
   }
 
   // Email and password
-  emailLogin( email: string, pass: string ) {
+  emailLogin() {
     this.af.auth.login({
       // email: 'hslee.edicon@gmail.com', password: '1234'
-      email: email, password: pass
+      email: this.eMail, password: this.passWord
     }).then( _ => console.log("Email Login: OK"))
       .catch( e => console.log("Email Login: Failed: " + e ));
+  }
+
+  getEmail( email: string ) {
+    this.email: email;
+  }
+
+  getPass( pass: string ) {
+    this.pass = pass;
   }
 
   // Twitter: Debugging할려면 Popup으로 설정하여 별도의창
