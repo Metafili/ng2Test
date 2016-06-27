@@ -1,65 +1,82 @@
 import { Component, OnInit } from '@angular/core';
-import { 
-  AngularFire, 
+import {
+  AngularFire,
   FirebaseObjectObservable, FirebaseListObservable,
   AuthMethods, AuthProviders  } from 'angularfire2';
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
 @Component({
   moduleId: module.id,
   selector: 'app-login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.component.css']
+  styleUrls: ['login.component.css'],
+  directives: [
+    MD_INPUT_DIRECTIVES,
+  ]
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
-  
-  constructor( public af: AngularFire ) {}
+
+  constructor( public af: AngularFire ) {
+    this.af.auth.subscribe(auth => { console.log(auth); });
+  }
 
   ngOnInit() {
   }
 
+  // Anonymous
   anoLogin() {
-    // this.af.auth.login();
-    // Anonymous
     this.af.auth.login({
       provider: AuthProviders.Anonymous,
       method: AuthMethods.Anonymous
-    })
-    .then(_ => console.log("Login: OK"))
-    .catch( e => console.log("Login: Failed"));
+    }).then(_ => console.log("Guest Login: OK"))
+      .catch( e => console.log("Guest Login: Failed: " + e ));
   }
-  
+
   // Email and password
-  emailLogin() {
-    /*
+  emailLogin( email: string, pass: string ) {
     this.af.auth.login({
-      provider: AuthProviders.Password,
-      method: AuthMethods.Password,
-    })
-    .then(_ => {
-      console.log("Email Login: OK")
-      this.af.auth.login({ 
-      email: 'hslee.edicon@gmail.com', password: '1234' })
-      .then(_ => console.log("Email Login: OK"))
-      .catch( e => console.log("Email Login: Failed"));
-    })
-    .catch( e => console.log("Email Login: Failed"));
-    */
-    
-    this.af.auth.login({ 
-      email: 'hslee.edicon@gmail.com', password: '1234' })
-      .then(_ => console.log("Email Login: OK"))
-      .catch( e => console.log("Email Login: Failed"));
+      // email: 'hslee.edicon@gmail.com', password: '1234'
+      email: email, password: pass
+    }).then( _ => console.log("Email Login: OK"))
+      .catch( e => console.log("Email Login: Failed: " + e ));
   }
-  
-  // Twitter
+
+  // Twitter: Debugging할려면 Popup으로 설정하여 별도의창
+  // Twitter: https://apps.twitter.com/ Login
+  //  1. Details: App Name --> Description --> Website(with http)
+  //  2. Twitter: Setting: Callback URL <-- Firebase: Callback 주소 복사
+  // Firebase:
+  //  1. API Key: Twitter App API Key 복사
+  //  2. API Secret: Consumer Key API: Twitter
   twittLogin() {
     this.af.auth.login({
       provider: AuthProviders.Twitter,
-      method: AuthMethods.Popup,
-    })
-    .then(_ => console.log("Twitter Login: OK"))
-    .catch( e => console.log("Twitter Login: Failed"));
+      method: AuthMethods.Popup
+    }).then( _ => console.log("Twitter Login: OK"))
+      .catch( e => console.log("Twitter Login: Failed: " + e ));
   }
 
+  // Facebook: https://developers.facebook.com/
+  //  1. RightTop: 검색옆 --> 내앱 --> 새앱추가
+  //  2. 앱 ID --> 앱시크릿코드 --> Firebas: API Key/Secret에 복사
+  //  3. 제품추가 --> Facebook Login 추가 --> Client OAuth 설정 --> Redirection URL --> 저장
+  fbLogin() {
+    this.af.auth.login({
+      provider: AuthProviders.Facebook,
+      method: AuthMethods.Popup // Redirect: Debugging할려면 Popup으로 설정하여 별도의창
+    })
+    .then( _ => console.log("FB Login: OK"))
+    .catch( e => console.log("FB Login: Failed: " + e ));
+  }
+
+  // Google: 자동설정됨
+  googleLogin() {
+    this.af.auth.login({
+      provider: AuthProviders.Google,
+      method: AuthMethods.Popup // Redirect: Debugging할려면 Popup으로 설정하여 별도의창
+    })
+    .then( _ => console.log("Google Login: OK"))
+    .catch( e => console.log("Google Login: Failed: " + e ));
+  }
 }

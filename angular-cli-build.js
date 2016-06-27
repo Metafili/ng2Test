@@ -11,12 +11,12 @@ module.exports = function(defaults) {
       'es6-shim/es6-shim.js',
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/*.+(js|js.map)',
-      // Angularfire2
       '@angular/**/*.+(js|js.map)',
-      'angularfire2/**/*.+(js|js.map)',
+      // Angularfire2
       'firebase/*.+(js|js.map)',
+      'angularfire2/**/*.+(js|js.map)',
       // Material2
-      '@angular2-material/**/*',
+      '@angular2-material/**/*.+(js|js.map)*',
       // Gestures
       'hammerjs/*.min.+(js|js.map)'
     ]

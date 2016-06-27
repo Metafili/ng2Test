@@ -29,7 +29,7 @@ bootstrap(Ng2TestAppComponent, [
   }),
   firebaseAuthConfig({
     provider: AuthProviders.Password,
-    method: AuthMethods.Password,
+    method: AuthMethods.Password
     // provider: AuthProviders.Google,
     // method: AuthMethods.Redirect
   })

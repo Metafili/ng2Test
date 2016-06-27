@@ -1,10 +1,23 @@
 <b>
   {{title}}
 </b>
-
+<!-- (?.): Safe Navigation Operator
+  http://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
+-->
+<div>Auth.uid: {{ (af.auth | async)?.uid }} </div>
 <div>
-<!-- Auth Login
-<div> {{ (af.auth | async).uid }} </div>-->
-<button (click)="anoLogin()">Login Anonymously</button>
-<button (click)="emailLogin()">Login With Email</button>
-<button (click)="twittLogin()">Login With Twitter</button>
+  <div>
+    <md-input #email placeholder="email"></md-input>
+  </div>
+  <div>
+    <md-input #pass placeholder="pass"></md-input>
+  </div>
+  <button class="login" (click)="emailLogin( email.value, pass.value)"><b>Login</b></button>
+</div>
+<div>
+  <button (click)="anoLogin()">Guest</button>
+  <!--<button (click)="emailLogin()">Login Email</button>-->
+  <button (click)="twittLogin()">Twitter</button>
+  <button (click)="fbLogin()">Facebook</button>
+  <button (click)="googleLogin()">Google</button>
+</div>
