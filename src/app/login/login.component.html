@@ -7,15 +7,19 @@
 <div>Auth.uid: {{ (af.auth | async)?.uid }} </div>
 <div>
   <div>
-    <md-input #email (keyup.enter)="getEmail(email.value)"
-                  (blur)="getEmail(email.value); newHero.value=''" placeholder="email">
+    <md-input #email placeholder="email"
+        (keyup.enter)="getEmail(email.value)"
+        (blur)="getEmail(email.value)">
     </md-input>
   </div>
   <div>
-    <md-input #pass (keyup.enter)="getPass(pass.value)" placeholder="pass"></md-input>
+    <md-input #pass  placeholder="pass"
+        (keyup.enter)="password=pass.value; emailLogin()"
+        (blur)="getPass(pass.value)" >
+    </md-input>
   </div>
   <button class="login" (click)="emailLogin()"><b>Login</b></button>
-  {{eMail}}/{{passWord}}
+  {{emailId}}/{{password}}
 </div>
 <div>
   <button (click)="anoLogin()">Guest</button>

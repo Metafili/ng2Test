@@ -16,14 +16,25 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 })
 export class LoginComponent implements OnInit {
   title = 'Login';e
-  email: string;
-  pass: string;
+  private emailId: string;
+  private password: string;
 
   constructor( public af: AngularFire ) {
     this.af.auth.subscribe(auth => { console.log(auth); });
   }
 
   ngOnInit() {
+  }
+
+  getEmail( email: string ) {
+    this.emailId = email;
+    console.log("email: " + email );
+  }
+
+  getPass( pass: string ) {
+    this.password = pass;
+    console.log("pass: " + pass );
+    // this.emailLogin();
   }
 
   // Anonymous
@@ -39,18 +50,11 @@ export class LoginComponent implements OnInit {
   emailLogin() {
     this.af.auth.login({
       // email: 'hslee.edicon@gmail.com', password: '1234'
-      email: this.eMail, password: this.passWord
+      email: this.emailId, password: this.password
     }).then( _ => console.log("Email Login: OK"))
       .catch( e => console.log("Email Login: Failed: " + e ));
   }
 
-  getEmail( email: string ) {
-    this.email: email;
-  }
-
-  getPass( pass: string ) {
-    this.pass = pass;
-  }
 
   // Twitter: Debugging할려면 Popup으로 설정하여 별도의창
   // Twitter: https://apps.twitter.com/ Login
