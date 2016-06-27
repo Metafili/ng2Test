@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   title = 'Login';e
   private emailId: string;
   private password: string;
+  private focused: boolean;
 
   constructor( public af: AngularFire ) {
     this.af.auth.subscribe(auth => { console.log(auth); });
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   getEmail( email: string ) {
     this.emailId = email;
+    this.focused = true;
     console.log("email: " + email );
   }
 

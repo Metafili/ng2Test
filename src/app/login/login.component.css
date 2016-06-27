@@ -6,12 +6,13 @@ md-input {
   margin-right: 10px;
 }
 
-md-input.email[type=text] {
+md-input.email:focus {
   width: 100%;
   margin-right: 10px;
+  /* background-color: red; */
 }
 
-md-input.pass[password] {
+md-input.pass {
   width: 100%;
   margin-right: 10px;
 }

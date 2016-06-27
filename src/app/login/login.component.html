@@ -13,7 +13,8 @@
     </md-input>
   </div>
   <div>
-    <md-input class="pass" #pass  placeholder="pass"
+    <md-input class="pass" #pass  placeholder="pass" type="password"
+        [focus]="focused"
         (keyup.enter)="password=pass.value; emailLogin()"
         (blur)="getPass(pass.value)" >
     </md-input>
