@@ -5,3 +5,13 @@ md-input {
   width: 100%;
   margin-right: 10px;
 }
+
+md-input.email[type=text] {
+  width: 100%;
+  margin-right: 10px;
+}
+
+md-input.pass[password] {
+  width: 100%;
+  margin-right: 10px;
+}
