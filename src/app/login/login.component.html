@@ -1,8 +1,12 @@
 <b>
   {{title}}
 </b>
-<!-- (?.): Safe Navigation Operator
-  http://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
+<!-- (?.): Safe Navigation Operator(Elvis Operator)
+  -http://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
+  -https://github.com/angular/angularfire2/issues/290
+  -http://stackoverflow.com/questions/31490713/iterate-over-typescript-dictionary-in-angular-2/34074484#34074484
+  -** https://webcake.co/object-properties-in-angular-2s-ngfor/
+
 -->
 <div>Auth.uid: {{ (af.auth | async)?.uid }} </div>
 <div>
