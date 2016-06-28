@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   private emailId: string;
   private password: string;
   private focused: boolean;
+  private custToken: any;
 
   constructor( public af: AngularFire ) {
     this.af.auth.subscribe(auth => { console.log(auth); });
@@ -94,5 +95,15 @@ export class LoginComponent implements OnInit {
     })
     .then( _ => console.log("Google Login: OK"))
     .catch( e => console.log("Google Login: Failed: " + e ));
+  }
+
+  // Custom
+  customLogin() {
+    this.af.auth.login( this.custToken, {
+      provider: AuthProviders.Custom,
+      method: AuthMethods.CustomToken
+    })
+    .then( _ => console.log("Custom Login: OK"))
+    .catch( e => console.log("Custom Login: Failed: " + e ));
   }
 }
