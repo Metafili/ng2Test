@@ -23,14 +23,13 @@
         (blur)="getPass(pass.value)" >
     </md-input>
   </div>
-  <button class="login" (click)="emailLogin()"><b>Login</b></button>
   {{emailId}}/{{password}}
 </div>
 <div>
-  <button (click)="anoLogin()">Guest</button>
-  <!--<button (click)="emailLogin()">Login Email</button>-->
-  <button (click)="twittLogin()">Twitter</button>
-  <button (click)="fbLogin()">Facebook</button>
-  <button (click)="googleLogin()">Google</button>
-  <button (click)="customLogin()">Custom</button>
+  <button class="login" md-raised-button color="primary" (click)="emailLogin()"><b>Login</b></button>
+  <button class="login" md-raised-button color="primary" (click)="anoLogin()">Guest</button>
+  <button class="login" md-raised-button color="primary" (click)="twittLogin()">Twitter</button>
+  <button class="login" md-raised-button color="primary" (click)="fbLogin()">Facebook</button>
+  <button class="login" md-raised-button color="primary" (click)="googleLogin()">Google</button>
+  <button class="login" md-raised-button color="primary" (click)="customLogin()">Custom</button>
 </div>

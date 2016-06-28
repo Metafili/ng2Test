@@ -3,6 +3,8 @@ import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable,
   AuthMethods, AuthProviders  } from 'angularfire2';
+import {MdButton} from '@angular2-material/button';
+import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
 @Component({
@@ -10,8 +12,13 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
+  providers: [
+    MdIconRegistry
+  ],
   directives: [
     MD_INPUT_DIRECTIVES,
+    MdButton,
+    MdIcon,
   ]
 })
 export class LoginComponent implements OnInit {

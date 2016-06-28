@@ -21,6 +21,7 @@ const materialPkgs:string[] = [
   'button',
   'card',
   'input',
+  'icon'
 ];
 materialPkgs.forEach((pkg) => {
   packages[`@angular2-material/${pkg}`] = {main: `${pkg}.js`};
