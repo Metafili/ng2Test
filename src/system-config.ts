@@ -41,10 +41,10 @@ const barrels: string[] = [
   '@angular/router-deprecated',
   '@angular/platform-browser',
   '@angular/platform-browser-dynamic',
-
+  // New Forms
+  '@angular/forms',
   // Thirdparty barrels.
   'rxjs',
-
   // App specific barrels.
   'app',
   'app/shared',

@@ -1,3 +1,35 @@
-<p>
-  hero-form works!
-</p>
+<div class="container">
+  {{diagnostic}}
+  <form>
+    <!-- Bootstrap: Include bootstrap.css index.html -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" required
+        [(ngModel)]="model.name" name="name">
+    </div>
+
+    <div class="form-group">
+      <label for="alterEgo">Alter Ego</label>
+      <input type="text"  class="form-control"
+        [(ngModel)]="model.alterEgo" name="alterEgo">
+    </div>
+
+    <!-- md-input
+    <div class="form-group">
+      <label for="alterEgo">Alter Ego</label>
+      <md-input type="text" class="form-control" placeholder="Alter Ego"
+        [(ngModel)]="model.alterEgo" name="alterEgo">
+      </md-input>
+    </div>
+    -->
+
+    <div class="form-group">
+      <label for="power">Hero Power</label>
+      <select class="form-control" required
+        [(ngModel)]="model.power" name="power">
+        <option *ngFor="let p of powers" [value]="p">{{p}}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>

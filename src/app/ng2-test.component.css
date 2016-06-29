@@ -1,14 +1,18 @@
 nav {
-    display: block;
-    padding: 5px;
+  display: block;
+  padding: 5px;
+}
+
+nav.route {
+  display: block;
 }
 
 nav.right {
-    position: absolute;
-    right: 0px;
-    width: 300px;
-    border: 1px solid #73AD21;
-    padding: 10px;
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  border: 1px solid #73AD21;
+  padding: 10px;
 }
 
 nav a {

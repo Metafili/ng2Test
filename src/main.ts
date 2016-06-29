@@ -3,6 +3,8 @@ import { provide, enableProdMode } from '@angular/core';
 import { HTTP_PROVIDERS  } from '@angular/http';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {MdGestureConfig} from '@angular2-material/core/gestures/MdGestureConfig';
+// New Forms API
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { Ng2TestAppComponent, environment } from './app/';
 import {
   FIREBASE_PROVIDERS,
@@ -17,6 +19,8 @@ if (environment.production) {
 }
 
 bootstrap(Ng2TestAppComponent, [
+  disableDeprecatedForms(),
+  provideForms(),
   HTTP_PROVIDERS,
   provide(HAMMER_GESTURE_CONFIG, {useClass: MdGestureConfig}),
   FIREBASE_PROVIDERS,
