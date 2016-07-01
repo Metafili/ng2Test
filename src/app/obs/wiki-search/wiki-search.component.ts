@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Control } from '@angular/common';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control } from '@angular/common';
 import {JSONP_PROVIDERS, Jsonp} from '@angular/http';
 
 import { Subject } from 'rxjs/Subject'
@@ -23,6 +23,7 @@ import { WikiServiceService } from '../../service/wiki-service.service';
     WikiServiceService,
     JSONP_PROVIDERS
   ],
+  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class WikiSearchComponent implements OnInit {
   title = 'WiKi Searching using OBS';

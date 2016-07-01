@@ -22,21 +22,30 @@
 </div>
 
 <div>
-    <b>Observable from Event</b>
-    <input type="text" id="demo" placeholder="key in"/>
-    <br>
+    <div>
+      <b>Observable from Event</b>
+      <input type="text" id="demo" placeholder="key in"/>
+    </div>
 
-    <b>WiKi Search: Raw Event</b>
-    <input #term2 type="text" (keyup)="rawSearch(term2.value)" placeholder="Search key in"/>
+    <div>
+      <b>WiKi Search: Raw Event</b>
+      <input #term2 type="text" (keyup)="rawSearch(term2.value)" placeholder="Search key in"/>
+    </div>
 
-    <b>WiKi Search: Promise Event</b>
-    <input #term3 type="text" (keyup)="promiseSearch(term3.value)" placeholder="Promise key in"/>
+    <div>
+      <b>WiKi Search: Promise Event</b>
+      <input #term3 type="text" (keyup)="promiseSearch(term3.value)" placeholder="Promise key in"/>
+    </div>
+ 
+    <div>
+      <b>WiKi Search 1: Observable</b>
+      <input type="text" [ngFormControl]="term" placeholder="Obs1 Search key in"/>
+    </div>
 
-    <b>WiKi Search 1: Observable</b>
-    <input type="text" [ngFormControl]="term" placeholder="Obs1 Search key in"/>
-
-    <b>WiKi Search 2: Observable</b>
-    <input type="text" [ngFormControl]="term" placeholder="Obs2 Search key in"/>
+    <div>
+      <b>WiKi Search 2: Observable</b>
+      <input type="text" [ngFormControl]="term" placeholder="Obs2 Search key in"/>
+    </div>
 </div>
 
 <!-- UI for rawSearch/ObsSearch -->
