@@ -49,15 +49,18 @@ export class WordListComponent implements OnInit {
   getWord( word: string ) {
     // this.currWord = word;
     this.word = this.af.database.object('/mglish/words/' +  word);
-    this.word.do((word:any) => {
-      console.log("getWord: " + word.cmu )
+    this.word
+    .do( word => {
+      console.log("getWord.do: $key: " + word.$key + ", cmu: " + word.cmu );
     })
     .map( word => {
-      word; //
+      console.log("getWord.map: $key: " + word.$key + ", cmu: " + word.cmu );
+      return word.$key;
+      // return word; // return  null;
     })
-    .subscribe((word: any) => {
-        // let k = word.$key;
-        // console.log('Key: ' + k );
+    .subscribe( word => {
+      console.log("getWord.subscribe: " + word );
+      // console.log("getWord.subscribe:  $key: " + word.$key + ", cmu: " + word.cmu );
     });
   }
 
