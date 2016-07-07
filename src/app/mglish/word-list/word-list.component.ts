@@ -22,6 +22,7 @@ import 'rxjs/add/operator/do';
 export class WordListComponent implements OnInit {
   title = 'Mglish Word List';
 
+  // currWord: string;
   word: FirebaseObjectObservable<any>;  // ObjectObservable
   words: FirebaseListObservable<any[]>; // ListObservable
   sizeSubject: Subject<any>;
@@ -46,11 +47,18 @@ export class WordListComponent implements OnInit {
   }
 
   getWord( word: string ) {
+    // this.currWord = word;
     this.word = this.af.database.object('/mglish/words/' +  word);
     this.word.do((word:any) => {
       console.log("getWord: " + word.cmu )
     })
-    .subscribe( word => word );
+    .map( word => {
+      word; //
+    })
+    .subscribe((word: any) => {
+        // let k = word.$key;
+        // console.log('Key: ' + k );
+    });
   }
 
   convert( word: string ) {
