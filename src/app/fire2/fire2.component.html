@@ -23,7 +23,7 @@
   <input type="text" #newsize placeholder="Size" />
   <br>Item:
   <button (click)="set(newkey.value, newname.value, newsize.value)">Set Item(Key,Name,Size)</button>
-  <button (click)="update(newname.value, newsize.value)">Update Item(Name,Size)</button>
+  <button (click)="update(newkey.value, newname.value, newsize.value)">Update Item(Key, Name,Size)</button>
   <button (ceick)="delete()">Delete</button>
   <br>Items:
   <button (click)="push(newname.value, newsize.value)">Push Name</button>

@@ -77,7 +77,7 @@ export class Fire2Component implements OnInit {
     // JSON.parse() Error: Use '..' instead of ".."
     // http://www.w3schools.com/js/js_json.asp
     // Error: let jsonString:string  = "{" + newKey + ":{ name: " + newName + ", size: " + newSize + "}}";
-    // JavaScript set object key by variable
+    // ComputedPropertyName: Using a variable for a key in a JavaScript object literal
     // http://stackoverflow.com/questions/2274242/using-a-variable-for-a-key-in-a-javascript-object-literal
     let jsonString:string = '{' + '"' + newKey + '"'
       + ': { "name": ' + '"' + newName + '"' + ', "size": ' + '"' + newSize + '"' + '}}';
@@ -91,8 +91,10 @@ export class Fire2Component implements OnInit {
     .catch( err => console.log(err, "Failed"));
   }
 
-  update(newName: string, newSize: string) {
-   this.word.update({ name: newName, size: newSize})
+  update( updateKey: string, newName: string, newSize: string) {
+   this.word.update(
+      {[updateKey]: { name: newName, size: newSize }}
+   )
    .then(_ => console.log("Update Size: OK"))
    .catch( e => console.log("Update Size: Fail"));
     console.log("Item Updated");
