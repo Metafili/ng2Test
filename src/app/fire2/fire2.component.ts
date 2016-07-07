@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { 
-  AngularFire, 
+import {
+  AngularFire,
   FirebaseObjectObservable, FirebaseListObservable,
   AuthMethods, AuthProviders  } from 'angularfire2';
 import { Subject } from 'rxjs/Subject'
@@ -32,7 +32,7 @@ export class Fire2Component implements OnInit {
     this.items = af.database.list('/items', {
      // preserveSnapshot: true,
      // Bug: updateItem
-     /* 
+     /*
      query: {
         orderByKey: true,
         // orderByChild: 'size',
@@ -47,10 +47,10 @@ export class Fire2Component implements OnInit {
         this.items.subscribe( item => {
       console.log('Item.subscribe: ' + item );
     });
-    this.items.forEach( item => { 
+    this.items.forEach( item => {
       let s = JSON.stringify(item);
       console.log( s );
-      
+
       item.forEach( item => {
         // let n = item['name'];
         let n = item.name;
@@ -72,34 +72,45 @@ export class Fire2Component implements OnInit {
   }
 
     //JavaScript: String, TypeScript: string
-  save(newName: string) {
-    this.item.set({ name: newName})
-    .then(_ => console.log("Success"))
+  set(newKey: string, newName: string, newSize: string ) {
+    // let jsonString:string  = "{" + newKey + ":{ name: " + newName + ", size: " + newSize + "}}";
+    let jsonString:string = '{'
+      + '"' + newKey + '"'
+      + ': { "name": ' + '"' + newName + '"'
+      + ', "size": ' + '"' + newSize + '"' + '}}';
+    let jsonObj = JSON.parse(jsonString);
+    console.log( "DBG" + JSON.stringify(jsonObj));
+    this.item.set(
+      jsonObj
+      // { newKey: { name: newName, size: newSize }
+      // { this.item.$key: { name: newName, size: newSize } }
+    )
+    .then( _ => console.log("Success"))
     .catch( err => console.log(err, "Failed"));
   }
-  
-  update(newSize: string) {
-   this.item.update({ size: newSize})
+
+  update(newName: string, newSize: string) {
+   this.item.update({ name: newName, size: newSize})
    .then(_ => console.log("Update Size: OK"))
    .catch( e => console.log("Update Size: Fail"));
     console.log("Item Updated");
   }
-  
-  push( newName: string ) {
-    this.items.push({ name: newName });
+
+  push( newName: string, newSize: string ) {
+    this.items.push({ name: newName, size: newSize });
   }
-  
-  updateItem(newSize: string, key: string) {
-   this.items.update( key, {size: newSize})
+
+  updateItem( key: string, newName: string, newSize: string ) {
+   this.items.update( key, {name: newName, size: newSize})
    .then(_ => console.log("Update Item: OK"))
    .catch( e => console.log("Update Item: Fail"));
     console.log("Item Updated");
   }
-  
+
   delete() {
     console.log("Item Deleted");
   }
-  
+
   filterBy( size: string) {
       this.sizeSubject.next(size);
       console.log("filter: " + size);
