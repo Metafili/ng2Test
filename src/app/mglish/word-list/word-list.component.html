@@ -1,0 +1,15 @@
+<b>{{title}}</b>
+<div>
+  <b>Firebase: Word List</b>
+  <ul *ngFor="let word of words | async" >
+    <li class="text">
+      Word: {{word.$key}} - cmu: {{word.cmu}} <br>
+      lang: {{word.langs.en}}
+      <button (click)="convert(word.$key)">Convert</button>
+    </li>
+  </ul>
+</div>
+<div>
+  <b>Firebase: Word Item</b>
+  <p> {{ word | async | json }} </p>
+</div>

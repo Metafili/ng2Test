@@ -1,0 +1,38 @@
+{
+  "abnormal": {
+    "cmu": "AE0 B N AO1 R M AH0 L",
+    "parts": {
+      "a":"AE0 B N AO1 R M AH0 L"
+    },
+    "langs": {
+      "en": "a{t0}bno{t1}rma{t1}l",
+      "ko": "앱{t0}눠{t1}r물{t1}"
+    },
+    "mss": "",
+    "wss": ""
+  },
+  "cascade": {
+    "cmu": "K AE0 S K EY1 D",
+    "parts": {
+      "ni":"K AE0 S K EY1 D"
+    },
+    "langs": {
+      "en": "ca{t0}sca{t1}de",
+      "ko": "캣{t0}케이{t1}드"
+    },
+    "mss": "",
+    "wss": ""
+  },
+  "dictionary": {
+    "cmu": "D IH1 K SH AH0 N EH2 R IY0",
+    "parts": {
+      "n":"D IH1 K SH AH0 N EH2 R IY0"
+    },
+    "langs": {
+      "en": "di{t1}ctio{t0}na{t2}ry{t0}",
+      "ko": "뒤{t1}ㅋ쉬으{t0}네{t2}r리{t0}"
+    },
+    "mss": "",
+    "wss": ""
+  }
+}

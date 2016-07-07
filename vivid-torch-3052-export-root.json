@@ -1,0 +1,224 @@
+{
+  "baseurl" : "https://googledrive.com/host/0By_uLlN6EPGGS0ZNakhUZDRyUHM",
+  "chapters" : [ {
+    "description" : "공통 챕터",
+    "folder" : "chapter4_1_c_services",
+    "id" : "0",
+    "image" : "chapter4_1_c_services_1.PNG",
+    "name" : "Mglish",
+    "page" : [ {
+      "image" : "chapter4_1_c_services_2.PNG",
+      "no" : "0"
+    }, {
+      "image" : "chapter4_1_c_services_3.PNG",
+      "no" : "1"
+    }, {
+      "image" : "chapter4_1_c_services_6.PNG",
+      "no" : "2"
+    }, {
+      "image" : "chapter4_1_c_services_13.PNG",
+      "no" : "3"
+    } ]
+  }, {
+    "description" : "호텔 서비스 및 편의시설",
+    "folder" : "chapter4_1_c_services",
+    "id" : "1",
+    "image" : "chapter4_1_c_services_14.PNG",
+    "name" : "chapter : hotel_services & amenities",
+    "page" : [ {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_whole1.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_15.PNG",
+      "no" : "0"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_1_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_1_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_2_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_2_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_16.PNG",
+      "no" : "1"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_1_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_1_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_2_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_2_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_17.PNG",
+      "no" : "2"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_3_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_3_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_4_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_4_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_18.PNG",
+      "no" : "3"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_3_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_3_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_4_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_4_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_19.PNG",
+      "no" : "4"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_5_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_5_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_6_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_6_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_7_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_7_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_8_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_8_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_20.PNG",
+      "no" : "5"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_5_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_5_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_6_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_6_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_7_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_7_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_8_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_8_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_21.PNG",
+      "no" : "6"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_whole2.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_22.PNG",
+      "no" : "7"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_9_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_9_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_10_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_10_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_11_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_11_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_12_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_12_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_23.PNG",
+      "no" : "8"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_9_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_9_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_10_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_10_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_11_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_11_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_12_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_12_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_24.PNG",
+      "no" : "9"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_13_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_13_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_14_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_14_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_15_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_15_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_25.PNG",
+      "no" : "10"
+    }, {
+      "audio" : [ {
+        "url" : "chapter4_1_b_checkingout_audio_13_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_13_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_14_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_14_e.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_15_k.mp3"
+      }, {
+        "url" : "chapter4_1_b_checkingout_audio_15_e.mp3"
+      } ],
+      "image" : "chapter4_1_c_services_26.PNG",
+      "no" : "11"
+    }, {
+      "image" : "chapter4_1_c_services_27.PNG",
+      "no" : "12"
+    } ]
+  } ],
+  "items" : {
+    "dictionary" : {
+      "name" : "dictionary Name",
+      "size" : "dictionary Size"
+    },
+    "dictionary1" : {
+      "name" : "dictionary1 Name",
+      "size" : "dictionary1 Size"
+    },
+    "test" : {
+      "name" : "test1Name",
+      "size" : "test1Size"
+    }
+  },
+  "messages" : {
+    "-KK73I-os8xBZOdDNqOi" : {
+      "text" : "Welcome to Mglish!!!"
+    }
+  }
+}

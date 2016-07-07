@@ -10,6 +10,7 @@ import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
 import { HeroFormComponent }    from './basics/hero-form/hero-form.component';
+import { WordListComponent }    from './mglish/word-list/word-list.component';
 import { LoginComponent }       from './login/login.component';
 
 
@@ -20,6 +21,7 @@ import { LoginComponent }       from './login/login.component';
   {path: '/wikisearch',  name: 'WikiSearch',  component: WikiSearchComponent },
   {path: '/gestures',    name: 'MdGestures',  component: GesturesComponent },
   {path: '/basicform',   name: 'BasicForms',  component: HeroFormComponent },
+  {path: '/wordlist',    name: 'WordList',    component: WordListComponent },
   {path: '/login',       name: 'Login',       component: LoginComponent }
 ])
 
