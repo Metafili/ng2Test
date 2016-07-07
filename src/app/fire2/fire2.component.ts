@@ -22,14 +22,14 @@ import 'rxjs/add/operator/switchMap';
 export class Fire2Component implements OnInit {
   title = 'AngularFire2: Demo';
   itemKey: any;
-  item: FirebaseObjectObservable<any>;  // ObjectObservable
-  items: FirebaseListObservable<any[]>; // ListObservable
+  word: FirebaseObjectObservable<any>;  // ObjectObservable
+  words: FirebaseListObservable<any[]>; // ListObservable
   sizeSubject: Subject<any>;
   mapitems: Observable<any[]>; // ListObservable
 
   constructor( public af: AngularFire ) {
     this.sizeSubject = new Subject();
-    this.items = af.database.list('/items', {
+    this.words = af.database.list('/items', {
      // preserveSnapshot: true,
      // Bug: updateItem
      /*
@@ -40,14 +40,14 @@ export class Fire2Component implements OnInit {
      }
       */
     });
-    this.item = af.database.object('/items/1')
+    this.word = af.database.object('/items')
   }
 
   ngOnInit() {
-        this.items.subscribe( item => {
+        this.words.subscribe( item => {
       console.log('Item.subscribe: ' + item );
     });
-    this.items.forEach( item => {
+    this.words.forEach( item => {
       let s = JSON.stringify(item);
       console.log( s );
 
@@ -73,35 +73,37 @@ export class Fire2Component implements OnInit {
 
     //JavaScript: String, TypeScript: string
   set(newKey: string, newName: string, newSize: string ) {
-    // let jsonString:string  = "{" + newKey + ":{ name: " + newName + ", size: " + newSize + "}}";
-    let jsonString:string = '{'
-      + '"' + newKey + '"'
-      + ': { "name": ' + '"' + newName + '"'
-      + ', "size": ' + '"' + newSize + '"' + '}}';
+    // Converting a JSON Text to a JavaScript Object
+    // JSON.parse() Error: Use '..' instead of ".."
+    // http://www.w3schools.com/js/js_json.asp
+    // Error: let jsonString:string  = "{" + newKey + ":{ name: " + newName + ", size: " + newSize + "}}";
+    // JavaScript set object key by variable
+    // http://stackoverflow.com/questions/2274242/using-a-variable-for-a-key-in-a-javascript-object-literal
+    let jsonString:string = '{' + '"' + newKey + '"'
+      + ': { "name": ' + '"' + newName + '"' + ', "size": ' + '"' + newSize + '"' + '}}';
     let jsonObj = JSON.parse(jsonString);
     console.log( "DBG" + JSON.stringify(jsonObj));
-    this.item.set(
-      jsonObj
-      // { newKey: { name: newName, size: newSize }
-      // { this.item.$key: { name: newName, size: newSize } }
+    this.word.set(
+      // jsonObj
+      {[newKey]: { name: newName, size: newSize }}
     )
     .then( _ => console.log("Success"))
     .catch( err => console.log(err, "Failed"));
   }
 
   update(newName: string, newSize: string) {
-   this.item.update({ name: newName, size: newSize})
+   this.word.update({ name: newName, size: newSize})
    .then(_ => console.log("Update Size: OK"))
    .catch( e => console.log("Update Size: Fail"));
     console.log("Item Updated");
   }
 
   push( newName: string, newSize: string ) {
-    this.items.push({ name: newName, size: newSize });
+    this.words.push({ name: newName, size: newSize });
   }
 
   updateItem( key: string, newName: string, newSize: string ) {
-   this.items.update( key, {name: newName, size: newSize})
+   this.words.update( key, {name: newName, size: newSize})
    .then(_ => console.log("Update Item: OK"))
    .catch( e => console.log("Update Item: Fail"));
     console.log("Item Updated");

@@ -1,10 +1,10 @@
 <b>{{title}}</b>
 <div>
   <b>Firebase: Object List Items</b>
-  <ul *ngFor="let item of items | async" >
+  <ul *ngFor="let word of words | async" >
     <li class="text">
-      Key: {{item.$key}}, Name: {{item.name}}, Size: {{item.size}}
-      <button (click)="updateItem(item.$key, newname.value, newsize.value )">Update Item(Key,Name,Size) with Key</button>
+      Key: {{word.$key}}, Name: {{word.name}}, Size: {{word.size}}
+      <button (click)="updateItem(word.$key, newname.value, newsize.value )">Update Item(Key,Name,Size) with Key</button>
     </li>
   </ul>
 </div>
@@ -12,7 +12,7 @@
 <!-- m.Dic: words.word -->
 <div>
   <b>Firebase: Object Item</b>
-  <p> {{ item | async | json }} </p>
+  <p> {{ word | async | json }} </p>
 </div>
 
 <div>
