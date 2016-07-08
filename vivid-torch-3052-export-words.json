@@ -1,6 +1,6 @@
 {
   "abnormal": {
-    "cmu": "AE0 B N AO1 R M AH0 L",
+    "pronun": "AE0 B N AO1 R M AH0 L",
     "parts": {
       "a":"AE0 B N AO1 R M AH0 L"
     },
@@ -14,7 +14,7 @@
     "wss": ""
   },
   "cascade": {
-    "cmu": "K AE0 S K EY1 D",
+    "pronun": "K AE0 S K EY1 D",
     "parts": {
       "ni":"K AE0 S K EY1 D"
     },
@@ -28,7 +28,7 @@
     "wss": ""
   },
   "dictionary": {
-    "cmu": "D IH1 K SH AH0 N EH2 R IY0",
+    "pronun": "D IH1 K SH AH0 N EH2 R IY0",
     "parts": {
       "n":"D IH1 K SH AH0 N EH2 R IY0"
     },
