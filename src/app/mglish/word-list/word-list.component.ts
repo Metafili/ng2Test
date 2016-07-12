@@ -24,7 +24,9 @@ export class WordListComponent implements OnInit {
 
   // currWord: string;
   word: FirebaseObjectObservable<any>;  // ObjectObservable
-  words: FirebaseListObservable<any[]>; // ListObservable
+  words: Observable<any[]>; // ListObservable
+  // words: FirebaseListObservable<any[]>; // ListObservable
+  reverseWords: Observable<any[]>;      // map return Observable
   sizeSubject: Subject<any>;
 
   constructor( public af: AngularFire) {
@@ -39,7 +41,8 @@ export class WordListComponent implements OnInit {
        equalTo: this.sizeSubject
     }
     */
-    });
+    }).map( words => { return words.reverse();}); // map return Observable,any[]>
+    // this.reverseWords = this.words.map( words => { return words.reverse();});
   }
 
   ngOnInit() {
@@ -53,6 +56,7 @@ export class WordListComponent implements OnInit {
     .do( word => {
       console.log("getWord.do: $key: " + word.$key + ", cmu: " + word.cmu );
     })
+
     .map( word => {
       console.log("getWord.map: $key: " + word.$key + ", cmu: " + word.cmu );
       return word.$key;

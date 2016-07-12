@@ -5,6 +5,11 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
 import { Hero } from '../hero';
 
+/*
+ * Introduction to Angular 2 Forms - Template Driven, Model Driven or In-Between
+ *  -http://blog.angular-university.io/introduction-to-angular-2-forms-template-driven-vs-model-driven/
+ */
+
 @Component({
   moduleId: module.id,
   selector: 'hero-form',
