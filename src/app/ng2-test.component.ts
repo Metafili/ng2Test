@@ -10,19 +10,21 @@ import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
 import { HeroFormComponent }    from './basics/hero-form/hero-form.component';
+import { ContentProjectionComponent }    from './basics/content-projection/content-projection.component';
 import { WordListComponent }    from './mglish/word-list/word-list.component';
 import { LoginComponent }       from './login/login.component';
 
 
 @RouteConfig([
-  {path: '/',            name: 'Root',        component: ObsBaiscComponent, useAsDefault: true },
-  {path: '/fire2',       name: 'AngularFire2',component: Fire2Component },
-  {path: '/observable',  name: 'Observabe',   component: ObsBaiscComponent },
-  {path: '/wikisearch',  name: 'WikiSearch',  component: WikiSearchComponent },
-  {path: '/gestures',    name: 'MdGestures',  component: GesturesComponent },
-  {path: '/basicform',   name: 'BasicForms',  component: HeroFormComponent },
-  {path: '/wordlist',    name: 'WordList',    component: WordListComponent },
-  {path: '/login',       name: 'Login',       component: LoginComponent }
+  {path: '/',                 name: 'Root',        component: ObsBaiscComponent, useAsDefault: true },
+  {path: '/fire2',            name: 'AngularFire2',component: Fire2Component },
+  {path: '/observable',       name: 'Observabe',   component: ObsBaiscComponent },
+  {path: '/wikisearch',       name: 'WikiSearch',  component: WikiSearchComponent },
+  {path: '/gestures',         name: 'MdGestures',  component: GesturesComponent },
+  {path: '/basicform',        name: 'BasicForms',  component: HeroFormComponent },
+  {path: '/contentproject',   name: 'ContentProjection',  component: ContentProjectionComponent },
+  {path: '/wordlist',         name: 'WordList',    component: WordListComponent },
+  {path: '/login',            name: 'Login',       component: LoginComponent }
 ])
 
 

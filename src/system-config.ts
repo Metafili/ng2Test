@@ -55,7 +55,9 @@ const barrels: string[] = [
   'app/material2/gestures',
   'app/material2/grid-list',
   'app/basics/hero-form',
+  'app/basics/content-projection',
   'app/mglish/word-list',
+  'app/basics/content-projection/fancy-button',
   /** @cli-barrel */
 ];
 
