@@ -27,7 +27,6 @@ interface Langs {
 @Injectable()
 export class MdicFireService {
 
-  word: FirebaseObjectObservable<any>;  // ObjectObservable
   words: FirebaseListObservable<any[]>; // ListObservable
 
   constructor( public af: AngularFire ) {
@@ -42,13 +41,16 @@ export class MdicFireService {
     */
 	}
 
-  getWord( word: string ) {
-    this.word = this.af.database.object('/mglish/words/' +  word);
-    return this.word;
+  getWords() {
+    return this.words;
   }
 
-  update( ref, child:string, key:string, value:Object ) {
-    this.word.update(
+  getWord( word: string ) {
+    return this.af.database.object('/mserver/words/' +  word);
+  }
+
+  update( wordRef: FirebaseObjectObservable<any>, child:string, key:string, value:Object ) {
+   wordRef.update(
       {[child]: {key: value}}
    )
    .then(_ => console.log("Update Size: OK"))
