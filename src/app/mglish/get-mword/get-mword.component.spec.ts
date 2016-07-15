@@ -2,6 +2,12 @@
 
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import {
+  AngularFire,
+  FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
+
+import { MdicFireService } from '../mdic-fire.service';
+import { GetMwordComponent } from './get-mword.component';
 
 import {
   beforeEach, beforeEachProviders,
@@ -10,11 +16,12 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { GetMwordComponent } from './get-mword.component';
 
 describe('Component: GetMword', () => {
   it('should create an instance', () => {
-    let component = new GetMwordComponent();
+    let af:AngularFire;
+    let service:MdicFireService = new MdicFireService(af);
+    let component = new GetMwordComponent( service );
     expect(component).toBeTruthy();
-  });
+  }); 
 });
