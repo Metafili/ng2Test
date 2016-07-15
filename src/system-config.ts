@@ -58,6 +58,7 @@ const barrels: string[] = [
   'app/basics/content-projection',
   'app/mglish/word-list',
   'app/basics/content-projection/fancy-button',
+  'app/mglish/get-mword',
   /** @cli-barrel */
 ];
 
