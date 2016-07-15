@@ -1,0 +1,5 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\powershell.exe -Command \"c:\\Windows\\System32\\cmd.exe -Verb RunAs\""
+}

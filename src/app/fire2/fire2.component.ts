@@ -82,6 +82,12 @@ export class Fire2Component implements OnInit {
    * Don't unwrap the observable until you're ready to subscribe,
    * which is what the async pipe does.
    * https://github.com/angular/angularfire2/issues/357
+   *
+   * Template String(Back ticks: `` not '' )
+   * http://stackoverflow.com/questions/27678052/what-is-the-usage-of-the-backtick-symbol-in-javascript
+   * Template strings can be used multi line and may use "interpolation" to insert the content of variables:
+   * var a = 123, str = `--- a is: ${a} ----`;
+   * console.log(str); --> a is: 123
   {
     items: {
       abnormal: {
@@ -89,7 +95,7 @@ export class Fire2Component implements OnInit {
       }
     }
   }
-  */
+ **/
   getAbnormalValue( type: string ) {
     this.abnormal = this.af.database.object('/items/abnormal');
     this.abnormal.subscribe( snapshot => {
