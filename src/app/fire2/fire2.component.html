@@ -41,3 +41,12 @@
 <div>
   <b>m.Dic JSON Format</b>
 </div>
+
+<div>
+  <b> Test: this.af.database.object(`indices/${type}`) </b>
+  <br>
+  value1: {{value1}}<br>
+  value2: {{value2}}<br>
+  value$.async: {{(value$ | async)?.$value }}<br>
+  value$.async.json: {{value$ | async | json }}
+</div>

@@ -24,8 +24,13 @@ export class Fire2Component implements OnInit {
   itemKey: any;
   word: FirebaseObjectObservable<any>;  // ObjectObservable
   words: FirebaseListObservable<any[]>; // ListObservable
+  abnormal: FirebaseObjectObservable<any>;  // ObjectObservable
   sizeSubject: Subject<any>;
   mapitems: Observable<any[]>; // ListObservable
+
+  value1: string;
+  value2: string;
+  value$: FirebaseObjectObservable<any>;;
 
   constructor( public af: AngularFire ) {
     this.sizeSubject = new Subject();
@@ -40,7 +45,7 @@ export class Fire2Component implements OnInit {
      }
       */
     });
-    this.word = af.database.object('/items')
+    this.word = af.database.object('/items');
   }
 
   ngOnInit() {
@@ -69,6 +74,32 @@ export class Fire2Component implements OnInit {
       .subscribe(snapshots => console.log(snapshots));
     */
     // this.item = this.items[0];
+
+    this.getAbnormalValue( "cmu" );
+  }
+
+  /* Get JSON Value
+   * Don't unwrap the observable until you're ready to subscribe,
+   * which is what the async pipe does.
+   * https://github.com/angular/angularfire2/issues/357
+  {
+    items: {
+      abnormal: {
+        cmu: "CMU Value"
+      }
+    }
+  }
+  */
+  getAbnormalValue( type: string ) {
+    this.abnormal = this.af.database.object('/items/abnormal');
+    this.abnormal.subscribe( snapshot => {
+      console.log('SnapshotResult: ' + snapshot[type]);
+      this.value1 = snapshot.cmu;
+    });
+    this.value$ = this.af.database.object(`/items/abnormal/${type}`);
+    this.value$.subscribe( cmu => {
+      this.value2 = cmu.$value;
+    });
   }
 
     //JavaScript: String, TypeScript: string
@@ -119,5 +150,4 @@ export class Fire2Component implements OnInit {
       this.sizeSubject.next(size);
       console.log("filter: " + size);
   }
-
 }
