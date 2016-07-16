@@ -123,7 +123,13 @@ export class OfflineComponent implements OnInit {
       }
     });
   }
+  get lastOnlineiValue():string {
+    return OfflineComponent.lastOnline;
+  }
   get connectedValue():boolean {
     return OfflineComponent.connedted;
+  }
+  get testValue():string {
+    return OfflineComponent.test;
   }
 }
