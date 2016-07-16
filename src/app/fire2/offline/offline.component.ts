@@ -91,6 +91,13 @@ export class OfflineComponent implements OnInit {
     });
     */
 
+    var offsetRef = firebase.database().ref(".info/serverTimeOffset");
+    offsetRef.on("value", function(snap) {
+      var offset = snap.val();
+      var estimatedServerTimeMs = new Date().getTime() + offset;
+      console.log("offsetRef: offset --> " + estimatedServerTimeMs + " : " + offset );
+    });
+
     OfflineComponent.myConnectionsRef.on('value', function(snap) {
       OfflineComponent.myConnections = snap.val();
       console.log("myConnections: " + OfflineComponent.myConnections);
