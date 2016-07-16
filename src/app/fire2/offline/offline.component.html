@@ -1,0 +1,19 @@
+<div>
+  <b>Firebase Offline</b>
+  <div>
+    <b>MyConnections</b>
+    <ul>
+      <li *ngFor="let conn of myConnections$ | async">
+        {{conn?.$key}}: {{conn?.$value}}
+      </li>
+    </ul>
+    LastOnlineObs: {{ (lastOnline$ | async)?.$value }}<br>
+    ConnectedObs: {{ (connected$ | async)?.$value }}<br>
+  </div>
+  <br>
+  myConnectionsRef: {{myConnections}}<br>
+  LastOnlineRef: {{lastOnline}}<br>
+  ConnectedRef: {{connedted}}<br>
+  ConnectedRef: {{connectedValue}}<br>
+  testRef: {{test}}<br>
+</div>

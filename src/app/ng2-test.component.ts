@@ -6,6 +6,7 @@ import {
 // import { Router, Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 import { Fire2Component }       from './fire2/fire2.component';
+import { OfflineComponent }     from './fire2/offline/offline.component';
 import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
@@ -18,7 +19,8 @@ import { LoginComponent }       from './login/login.component';
 
 @RouteConfig([
   {path: '/',                 name: 'Root',        component: ObsBaiscComponent, useAsDefault: true },
-  {path: '/fire2',            name: 'AngularFire2',component: Fire2Component },
+  {path: '/fire2',            name: 'NgFire2',      component: Fire2Component },
+  {path: '/fire2offline',     name: 'NgFire2Offline',component: OfflineComponent },
   {path: '/observable',       name: 'Observabe',   component: ObsBaiscComponent },
   {path: '/wikisearch',       name: 'WikiSearch',  component: WikiSearchComponent },
   {path: '/gestures',         name: 'MdGestures',  component: GesturesComponent },
