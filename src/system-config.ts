@@ -60,6 +60,7 @@ const barrels: string[] = [
   'app/basics/content-projection/fancy-button',
   'app/mglish/get-mword',
   'app/fire2/offline',
+  'app/mglish/find-bar',
   /** @cli-barrel */
 ];
 

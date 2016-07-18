@@ -1,0 +1,2 @@
+<input type="text" #word (keyup.enter)="onSent($event, word)" />
+<button (click)="onSent($event, word)">Find</button>

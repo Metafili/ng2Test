@@ -3,21 +3,24 @@
   <b>Mdic List</b>
   <ul *ngFor="let w of words | async" >
     <li class="text">
-      {{w.$key}}: {{w.pronun}}<br>
-      {{w.parts.noun}}
+      {{w.$key}}: {{w.pronun}}, {{w.parts.noun}}
       <!--lang: {{w.langs.en}} -->
       <button (click)="convert(w.$key)">Convert</button>
     </li>
   </ul>
 </div>
-<div>
-  <b>Mglish Word: </b>
-  <b>{{ (word | async)?.$key}}</b>
-  <p>{{ word | async | json }}</p>
+
+<find-bar (sent)="findWord($event)"></find-bar>
+
+<div class="diagnostic">
+  <b>{{ (word | async)?.$key}}:</b>
+  {{diagnostic}}
 </div>
+
 <div>
-  <b>To Do List</b>
-  -Find a word
-  -md-card
+  <br>
+  <b>To Do List</b><br>
+  -Find a word<br>
+  -md-card<br>
   -사전: CURD
 </div>
