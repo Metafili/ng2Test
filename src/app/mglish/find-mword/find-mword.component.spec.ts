@@ -10,11 +10,11 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { FindBarComponent } from './find-bar.component';
+import { FindMwordComponent } from './find-mword.component';
 
 describe('Component: FindBar', () => {
   it('should create an instance', () => {
-    let component = new FindBarComponent();
+    let component = new FindMwordComponent();
     expect(component).toBeTruthy();
   });
 });

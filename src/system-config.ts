@@ -56,11 +56,11 @@ const barrels: string[] = [
   'app/material2/grid-list',
   'app/basics/hero-form',
   'app/basics/content-projection',
-  'app/mglish/word-list',
   'app/basics/content-projection/fancy-button',
+  'app/mglish/word-list',
   'app/mglish/get-mword',
+  'app/mglish/find-mword',
   'app/fire2/offline',
-  'app/mglish/find-bar',
   /** @cli-barrel */
 ];
 

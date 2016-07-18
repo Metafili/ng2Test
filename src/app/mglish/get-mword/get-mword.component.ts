@@ -3,7 +3,7 @@ import { MdicFireService } from '../mdic-fire.service';
 import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import { FindBarComponent } from '../find-bar/find-bar.component';
+import { FindMwordComponent } from '../find-mword/find-mword.component';
 
 @Component({
   moduleId: module.id,
@@ -11,7 +11,7 @@ import { FindBarComponent } from '../find-bar/find-bar.component';
   templateUrl: 'get-mword.component.html',
   styleUrls: ['get-mword.component.css'],
   directives: [
-    FindBarComponent
+    FindMwordComponent
   ],
   providers: [
     MdicFireService
