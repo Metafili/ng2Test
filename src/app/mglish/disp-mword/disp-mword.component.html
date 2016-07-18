@@ -1,6 +1,6 @@
 <div [ngSwitch]="dispMode">
   <div *ngSwitchCase="DISPMODE.NONE">
-    <div class=disp >
+    <div class="disp">
       <b>word: {{(mWord | async)?.$key}}</b>
       <b>part: {{(mWord | async)?.part}}</b>
       <b>pronun: {{(mWord | async)?.pronun}}</b>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div *ngSwitchCase="DISPMODE.NEW">
-    <div class=disp >
+    <div class="disp">
       <b>word: </b>
       <b>part: </b>
       <b>pronun: </b>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div *ngSwitchCase="DISPMODE.EDIT">
-    <div class=disp >
+    <div class="disp">
       <b>word: {{(mWord | async)?.$key}}</b>
       <b>part: </b>
       <b>pronun: </b>

@@ -1,6 +1,9 @@
 .disp b {
   display: flex;
 }
+.disp p {
+  display: block;
+}
 .disp span {
   color: red;
 }
