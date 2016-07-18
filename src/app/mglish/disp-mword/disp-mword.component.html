@@ -1,12 +1,37 @@
-<div class=disp >
-  <b>Word Format</b>
-  <b>word: {{(mWord | async)?.$key}}</b>
-  <b>part: {{(mWord | async)?.part}}</b>
-  <b>pronun: {{(mWord | async)?.pronun}}</b>
-  <b>mss: {{(mWord | async)?.mss}}</b>
-  <b>wss: {{(mWord | async)?.wss}}</b>
-  <b>timestamp: {{(mWord | async)?.timestamp}}</b>
-  <b>disp: <span>{{(mWord | async)?.word}}</span></b>
+<div [ngSwitch]="dispMode">
+  <div *ngSwitchCase="DISPMODE.NONE">
+    <div class=disp >
+      <b>word: {{(mWord | async)?.$key}}</b>
+      <b>part: {{(mWord | async)?.part}}</b>
+      <b>pronun: {{(mWord | async)?.pronun}}</b>
+      <b>mss: {{(mWord | async)?.mss}}</b>
+      <b>wss: {{(mWord | async)?.wss}}</b>
+      <b>timestamp: {{(mWord | async)?.timestamp}}</b>
+      <b>disp: <span>{{(mWord | async)?.word}}</span></b>
+    </div>
+  </div>
+  <div *ngSwitchCase="DISPMODE.NEW">
+    <div class=disp >
+      <b>word: </b>
+      <b>part: </b>
+      <b>pronun: </b>
+      <b>mss: </b>
+      <b>wss: </b>
+      <b>timestamp: {{(mWord | async)?.timestamp}}</b>
+      <b>disp: </b>
+    </div>
+  </div>
+  <div *ngSwitchCase="DISPMODE.EDIT">
+    <div class=disp >
+      <b>word: {{(mWord | async)?.$key}}</b>
+      <b>part: </b>
+      <b>pronun: </b>
+      <b>mss: {{(mWord | async)?.mss}}</b>
+      <b>wss: {{(mWord | async)?.wss}}</b>
+      <b>timestamp: {{(mWord | async)?.timestamp}}</b>
+      <b>disp: </b>
+    </div>
+  </div>
 </div>
 
 <div class="action">

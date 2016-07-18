@@ -84,6 +84,6 @@ export class GetMwordComponent implements OnInit {
   }
 
   get diagSendMword() {
-    return "SendMword: Received: " + this.sendAction;
+    return "GetMword: Received: " + this.sendAction;
   }
 }

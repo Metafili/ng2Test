@@ -15,7 +15,7 @@ export class FindMwordComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSent($event, newWord) {
+  onFind($event, newWord) {
     this.find.emit(newWord.value);
     newWord.value = '';
   }
