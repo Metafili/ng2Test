@@ -1,3 +1,6 @@
 .disp b {
   display: flex;
 }
+.disp span {
+  color: red;
+}

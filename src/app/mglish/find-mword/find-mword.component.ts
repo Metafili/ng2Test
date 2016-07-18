@@ -8,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class FindMwordComponent implements OnInit {
 
-  @Output() sent: EventEmitter<any> = new EventEmitter();
+  @Output() find: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -16,7 +16,7 @@ export class FindMwordComponent implements OnInit {
   }
 
   onSent($event, newWord) {
-    this.sent.next(newWord.value);
+    this.find.emit(newWord.value);
     newWord.value = '';
   }
 }

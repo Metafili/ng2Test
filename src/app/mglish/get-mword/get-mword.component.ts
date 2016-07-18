@@ -48,7 +48,22 @@ export class GetMwordComponent implements OnInit {
     }
   }
 
-  sendMword( sendAction:string ) {
+  add( word:string ) {
+    this.sendAction = word;
+    console.log("Add: " + this.sendAction );
+  }
+
+  update( word:string ) {
+    this.sendAction = word;
+    console.log("Update: " + this.sendAction );
+  }
+
+  delete( word:string ) {
+    this.sendAction = word;
+    console.log("Delete: " + this.sendAction );
+  }
+
+  send( sendAction:string ) {
     this.sendAction = sendAction;
     console.log("Send: " + sendAction );
   }

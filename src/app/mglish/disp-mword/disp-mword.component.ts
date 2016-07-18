@@ -1,5 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
+enum DispMode {
+  NONE = 0,
+  NEW  = 1,
+  EDIT = 2,
+  DELETE = 3
+}
+
 @Component({
   moduleId: module.id,
   selector: 'disp-mword',
@@ -7,42 +14,58 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
   styleUrls: ['disp-mword.component.css']
 })
 export class DispMwordComponent implements OnInit {
-  action: string = "Action";
-  @Input() mWord: any = "No Mword"; // FirebaseOvservableObject: Mword interface;
-  @Output() sent: EventEmitter<any> = new EventEmitter();
+  dispMode: DispMode = DispMode.NONE;
+  @Input() mWord: any; // FirebaseOvservableObject: Mword interface;
+  @Output() add: EventEmitter<any> = new EventEmitter();
+  @Output() update: EventEmitter<any> = new EventEmitter();
+  @Output() delete: EventEmitter<any> = new EventEmitter();
+
   constructor() {}
 
   ngOnInit() {
-    this.action = "No Action";
+    this.dispMode = DispMode.NONE;
   }
 
-  update( $event ) {
-   this.action = "update";
-   this.onSendMword( $event, this.action );
+  /**
+   * New  word, part, pronun of mWord
+  */
+  new() {
+   this.dispMode = DispMode.NEW;
   }
 
-  add( $event ) {
-   this.action = "add";
-   this.onSendMword( $event, this.action );
+  /**
+   * Edit part, pronun of mWord
+  */
+  edit() {
+   this.dispMode = DispMode.EDIT;
   }
 
-  save( $event ) {
-   this.action = "save";
-   this.onSendMword( $event, this.action );
+  save() {
+   this.saveMword();
   }
 
-  delete( $event ) {
-   this.action = "delete";
-   this.onSendMword( $event, this.action );
+  deleteMword() {
+   this.dispMode = DispMode.DELETE;
+   this.delete.emit( this.dispMode );
   }
 
-  onSendMword( $event, mAction ) {
-    if( this.action !== null )
-      this.sent.next( mAction );
+  saveMword() {
+    switch( this.dispMode ) {
+      case DispMode.NONE:
+      default:
+        this.dispMode = DispMode.NONE;
+        break;
+      case DispMode.NEW:
+        this.add.emit( this.dispMode );
+        break;
+      case DispMode.EDIT:
+        this.update.emit( this.dispMode );
+        break;
+    }
   }
 
   get diagnostic() {
-    return "DispMword: Send: " + this.action;
+    return "DispMword: Mode: " + this.dispMode;
   }
   get diagMword() {
      return "DispMword: " + JSON.stringify(this.mWord);

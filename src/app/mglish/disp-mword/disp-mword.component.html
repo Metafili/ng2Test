@@ -1,19 +1,19 @@
 <div class=disp >
   <b>Word Format</b>
-  <b>word: {{(mword | async)?.$key}}</b>
-  <b>part: {{(mword | async)?.part}}</b>
-  <b>pronun: {{(mword | async)?.pronun}}</b>
-  <b>mss: {{(mword | async)?.mss}}</b>
-  <b>wss: {{(mword | async)?.wss}}</b>
-  <b>timestamp: {{(mword | async)?.timestamp}}</b>
-  <b>disp: {{(mword | async)?.word}}</b>
+  <b>word: {{(mWord | async)?.$key}}</b>
+  <b>part: {{(mWord | async)?.part}}</b>
+  <b>pronun: {{(mWord | async)?.pronun}}</b>
+  <b>mss: {{(mWord | async)?.mss}}</b>
+  <b>wss: {{(mWord | async)?.wss}}</b>
+  <b>timestamp: {{(mWord | async)?.timestamp}}</b>
+  <b>disp: <span>{{(mWord | async)?.word}}</span></b>
 </div>
 
 <div class="action">
-  <button (click)="update()">Update</button>
-  <button (click)="add()">Add</button>
+  <button (click)="new()">New</button>
+  <button (click)="edit()">Edit</button>
   <button (click)="save()">Save</button>
-  <button (click)="delete()">Delete</button>
+  <button (click)="deleteMword()">Delete</button>
 </div>
 
 {{diagnostic}}

@@ -8,8 +8,14 @@
   </ul>
 </div>
 
-<disp-mword [mword] = word (sent)="sendMword($event)">Disp Mglish word</disp-mword>
-<find-mword (sent)="findWord($event)"></find-mword>
+<disp-mword [mWord] = word
+  (add)="add($event)"
+  (update)="update($event)"
+  (delete)="delete($event)">
+</disp-mword>
+<find-mword
+  (find)="findWord($event)">
+</find-mword>
 
 <div class="diagnostic">
   {{diagGetMword}}
