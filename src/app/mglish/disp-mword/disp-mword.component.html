@@ -1,0 +1,25 @@
+<div class=disp >
+  <b>Word Format</b>
+  <b>word: {{(mword | async)?.$key}}</b>
+  <b>part: {{(mword | async)?.part}}</b>
+  <b>pronun: {{(mword | async)?.pronun}}</b>
+  <b>mss: {{(mword | async)?.mss}}</b>
+  <b>wss: {{(mword | async)?.wss}}</b>
+  <b>timestamp: {{(mword | async)?.timestamp}}</b>
+  <b>disp: {{(mword | async)?.word}}</b>
+</div>
+
+<div class="action">
+  <button (click)="update()">Update</button>
+  <button (click)="add()">Add</button>
+  <button (click)="save()">Save</button>
+  <button (click)="delete()">Delete</button>
+</div>
+
+{{diagnostic}}
+<!--
+<div class="diagnostic">
+  <b>{{ (mword | async)?.$key}}:</b>
+  {{diagnostic}}
+</div>
+-->

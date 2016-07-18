@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'find-bar',
+  selector: 'find-mword',
   templateUrl: 'find-mword.component.html',
   styleUrls: ['find-mword.component.css']
 })

@@ -1,20 +1,19 @@
 <b>{{title}}</b>
 <div>
-  <b>Mdic List</b>
   <ul *ngFor="let w of words | async" >
     <li class="text">
       {{w.$key}}: {{w.pronun}}, {{w.parts.noun}}
-      <!--lang: {{w.langs.en}} -->
       <button (click)="convert(w.$key)">Convert</button>
     </li>
   </ul>
 </div>
 
-<find-bar (sent)="findWord($event)"></find-bar>
+<disp-mword [mword] = word (sent)="sendMword($event)">Disp Mglish word</disp-mword>
+<find-mword (sent)="findWord($event)"></find-mword>
 
 <div class="diagnostic">
-  <b>{{ (word | async)?.$key}}:</b>
-  {{diagnostic}}
+  {{diagGetMword}}
+  {{diagSendMword}}
 </div>
 
 <div>

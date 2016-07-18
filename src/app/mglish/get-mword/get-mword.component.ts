@@ -3,7 +3,9 @@ import { MdicFireService } from '../mdic-fire.service';
 import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
+// Mglish Interface
 import { FindMwordComponent } from '../find-mword/find-mword.component';
+import { DispMwordComponent } from '../disp-mword/disp-mword.component';
 
 @Component({
   moduleId: module.id,
@@ -11,7 +13,8 @@ import { FindMwordComponent } from '../find-mword/find-mword.component';
   templateUrl: 'get-mword.component.html',
   styleUrls: ['get-mword.component.css'],
   directives: [
-    FindMwordComponent
+    FindMwordComponent,
+    DispMwordComponent
   ],
   providers: [
     MdicFireService
@@ -23,6 +26,7 @@ export class GetMwordComponent implements OnInit {
 
   word: FirebaseObjectObservable<any>;  // ObjectObservable
   words: FirebaseListObservable<any[]>; // ListObservable
+  sendAction: string = "No Action";
 
   constructor( private mdicSvc: MdicFireService ) {
     this.words = mdicSvc.getWords();
@@ -44,9 +48,14 @@ export class GetMwordComponent implements OnInit {
     }
   }
 
+  sendMword( sendAction:string ) {
+    this.sendAction = sendAction;
+    console.log("Send: " + sendAction );
+  }
+
   // TODO: Remove this when we're done
-  get diagnostic() {
-    let word;
+  get diagGetMword() {
+    let word:any;
     this.word.subscribe( w => {
       if( w.$value === null )
         w.$value = w.$key + ": Not Found.";
@@ -56,6 +65,10 @@ export class GetMwordComponent implements OnInit {
     }, () => {
       console.log("Completed! " )
     });
-    return JSON.stringify(word);
+    return "GetMword: " + JSON.stringify(word);
+  }
+
+  get diagSendMword() {
+    return "SendMword: Received: " + this.sendAction;
   }
 }
