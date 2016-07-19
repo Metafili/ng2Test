@@ -1,35 +1,77 @@
 <div [ngSwitch]="dispMode">
   <div *ngSwitchCase="DISPMODE.NONE">
-    <div class="disp">
-      <b>word: {{(mWord | async)?.$key}}</b>
-      <b>part: {{(mWord | async)?.part}}</b>
-      <b>pronun: {{(mWord | async)?.pronun}}</b>
-      <b>mss: {{(mWord | async)?.mss}}</b>
-      <b>wss: {{(mWord | async)?.wss}}</b>
-      <b>timestamp: {{(mWord | async)?.timestamp}}</b>
-      <b>disp: <span>{{(mWord | async)?.word}}</span></b>
+    <div class="mdisp">
+      <div class="mitem" >
+        <label>word:</label> {{(mWord | async)?.$key}}
+      </div>
+      <div class="mitem" >
+        <label>part:</label> {{(mWord | async)?.part}}
+      </div>
+      <div class="mitem" >
+        <label>pronun:</label> {{(mWord | async)?.pronun}}
+      </div>
+      <div class="mitem" >
+        <label>mss:</label> {{(mWord | async)?.mss}}
+      </div>
+      <div class="mitem" >
+        <label>wss:</label> {{(mWord | async)?.wss}}
+      </div>
+      <div class="mitem" >
+        <label>timestamp:</label> {{(mWord | async)?.timestamp}}
+      </div>
+      <div class="mitem" >
+        <label>disp:</label> <span>{{(mWord | async)?.word}}</span>
+      </div>
     </div>
   </div>
   <div *ngSwitchCase="DISPMODE.NEW">
-    <div class="disp">
-      <b>word: </b>
-      <b>part: </b>
-      <b>pronun: </b>
-      <b>mss: </b>
-      <b>wss: </b>
-      <b>timestamp: {{(mWord | async)?.timestamp}}</b>
-      <b>disp: </b>
+    <div class="mdisp">
+      <div class="mitem" >
+        <label>word:</label><input type="text" #word (keyup.enter)="onNext($event, word)" />
+      </div>
+      <div class="mitem" >
+        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, part)" />
+      </div>
+      <div class="mitem" >
+        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, pronun)" />
+      </div>
+      <div class="mitem" >
+        <label>mss:</label>
+      </div>
+      <div class="mitem" >
+        <label>wss:</label>
+      </div>
+      <div class="mitem" >
+        <label>timestamp:</label> {{(mWord | async)?.timestamp}}
+      </div>
+      <div class="mitem" >
+        <label>disp:</label>
+      </div>
     </div>
   </div>
   <div *ngSwitchCase="DISPMODE.EDIT">
-    <div class="disp">
-      <b>word: {{(mWord | async)?.$key}}</b>
-      <b>part: </b>
-      <b>pronun: </b>
-      <b>mss: {{(mWord | async)?.mss}}</b>
-      <b>wss: {{(mWord | async)?.wss}}</b>
-      <b>timestamp: {{(mWord | async)?.timestamp}}</b>
-      <b>disp: </b>
+    <div class="mdisp">
+      <div class="mitem" >
+        <label>word:</label> {{(mWord | async)?.$key}}
+      </div>
+      <div class="mitem" >
+        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, part)" />
+      </div>
+      <div class="mitem" >
+        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, pronun)" />
+      </div>
+      <div class="mitem" >
+        <label>mss:</label>{{(mWord | async)?.mss}}
+      </div>
+      <div class="mitem" >
+        <label>wss:</label>{{(mWord | async)?.wss}}
+      </div>
+      <div class="mitem" >
+        <label>timestamp:</label>{{(mWord | async)?.timestamp}}
+      </div>
+      <div class="mitem" >
+        <label>disp:</label>
+      </div>
     </div>
   </div>
 </div>

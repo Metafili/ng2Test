@@ -5,7 +5,7 @@ import {
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 // Mglish Interface
 import { FindMwordComponent } from '../find-mword/find-mword.component';
-import { DispMwordComponent } from '../disp-mword/disp-mword.component';
+import { DispMwordComponent, DispMode } from '../disp-mword/disp-mword.component';
 
 @Component({
   moduleId: module.id,
@@ -26,6 +26,7 @@ export class GetMwordComponent implements OnInit {
 
   word: FirebaseObjectObservable<any>;  // ObjectObservable
   words: FirebaseListObservable<any[]>; // ListObservable
+  dispMode: DispMode;
   sendAction: string = "No Action";
 
   constructor( private mdicSvc: MdicFireService ) {
@@ -45,6 +46,7 @@ export class GetMwordComponent implements OnInit {
     console.log("Find: " + word );
     if( word !== "" ){
       this.word = this.mdicSvc.getWord(word);
+      this.dispMode = DispMode.NONE;
     }
   }
 

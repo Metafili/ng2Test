@@ -1,9 +1,18 @@
-.disp b {
+.mdisp b {
   display: flex;
 }
-.disp p {
-  display: block;
-}
-.disp span {
+
+.mdisp span {
   color: red;
+}
+
+.mitem label {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+}
+
+.mitem input {
+  display: inline-block;
+  margin-left:3px;
 }

@@ -19,11 +19,13 @@ export enum DispMode {
 })
 export class DispMwordComponent implements OnInit {
 
-  dispMode: DispMode;
+  // dispMode: DispMode;
   // Store a reference to the enum
   DISPMODE = DispMode;
 
   @Input() mWord: any; // FirebaseOvservableObject: Mword interface;
+  @Input() dispMode: DispMode;
+
   @Output() add: EventEmitter<any> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
@@ -71,6 +73,10 @@ export class DispMwordComponent implements OnInit {
         this.update.emit( this.dispMode );
         break;
     }
+  }
+
+  onNext( $event, value:string ) {
+    console.log("OnNext: value: " + value );
   }
 
   get diagnostic() {
