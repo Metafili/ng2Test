@@ -82,7 +82,12 @@ export class DispMwordComponent implements OnInit {
   get diagnostic() {
     return "DispMword: Sent: " + this.dispMode;
   }
+
   get diagMword() {
+     return "DispMword: " + JSON.stringify(this.mWord);
+  }
+
+  get diagWordInput() {
      return "DispMword: " + JSON.stringify(this.mWord);
   }
 }
