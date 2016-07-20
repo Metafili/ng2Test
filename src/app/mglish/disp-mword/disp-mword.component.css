@@ -1,4 +1,8 @@
 .mdisp b {
+  display: block;
+}
+
+.mdisp b {
   display: flex;
 }
 

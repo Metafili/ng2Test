@@ -25,16 +25,17 @@ export class DispMwordComponent implements OnInit {
 
   @Input() mWord: any; // FirebaseOvservableObject: Mword interface;
   @Input() dispMode: DispMode;
+  @Input() INDEX: number;
 
   @Output() add: EventEmitter<any> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
 
   constructor() {
-    this.dispMode = DispMode.NONE;
   }
 
   ngOnInit() {
+    this.dispMode = DispMode.NONE;
   }
 
   /**
@@ -79,8 +80,8 @@ export class DispMwordComponent implements OnInit {
     console.log("OnNext: value: " + value );
   }
 
-  get diagnostic() {
-    return "DispMword: Sent: " + this.dispMode;
+  get diagMode() {
+    return "DispMword: Mode: " + this.dispMode;
   }
 
   get diagMword() {

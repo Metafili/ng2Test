@@ -1,0 +1,25 @@
+.diagnostic {
+    display: block;
+}
+
+/*
+ * http://cssdeck.com/labs/css3-webkit-vertical-scrollbars/
+ */
+.scrollbar {
+    margin-left: 5px;
+    float: left;
+    height: 200px;
+    width: 100%;
+    background: #F5F5F5;
+    overflow-y: scroll;
+    margin-bottom: 5px;
+}
+
+.force-overflow { min-height: 450px;
+}
+
+#style-6::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+

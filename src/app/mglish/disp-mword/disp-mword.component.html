@@ -1,4 +1,4 @@
-<div [ngSwitch]="dispMode">
+<div [ngSwitch]="dispMode" class="dispmode" >
   <div *ngSwitchCase="DISPMODE.NONE">
     <div class="mdisp">
       <div class="mitem" >
@@ -83,7 +83,7 @@
   <button (click)="deleteMword()">Delete</button>
 </div>
 
-{{diagnostic}}
+{{diagMode}} {{INDEX}}
 <!--
 <div class="diagnostic">
   <b>{{ (mword | async)?.$key}}:</b>

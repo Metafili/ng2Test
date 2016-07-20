@@ -28,9 +28,12 @@ export class GetMwordComponent implements OnInit {
   words: FirebaseListObservable<any[]>; // ListObservable
   dispMode: DispMode;
   sendAction: string = "No Action";
+  INDEX:number;
 
   constructor( private mdicSvc: MdicFireService ) {
     this.words = mdicSvc.getWords();
+    this.dispMode = DispMode.NONE
+    this.INDEX = 0;
   }
 
   ngOnInit() {
@@ -40,14 +43,18 @@ export class GetMwordComponent implements OnInit {
   convert( word: string ) {
     console.log('convert: ' + word );
     this.word = this.mdicSvc.getWord(word);
+    this.dispMode = DispMode.NEW;
+    this.INDEX++;
+    console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
   findWord( word:string ) {
-    console.log("Find: " + word );
     if( word !== "" ){
       this.word = this.mdicSvc.getWord(word);
-      this.dispMode = DispMode.NONE;
     }
+    this.INDEX++;
+    this.dispMode = DispMode.EDIT;
+    console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
   add( word:string ) {
@@ -70,7 +77,10 @@ export class GetMwordComponent implements OnInit {
     console.log("Send: " + sendAction );
   }
 
-  // TODO: Remove this when we're done
+  get diagMode() {
+    return "GetMword: Mode: " + this.dispMode;
+  }
+
   get diagGetMword() {
     let word:any;
     this.word.subscribe( w => {
