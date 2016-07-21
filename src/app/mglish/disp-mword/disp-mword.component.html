@@ -27,13 +27,13 @@
   <div *ngSwitchCase="DISPMODE.NEW">
     <div class="mdisp">
       <div class="mitem" >
-        <label>word:</label><input type="text" #word (keyup.enter)="onNext($event, word)" />
+        <label>word:</label><input type="text" #word (keyup.enter)="onNext($event, saveMword.word = word.value)" />
       </div>
       <div class="mitem" >
-        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, part)" />
+        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, saveMword.parts.a = part.value)" />
       </div>
       <div class="mitem" >
-        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, pronun)" />
+        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, saveMword.pronun = pronun.value)" />
       </div>
       <div class="mitem" >
         <label>mss:</label>
@@ -55,10 +55,10 @@
         <label>word:</label> {{(mWord | async)?.$key}}
       </div>
       <div class="mitem" >
-        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, part)" />
+        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, saveMword.parts.a = part.value)" />
       </div>
       <div class="mitem" >
-        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, pronun)" />
+        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, saveMword.pronun = pronun.value)" />
       </div>
       <div class="mitem" >
         <label>mss:</label>{{(mWord | async)?.mss}}
@@ -77,10 +77,10 @@
 </div>
 
 <div class="action">
-  <button (click)="new()">New</button>
-  <button (click)="edit()">Edit</button>
-  <button (click)="save()">Save</button>
-  <button (click)="deleteMword()">Delete</button>
+  <button (click)="onNew()">New</button>
+  <button (click)="onEdit()">Edit</button>
+  <button (click)="onSave()">Save</button>
+  <button (click)="onDelete()">Delete</button>
 </div>
 
 {{diagMode}} {{INDEX}}

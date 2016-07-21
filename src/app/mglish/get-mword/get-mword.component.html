@@ -1,9 +1,9 @@
 <b>{{title}}</b>
 <div class="scrollbar" id="style-6">
   <!-- <div class="force-overflow"></div> -->
-  <ul *ngFor="let w of words | async" >
+  <ul *ngFor="let w of mWords | async" >
     <li class="text">
-      {{w.$key}}: {{w.pronun}}, {{w.parts.noun}}
+      {{w.$key}}: {{w.pronun}}
       <button (click)="convert(w.$key)">Convert</button>
     </li>
   </ul>

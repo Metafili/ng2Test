@@ -3,7 +3,7 @@ import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 
-interface Mword {
+export interface Mword {
   word:string;
 	pronun:string;
   parts?: Parts;
@@ -13,11 +13,11 @@ interface Mword {
   timestamp:string;
 }
 
-interface Parts {
+export interface Parts {
   a:string;
 }
 
-interface Langs {
+export interface Langs {
   en: string;
   ko?:string;
   cn?:string;
@@ -33,21 +33,23 @@ export class MdicFireService {
     this.words = af.database.list('/mserver/words');
   }
 
-  addMword( mword:Mword ) {
-    /*
-		this.updateMword( wordsRef, mword.getWord(), new Mword(mword.getWord(), mword.getPronun()));
-		if( mword.getParts() != null )
-      updateParts( wordsRef, mword.getWord(), mword.getParts().getA(), mword.getPronun());
-    */
-	}
+  getWord( word: string ) {
+    return this.af.database.object('/mserver/words/' +  word);
+  }
 
   getWords() {
     return this.words;
   }
 
-  getWord( word: string ) {
-    return this.af.database.object('/mserver/words/' +  word);
-  }
+  addMword( mWord:Mword ) {
+    this.words.update( mWord.word, mWord )
+    .then(_ => {
+      console.log("addMword: OK");
+      let m = this.getWord(mWord.word);
+      this.updateParts( m, mWord.word, mWord.parts.a, mWord.pronun );
+    })
+    .catch( e => console.log("addMword: Fail"));
+	}
 
   update( wordRef: FirebaseObjectObservable<any>, child:string, key:string, value:Object ) {
    wordRef.update(
@@ -85,6 +87,12 @@ export class MdicFireService {
 
   updateTimeStamp( wordsRef, word:string, value:string ) {
 		this.update( wordsRef, word, "timestamp", value );
+	}
+
+  updateParts( wordsRef, word:string, key:string, value:string ) {
+    var part = {};
+    part[key] = value;
+    wordsRef.update({["parts"]: part });
 	}
 
   /*

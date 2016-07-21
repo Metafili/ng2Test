@@ -5,7 +5,7 @@ import {
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 // Mglish Interface
 import { FindMwordComponent } from '../find-mword/find-mword.component';
-import { DispMwordComponent, DispMode } from '../disp-mword/disp-mword.component';
+import { DispMwordComponent, DispMode, SaveMword } from '../disp-mword/disp-mword.component';
 
 @Component({
   moduleId: module.id,
@@ -24,56 +24,60 @@ export class GetMwordComponent implements OnInit {
 
   title: string = "Mglish Dictionary"
 
-  word: FirebaseObjectObservable<any>;  // ObjectObservable
-  words: FirebaseListObservable<any[]>; // ListObservable
+  word:string;
+  mWord: FirebaseObjectObservable<any>;  // ObjectObservable
+  mWords: FirebaseListObservable<any[]>; // ListObservable
+
   dispMode: DispMode;
-  sendAction: string = "No Action";
   INDEX:number;
 
   constructor( private mdicSvc: MdicFireService ) {
-    this.words = mdicSvc.getWords();
+    this.mWords = mdicSvc.getWords();
+
     this.dispMode = DispMode.NONE
     this.INDEX = 0;
   }
 
   ngOnInit() {
-    this.word = this.mdicSvc.getWord('mglish'); // ToDo: mglish
+    this.mWord = this.mdicSvc.getWord('mglish'); // ToDo: mglish
   }
 
   convert( word: string ) {
     console.log('convert: ' + word );
-    this.word = this.mdicSvc.getWord(word);
-    this.dispMode = DispMode.NEW;
+    this.mWord = this.mdicSvc.getWord(word);
+
     this.INDEX++;
+    this.dispMode = DispMode.NEW;
     console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
   findWord( word:string ) {
     if( word !== "" ){
-      this.word = this.mdicSvc.getWord(word);
+      this.mWord = this.mdicSvc.getWord(word);
     }
     this.INDEX++;
     this.dispMode = DispMode.NONE;
     console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
-  add( word:string ) {
-    this.sendAction = word;
-    console.log("Add: " + this.sendAction );
+  add( mWord:SaveMword ) {
+    console.log("addMword: " + mWord.word );
+    this.mdicSvc.addMword( mWord );
+    // this.mWord = this.mdicSvc.getWord(mWord.word);
+    // this.mdicSvc.updateParts( this.mWord, mWord.word, mWord.parts.a, mWord.pronun );
   }
 
-  update( word:string ) {
-    this.sendAction = word;
-    console.log("Update: " + this.sendAction );
+  update( mWord:SaveMword ) {
+    console.log("updateMword: " + mWord.word );
+    mWord.word = this.word;
+    this.mdicSvc.updateMword( this.mWord, this.word, mWord );
   }
 
   delete( word:string ) {
-    this.sendAction = word;
-    console.log("Delete: " + this.sendAction );
+    console.log("Delete: " + word );
   }
 
   send( sendAction:string ) {
-    this.sendAction = sendAction;
     console.log("Send: " + sendAction );
   }
 
@@ -83,10 +87,11 @@ export class GetMwordComponent implements OnInit {
 
   get diagGetMword() {
     let word:any;
-    this.word.subscribe( w => {
+    this.mWord.subscribe( w => {
       if( w.$value === null )
         w.$value = w.$key + ": Not Found.";
       word = w;
+      this.word = w.word;
     }, e => {
       console.log("Error: " + e ) ;
     }, () => {
@@ -96,6 +101,6 @@ export class GetMwordComponent implements OnInit {
   }
 
   get diagSendMword() {
-    return "GetMword: Received: " + this.sendAction;
+    return "GetMword: Received: " + this.dispMode;
   }
 }

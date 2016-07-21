@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, Injectable, OnInit } from '@angular/core';
+import { Mword, Parts, Langs } from '../mdic-fire.service';
 
 // Select based on enum in Angular2
 //  -http://stackoverflow.com/questions/35750059/select-based-on-enum-in-angular2
@@ -11,6 +12,19 @@ export enum DispMode {
   DELETE = 3
 }
 
+export class SaveMword implements Mword {
+  word:string;
+  parts:Parts;
+  pronun:string;
+  mss:string;
+  wss:string;
+  timestamp:string;
+}
+
+export class NewParts implements Parts {
+  a:string;
+}
+
 @Component({
   moduleId: module.id,
   selector: 'disp-mword',
@@ -18,6 +32,8 @@ export enum DispMode {
   styleUrls: ['disp-mword.component.css']
 })
 export class DispMwordComponent implements OnInit {
+
+  saveMword:SaveMword;
 
   // dispMode: DispMode;
   // Store a reference to the enum
@@ -36,44 +52,35 @@ export class DispMwordComponent implements OnInit {
 
   ngOnInit() {
     this.dispMode = DispMode.NONE;
+    this.saveMword = new SaveMword();
+    this.saveMword.parts = new NewParts();
   }
 
   /**
    * New  word, part, pronun of mWord
   */
-  new() {
-   this.dispMode = DispMode.NEW;
+  onNew() {
+    this.dispMode = DispMode.NEW;
   }
 
   /**
    * Edit part, pronun of mWord
   */
-  edit() {
-   this.dispMode = DispMode.EDIT;
+  onEdit() {
+    this.dispMode = DispMode.EDIT;
   }
 
-  save() {
-   this.saveMword();
+  onSave() {
+    this.saveMword.timestamp = firebase.database['ServerValue'].TIMESTAMP;
+    if( this.dispMode === DispMode.NEW )
+      this.add.emit( this.saveMword );
+    else if( this.dispMode === DispMode.EDIT )
+      this.update.emit( this.saveMword );
   }
 
-  deleteMword() {
-   this.dispMode = DispMode.NONE;
-   this.delete.emit( DispMode.DELETE );
-  }
-
-  saveMword() {
-    switch( this.dispMode ) {
-      case DispMode.NONE:
-      default:
-        this.dispMode = DispMode.NONE;
-        break;
-      case DispMode.NEW:
-        this.add.emit( this.dispMode );
-        break;
-      case DispMode.EDIT:
-        this.update.emit( this.dispMode );
-        break;
-    }
+  onDelete() {
+    this.dispMode = DispMode.NONE;
+    this.delete.emit( DispMode.DELETE );
   }
 
   onNext( $event, value:string ) {
