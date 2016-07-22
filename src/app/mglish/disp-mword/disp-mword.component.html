@@ -92,10 +92,10 @@
         <label>wss:</label>{{(mWord | async)?.wss}}
       </div>
       <div class="mitem" >
-        <label>timestamp:</label>{{(mWord | async)?.timestamp}}
+        <label>disp:</label>
       </div>
       <div class="mitem" >
-        <label>disp:</label>
+        <label>timestamp:</label>{{(mWord | async)?.timestamp}}
       </div>
     </div>
   </div>
@@ -106,13 +106,10 @@
   <button (click)="onEdit()">Edit</button>
   <button (click)="onSave()">Save</button>
   <button (click)="onDelete()">Delete</button>
+  <button (click)="onReset()">Reset</button>
 </div>
 
+<!--
 {{diagMode}} {{INDEX}}<br>
 {{diagNewMword}}
-<!--
-<div class="diagnostic">
-  <b>{{ (mword | async)?.$key}}:</b>
-  {{diagnostic}}
-</div>
 -->

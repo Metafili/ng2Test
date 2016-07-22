@@ -99,6 +99,10 @@ export class DispMwordComponent implements OnInit {
     this.delete.emit( DispMode.DELETE );
   }
 
+  onReset() {
+    this.dispMode = DispMode.NONE;
+  }
+
   onNext( $event, value:string ) {
     console.log("OnNext: value: " + value );
   }

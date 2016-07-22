@@ -9,7 +9,7 @@
   </ul>
 </div>
 
-<disp-mword [mWord] = mWord [dispMode] = dispMode [INDEX]=INDEX
+<disp-mword class="mword" [mWord]=mWord [dispMode]=dispMode [INDEX]=INDEX
   (add)="add($event)"
   (update)="update($event)"
   (delete)="delete($event)">
@@ -19,16 +19,10 @@
   (find)="findWord($event)">
 </find-mword>
 
+<!--
 <div class="diagnostic">
   {{diagMode}}<br>
   {{diagGetMword}}<br>
   {{diagSendMword}}
 </div>
-
-<div>
-  <br>
-  <b>To Do List</b><br>
-  -Find a word<br>
-  -md-card<br>
-  -사전: CURD
-</div>
+-->

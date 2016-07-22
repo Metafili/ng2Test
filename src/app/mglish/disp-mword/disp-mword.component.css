@@ -28,3 +28,11 @@
 .ng-invalid {
   border-left: 5px solid #a94442; /* red */
 }
+
+.action button {
+  display: inline-block;
+  width: 15%;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 5px;
+}

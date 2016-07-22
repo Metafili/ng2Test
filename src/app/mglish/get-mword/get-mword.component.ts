@@ -47,7 +47,7 @@ export class GetMwordComponent implements OnInit {
     this.mWord = this.mdicSvc.getWord(word);
 
     this.INDEX++;
-    this.dispMode = DispMode.EDIT;
+    this.dispMode = DispMode.NONE;
     console.log("convert: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
