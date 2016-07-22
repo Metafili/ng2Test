@@ -13,6 +13,16 @@ export interface Mword {
   timestamp:string;
 }
 
+export class Mword implements Mword {
+  constructor( word, pronun, mss, wss ) {
+    this.word = word;
+    this.pronun = pronun;
+    this.mss = mss;
+    this.wss = wss;
+    this.timestamp = firebase.database['ServerValue'].TIMESTAMP;
+  }
+}
+
 export interface Parts {
   a:string;
 }
@@ -41,12 +51,12 @@ export class MdicFireService {
     return this.words;
   }
 
-  addMword( mWord:Mword ) {
+  addMword( mWord:Mword, saveMword:any ) {
     this.words.update( mWord.word, mWord )
     .then(_ => {
       console.log("addMword: OK");
       let m = this.getWord(mWord.word);
-      this.updateParts( m, mWord.word, mWord.parts.a, mWord.pronun );
+      this.updateParts( m, mWord.word, saveMword.part, saveMword.pronun );
     })
     .catch( e => console.log("addMword: Fail"));
 	}
@@ -63,10 +73,10 @@ export class MdicFireService {
 
   }
 
-  updateMword( wordsRef, childWord: string, mword:Mword ) {
-    this.words.update( childWord, mword)
-    .then(_ => console.log("updateMword: OK"))
-    .catch( e => console.log("updateMword: Fail"));
+  updateMword( childWord: string, updateMword:any ) {
+    // this.words.update( childWord, mword)o let m = this.getWord(mWord.word);
+    let m = this.getWord(childWord);
+    this.updateParts( m, childWord, updateMword.part, updateMword.pronun );
   }
 
   updateTimestamp( wordsRef, word: string, value:Object ) {
@@ -91,9 +101,13 @@ export class MdicFireService {
 
   updateParts( wordsRef, word:string, key:string, value:string ) {
     let partsRef = this.af.database.object('/mserver/words/' +  word + '/parts');
+
     var part = {};
     part[key] = value;
-    partsRef.update( part );
+
+    partsRef.update( part )
+    .then(_ => console.log("updateParts: OK"))
+    .catch( e => console.log("updateParts: Fail"));
     // wordsRef.update({["parts"]: part });
 	}
 

@@ -9,11 +9,12 @@
   </ul>
 </div>
 
-<disp-mword [mWord] = word [dispMode] = dispMode [INDEX]=INDEX
+<disp-mword [mWord] = mWord [dispMode] = dispMode [INDEX]=INDEX
   (add)="add($event)"
   (update)="update($event)"
   (delete)="delete($event)">
 </disp-mword>
+
 <find-mword
   (find)="findWord($event)">
 </find-mword>

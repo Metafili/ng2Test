@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MdicFireService } from '../mdic-fire.service';
+import { MdicFireService, Mword, Parts, Langs } from '../mdic-fire.service';
 import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 // Mglish Interface
 import { FindMwordComponent } from '../find-mword/find-mword.component';
-import { DispMwordComponent, DispMode, SaveMword } from '../disp-mword/disp-mword.component';
+import { DispMwordComponent, DispMode, NewMword } from '../disp-mword/disp-mword.component';
 
 @Component({
   moduleId: module.id,
@@ -48,7 +48,7 @@ export class GetMwordComponent implements OnInit {
 
     this.INDEX++;
     this.dispMode = DispMode.NEW;
-    console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
+    console.log("convert: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
   findWord( word:string ) {
@@ -60,17 +60,20 @@ export class GetMwordComponent implements OnInit {
     console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
   }
 
-  add( mWord:SaveMword ) {
-    console.log("addMword: " + mWord.word );
-    this.mdicSvc.addMword( mWord );
+  add( addMword:NewMword ) {
+    console.log("addMword: " + addMword.word );
+
+    let newWord: Mword = new Mword( addMword.word, addMword.pronun, "", "" );
+    this.mdicSvc.addMword( newWord, addMword );
     // this.mWord = this.mdicSvc.getWord(mWord.word);
     // this.mdicSvc.updateParts( this.mWord, mWord.word, mWord.parts.a, mWord.pronun );
   }
 
-  update( mWord:SaveMword ) {
-    console.log("updateMword: " + mWord.word );
-    mWord.word = this.word;
-    this.mdicSvc.updateMword( this.mWord, this.word, mWord );
+  update( updateMword:NewMword ) {
+    console.log("updateMword: " + this.word );
+
+    // let newWord: Mword = new Mword( this.word, newMword.pronun, "", "" );
+    this.mdicSvc.updateMword( this.word, updateMword );
   }
 
   delete( word:string ) {

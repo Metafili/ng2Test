@@ -12,17 +12,10 @@ export enum DispMode {
   DELETE = 3
 }
 
-export class SaveMword implements Mword {
+export class NewMword {
   word:string;
-  parts:Parts;
+  part:string;
   pronun:string;
-  mss:string;
-  wss:string;
-  timestamp:string;
-}
-
-export class NewParts implements Parts {
-  a:string;
 }
 
 @Component({
@@ -33,7 +26,7 @@ export class NewParts implements Parts {
 })
 export class DispMwordComponent implements OnInit {
 
-  saveMword:SaveMword;
+  newMword:NewMword;
 
   // dispMode: DispMode;
   // Store a reference to the enum
@@ -52,8 +45,7 @@ export class DispMwordComponent implements OnInit {
 
   ngOnInit() {
     this.dispMode = DispMode.NONE;
-    this.saveMword = new SaveMword();
-    this.saveMword.parts = new NewParts();
+    // this.newMword = new NewMword();
   }
 
   /**
@@ -61,6 +53,7 @@ export class DispMwordComponent implements OnInit {
   */
   onNew() {
     this.dispMode = DispMode.NEW;
+    this.newMword = new NewMword();
   }
 
   /**
@@ -68,14 +61,14 @@ export class DispMwordComponent implements OnInit {
   */
   onEdit() {
     this.dispMode = DispMode.EDIT;
+    this.newMword = new NewMword();
   }
 
   onSave() {
-    this.saveMword.timestamp = firebase.database['ServerValue'].TIMESTAMP;
     if( this.dispMode === DispMode.NEW )
-      this.add.emit( this.saveMword );
+      this.add.emit( this.newMword );
     else if( this.dispMode === DispMode.EDIT )
-      this.update.emit( this.saveMword );
+      this.update.emit( this.newMword );
   }
 
   onDelete() {

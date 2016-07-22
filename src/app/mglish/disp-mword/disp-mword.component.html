@@ -27,13 +27,13 @@
   <div *ngSwitchCase="DISPMODE.NEW">
     <div class="mdisp">
       <div class="mitem" >
-        <label>word:</label><input type="text" #word (keyup.enter)="onNext($event, saveMword.word = word.value)" />
+        <label>word:</label><input type="text" #word (keyup.enter)="onNext($event, newMword.word = word.value)" />
       </div>
       <div class="mitem" >
-        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, saveMword.parts.a = part.value)" />
+        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, newMword.part = part.value)" />
       </div>
       <div class="mitem" >
-        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, saveMword.pronun = pronun.value)" />
+        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, newMword.pronun = pronun.value)" />
       </div>
       <div class="mitem" >
         <label>mss:</label>
@@ -55,10 +55,10 @@
         <label>word:</label> {{(mWord | async)?.$key}}
       </div>
       <div class="mitem" >
-        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, saveMword.parts.a = part.value)" />
+        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, newMword.part = part.value)" />
       </div>
       <div class="mitem" >
-        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, saveMword.pronun = pronun.value)" />
+        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, newMword.pronun = pronun.value)" />
       </div>
       <div class="mitem" >
         <label>mss:</label>{{(mWord | async)?.mss}}
