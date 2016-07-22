@@ -103,6 +103,13 @@ export class DispMwordComponent implements OnInit {
     console.log("OnNext: value: " + value );
   }
 
+  // http://stackoverflow.com/questions/34405301/detect-change-to-ngmodel-on-a-select-tag-angular-2mk0
+  onChange( partKey:string ) {
+    console.log("onChange: " + partKey );
+    this.newMword.pronun = this.parts[partKey];
+
+  }
+
   get diagMode() {
     return "DispMword: Mode: " + this.dispMode;
   }

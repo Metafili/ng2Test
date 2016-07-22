@@ -31,7 +31,7 @@
         <label>word:</label>
         <!-- <input type="text" #part (keyup.enter)="onNext($event, newMword.part = part.value)" -->
         <!-- class="form-control" Bootstrap -->
-        <input type="text" iplaceholder="Word is required" required
+        <input type="text" placeholder="Word is required" required
             [(ngModel)]="newMword.word" name="word" #word="ngModel" #spy />
        <!--
         <div [hidden]="word.valid || word.pristine" class="alert alert-danger">
@@ -71,8 +71,14 @@
       </div>
       <div class="mitem" >
         <label>part:</label>
+        <select  required
+          [(ngModel)]="newMword.part" name="part" #part (ngModelChange)="onChange(part.value)" > <!--BUG: #part="ngModel" -->
+          <option *ngFor="let p of partsKey" [value]="p">{{p}}</option>
+        </select>
+        <!--
         <input type="text"  placeholder="Part is required" required
             [(ngModel)]="newMword.part"  name="part" #part="ngModel" #spy  />
+        -->
       </div>
       <div class="mitem" >
         <label>pronun:</label>
