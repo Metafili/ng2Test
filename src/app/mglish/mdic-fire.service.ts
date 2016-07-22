@@ -90,20 +90,17 @@ export class MdicFireService {
 	}
 
   updateParts( wordsRef, word:string, key:string, value:string ) {
+    let partsRef = this.af.database.object('/mserver/words/' +  word + '/parts');
     var part = {};
     part[key] = value;
-    wordsRef.update({["parts"]: part });
+    partsRef.update( part );
+    // wordsRef.update({["parts"]: part });
 	}
 
-  /*
-  updateLangs( wordsRef, word:string, lang:string, value:string ) {
-		wordRef = wordsRef.child(word);
-		this.update( wordRef, "langs", lang, value );
+  updateLangs( wordsRef, word:string, key:string, value:string ) {
+    let langsRef = this.af.database.object('/mserver/words/' +  word + '/langs');
+    var lang = {};
+    lang[key] = value;
+    langsRef.update( lang );
 	}
-
-  updateParts( wordsRef, word, part:string, value:string ) {
-		wordRef = wordsRef.child(word);
-		this.update( wordRef, "parts", part, value );
-	}
-  */
 }
