@@ -1,4 +1,8 @@
 import { Component, Input, Output, EventEmitter, Injectable, OnInit } from '@angular/core';
+import {
+  AngularFire,
+  FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
+
 import { Mword, Parts, Langs } from '../mdic-fire.service';
 
 // Select based on enum in Angular2
@@ -27,12 +31,14 @@ export class NewMword {
 export class DispMwordComponent implements OnInit {
 
   newMword:NewMword;
+  parts: any;
+  partsKey:string[];
 
   // dispMode: DispMode;
   // Store a reference to the enum
   DISPMODE = DispMode;
 
-  @Input() mWord: any; // FirebaseOvservableObject: Mword interface;
+  @Input() mWord: FirebaseObjectObservable<any>;
   @Input() dispMode: DispMode;
   @Input() INDEX: number;
 
@@ -45,7 +51,8 @@ export class DispMwordComponent implements OnInit {
 
   ngOnInit() {
     this.dispMode = DispMode.NONE;
-    // this.newMword = new NewMword();
+    this.newMword = new NewMword();
+    this.partsKey = [];
   }
 
   /**
@@ -62,6 +69,22 @@ export class DispMwordComponent implements OnInit {
   onEdit() {
     this.dispMode = DispMode.EDIT;
     this.newMword = new NewMword();
+
+    this.mWord.subscribe( w => {
+      this.newMword.word = w.word;
+      this.partsKey.length = 0;
+
+      this.parts = w.parts;
+      if( this.parts !== undefined ) {
+        Object.keys(this.parts).forEach( k => {
+          this.partsKey.push(k);
+        });
+        this.newMword.part = this.partsKey[0] // w.parts[partsKey[0]];
+        this.newMword.pronun = w.parts[this.partsKey[0]] // w.pronun;
+      } else {
+        this.newMword.pronun = w.pronun;
+      }
+    });
   }
 
   onSave() {
@@ -82,6 +105,10 @@ export class DispMwordComponent implements OnInit {
 
   get diagMode() {
     return "DispMword: Mode: " + this.dispMode;
+  }
+
+  get diagNewMword() {
+    return "DispMword: newMword: " + JSON.stringify(this.newMword);
   }
 
   get diagMword() {

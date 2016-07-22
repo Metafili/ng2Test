@@ -14,7 +14,7 @@ export interface Mword {
 }
 
 export class Mword implements Mword {
-  constructor( word, pronun, mss, wss ) {
+  constructor( word:string, pronun:string, mss:string, wss:string ) {
     this.word = word;
     this.pronun = pronun;
     this.mss = mss;

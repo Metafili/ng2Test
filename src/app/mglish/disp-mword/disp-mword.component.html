@@ -24,16 +24,30 @@
       </div>
     </div>
   </div>
+
   <div *ngSwitchCase="DISPMODE.NEW">
     <div class="mdisp">
       <div class="mitem" >
-        <label>word:</label><input type="text" #word (keyup.enter)="onNext($event, newMword.word = word.value)" />
+        <label>word:</label>
+        <!-- <input type="text" #part (keyup.enter)="onNext($event, newMword.part = part.value)" -->
+        <!-- class="form-control" Bootstrap -->
+        <input type="text" iplaceholder="Word is required" required
+            [(ngModel)]="newMword.word" name="word" #word="ngModel" #spy />
+       <!--
+        <div [hidden]="word.valid || word.pristine" class="alert alert-danger">
+          Word is required
+       </div>
+       -->
       </div>
       <div class="mitem" >
-        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, newMword.part = part.value)" />
+        <label>part:</label>
+        <input type="text"  placeholder="Part is required" required
+            [(ngModel)]="newMword.part"  name="part" #part="ngModel" #spy  />
       </div>
       <div class="mitem" >
-        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, newMword.pronun = pronun.value)" />
+        <label>pronun:</label>
+        <input type="text" placeholder="Pronun is required" required
+            [(ngModel)]="newMword.pronun" name="pronun" #pronun="ngModel" #spy />
       </div>
       <div class="mitem" >
         <label>mss:</label>
@@ -49,16 +63,21 @@
       </div>
     </div>
   </div>
+
   <div *ngSwitchCase="DISPMODE.EDIT">
     <div class="mdisp">
       <div class="mitem" >
         <label>word:</label> {{(mWord | async)?.$key}}
       </div>
       <div class="mitem" >
-        <label>part:</label><input type="text" #part (keyup.enter)="onNext($event, newMword.part = part.value)" />
+        <label>part:</label>
+        <input type="text"  placeholder="Part is required" required
+            [(ngModel)]="newMword.part"  name="part" #part="ngModel" #spy  />
       </div>
       <div class="mitem" >
-        <label>pronun:</label><input type="text" #pronun (keyup.enter)="onNext($event, newMword.pronun = pronun.value)" />
+        <label>pronun:</label>
+        <input type="text" placeholder="Pronun is required" required
+            [(ngModel)]="newMword.pronun" name="pronun" #pronun="ngModel" #spy />
       </div>
       <div class="mitem" >
         <label>mss:</label>{{(mWord | async)?.mss}}
@@ -83,7 +102,8 @@
   <button (click)="onDelete()">Delete</button>
 </div>
 
-{{diagMode}} {{INDEX}}
+{{diagMode}} {{INDEX}}<br>
+{{diagNewMword}}
 <!--
 <div class="diagnostic">
   <b>{{ (mword | async)?.$key}}:</b>
