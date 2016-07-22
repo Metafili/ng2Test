@@ -17,10 +17,13 @@
         <label>wss:</label> {{(mWord | async)?.wss}}
       </div>
       <div class="mitem" >
-        <label>timestamp:</label> {{(mWord | async)?.timestamp}}
+        <label>disp:</label> <span>{{(mWord | async)?.word}}</span>
       </div>
       <div class="mitem" >
-        <label>disp:</label> <span>{{(mWord | async)?.word}}</span>
+        <!--
+        <label>timestamp:</label> {{(mWord | async)?.timestamp}}
+        -->
+        <label>timestamp:</label> {{date}}
       </div>
     </div>
   </div>
@@ -41,7 +44,7 @@
       </div>
       <div class="mitem" >
         <label>part:</label>
-        <input type="text"  placeholder="Part is required" required
+        <input type="text" placeholder="Part is required" required
             [(ngModel)]="newMword.part"  name="part" #part="ngModel" #spy  />
       </div>
       <div class="mitem" >
@@ -56,10 +59,10 @@
         <label>wss:</label>
       </div>
       <div class="mitem" >
-        <label>timestamp:</label> {{(mWord | async)?.timestamp}}
+        <label>disp:</label>
       </div>
       <div class="mitem" >
-        <label>disp:</label>
+        <label>timestamp:</label> {{(mWord | async)?.timestamp}}
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Injectable, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Injectable, OnChanges, SimpleChange, OnInit } from '@angular/core';
 import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
@@ -28,11 +28,12 @@ export class NewMword {
   templateUrl: 'disp-mword.component.html',
   styleUrls: ['disp-mword.component.css']
 })
-export class DispMwordComponent implements OnInit {
+export class DispMwordComponent implements OnInit, OnChanges {
 
   newMword:NewMword;
   parts: any;
   partsKey:string[];
+  date:Date;
 
   // dispMode: DispMode;
   // Store a reference to the enum
@@ -49,10 +50,27 @@ export class DispMwordComponent implements OnInit {
   constructor() {
   }
 
+  // http://juristr.com/blog/2016/04/angular2-change-detection/
+  ngOnChanges(changes: {[ propName: string]: SimpleChange}) {
+    if(changes.hasOwnProperty('mWord')){
+      console.log('Change detected: mWord: ', changes['mWord'].currentValue);
+      // Workaround for triggering
+      this.dispMode = DispMode.NONE;
+    }
+    if(changes.hasOwnProperty('dispMode'))
+      console.log('Change detected: dispMode: ', changes['dispMode'].currentValue);
+    if(changes.hasOwnProperty('INDEX'))
+      console.log('Change detected: INDEX: ', changes['INDEX'].currentValue);
+	}
+
   ngOnInit() {
     this.dispMode = DispMode.NONE;
     this.newMword = new NewMword();
     this.partsKey = [];
+
+    this.mWord.subscribe( w => {
+      this.date = new Date( w.timestamp * 1000 );
+    })
   }
 
   /**

@@ -5,10 +5,10 @@
 /*
  * http://cssdeck.com/labs/css3-webkit-vertical-scrollbars/
  */
-.scrollbar {
+.mdicscrollbar {
     margin-left: 5px;
     float: left;
-    height: 200px;
+    height: 300px;
     width: 100%;
     background: #F5F5F5;
     overflow-y: scroll;

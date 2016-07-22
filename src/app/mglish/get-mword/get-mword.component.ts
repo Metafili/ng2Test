@@ -29,13 +29,11 @@ export class GetMwordComponent implements OnInit {
   mWords: FirebaseListObservable<any[]>; // ListObservable
 
   dispMode: DispMode;
-  INDEX:number;
 
   constructor( private mdicSvc: MdicFireService ) {
     this.mWords = mdicSvc.getWords();
 
     this.dispMode = DispMode.NONE
-    this.INDEX = 0;
   }
 
   ngOnInit() {
@@ -46,18 +44,18 @@ export class GetMwordComponent implements OnInit {
     console.log('convert: ' + word );
     this.mWord = this.mdicSvc.getWord(word);
 
-    this.INDEX++;
+    // dispMode값이 변경되지 않으면, ngOnChanges가 Trigger되지 않음(?Bug)
+    // 동일한 값으로 Write한 경우에는 Trigger되는게 맞을 듯
     this.dispMode = DispMode.NONE;
-    console.log("convert: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
+    console.log("convert: " + word + ", Mode: " + this.dispMode);
   }
 
   findWord( word:string ) {
     if( word !== "" ){
       this.mWord = this.mdicSvc.getWord(word);
+      this.dispMode = DispMode.NONE;
     }
-    this.INDEX++;
-    this.dispMode = DispMode.NONE;
-    console.log("Find: " + word + ", Mode: " + this.dispMode + ", INDEX: " + this.INDEX);
+    console.log("Find: " + word + ", Mode: " + this.dispMode);
   }
 
   add( addMword:NewMword ) {

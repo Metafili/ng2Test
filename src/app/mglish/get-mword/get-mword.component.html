@@ -1,5 +1,5 @@
 <b>{{title}}</b>
-<div class="scrollbar" id="style-6">
+<div class="mdicscrollbar" id="style-6">
   <!-- <div class="force-overflow"></div> -->
   <ul *ngFor="let w of mWords | async" >
     <li class="text">
@@ -9,7 +9,10 @@
   </ul>
 </div>
 
-<disp-mword class="mword" [mWord]=mWord [dispMode]=dispMode [INDEX]=INDEX
+<!-- dispMode값이 변경되지 않으면, ngChange() Trigger되지 않음(?Bug)
+     동일한 값으로 Write한 경우에는 Trigger되는게 맞을 듯
+-->
+<disp-mword class="mword" [mWord]=mWord [dispMode]=dispMode
   (add)="add($event)"
   (update)="update($event)"
   (delete)="delete($event)">
