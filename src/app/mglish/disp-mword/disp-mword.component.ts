@@ -56,11 +56,12 @@ export class DispMwordComponent implements OnInit, OnChanges {
       console.log('Change detected: mWord: ', changes['mWord'].currentValue);
       // Workaround for triggering
       this.dispMode = DispMode.NONE;
+      this.mWord.subscribe( w => {
+        this.date = new Date( w.timestamp * 1000 ); // .format("DD-MM-YYYY HH:mm:ss");
+      });
     }
     if(changes.hasOwnProperty('dispMode'))
       console.log('Change detected: dispMode: ', changes['dispMode'].currentValue);
-    if(changes.hasOwnProperty('INDEX'))
-      console.log('Change detected: INDEX: ', changes['INDEX'].currentValue);
 	}
 
   ngOnInit() {
@@ -68,9 +69,6 @@ export class DispMwordComponent implements OnInit, OnChanges {
     this.newMword = new NewMword();
     this.partsKey = [];
 
-    this.mWord.subscribe( w => {
-      this.date = new Date( w.timestamp * 1000 );
-    })
   }
 
   /**
