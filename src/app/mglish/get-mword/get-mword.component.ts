@@ -31,9 +31,8 @@ export class GetMwordComponent implements OnInit {
   dispMode: DispMode;
 
   constructor( private mdicSvc: MdicFireService ) {
-    this.mWords = mdicSvc.getWords();
-
     this.dispMode = DispMode.NONE
+    this.mWords = mdicSvc.getWords();
   }
 
   ngOnInit() {
@@ -41,7 +40,6 @@ export class GetMwordComponent implements OnInit {
   }
 
   convert( word: string ) {
-    console.log('convert: ' + word );
     this.mWord = this.mdicSvc.getWord(word);
 
     // dispMode값이 변경되지 않으면, ngOnChanges가 Trigger되지 않음(?Bug)
