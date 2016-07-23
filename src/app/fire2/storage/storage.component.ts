@@ -88,6 +88,7 @@ export class StorageComponent implements OnInit {
       var downloadURL = uploadTask.snapshot.downloadURL;
       console.log("Upload: URL: " + downloadURL );
 
+      // Download for Testing
       StorageComponent.download( storageRef, path, file.name, metadata );
     });
   }
