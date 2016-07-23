@@ -14,7 +14,7 @@ export class StorageService {
     return uploadTask;
   }
 
-  download( storageRef, path:string, file:string, metadata:Object ): firebase.Promise<string> {
+  download( storageRef:firebase.storage.Reference, path:string, file:string, metadata:any ): firebase.Promise<string> {
     let downloadRef:firebase.storage.Reference = storageRef.child(path + file);
     let downPromise = downloadRef.getDownloadURL();
     return downPromise;
