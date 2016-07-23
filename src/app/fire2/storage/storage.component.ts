@@ -21,16 +21,18 @@ export class StorageComponent implements OnInit {
 
   storage:firebase.storage.Storage;
   storageRef:firebase.storage.Reference;
-  static storageSvc:StorageService;
+  static storageSvc:StorageService; // Nested Access of this
   
   db:firebase.database.Database;
 
   // Upload
   file:File;
   metadata:any;
+
+  // For cancel
   // uploadTask:firebase.storage.UploadTask;
+
   // Download
-  // downloadUrl:string;
   static downloadUrl:string;
   
   constructor( 
@@ -40,6 +42,7 @@ export class StorageComponent implements OnInit {
     this.storage = firebase.storage();
     this.storageRef = this.storage.ref();
     StorageComponent.storageSvc = storageSvc;
+
     this.db = firebase.database();
   }
 
@@ -63,12 +66,12 @@ export class StorageComponent implements OnInit {
       console.log('Upload is ' + progress + '% done');
 
       switch (snapshot.state) {
-      case firebase.storage.TaskState.PAUSED: // or 'paused'
-        console.log('Upload is paused');
-        break;
-      case firebase.storage.TaskState.RUNNING: // or 'running'
-        console.log('Upload is running');
-        break;
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
       }
 
     }, function(error:any) {
@@ -93,7 +96,7 @@ export class StorageComponent implements OnInit {
     let downPromise = StorageComponent.storageSvc.download( storageRef, path, file, metadata );
     downPromise.then(function(url) {
     // Insert url into an <img> tag to "download"
-      StorageComponent.downloadUrl = url;
+      StorageComponent.downloadUrl = url; // Nested Access of this
       console.log("Download: URL: " + url );
     }).catch(function(error) {
       switch (error) {
