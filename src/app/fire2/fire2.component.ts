@@ -108,7 +108,7 @@ export class Fire2Component implements OnInit {
     });
   }
 
-    //JavaScript: String, TypeScript: string
+  //JavaScript: String, TypeScript: string
   set(newKey: string, newName: string, newSize: string ) {
     // Converting a JSON Text to a JavaScript Object
     // JSON.parse() Error: Use '..' instead of ".."
@@ -128,6 +128,7 @@ export class Fire2Component implements OnInit {
     .catch( err => console.log(err, "Failed"));
   }
 
+  // For FirebaseObjectObservable<any>
   update( updateKey: string, newName: string, newSize: string) {
    this.word.update(
       {[updateKey]: { name: newName, size: newSize }}
@@ -137,6 +138,7 @@ export class Fire2Component implements OnInit {
     console.log("Item Updated");
   }
 
+  // For FirebaseListObservable<any[]>
   push( newName: string, newSize: string ) {
     this.words.push({ name: newName, size: newSize });
   }

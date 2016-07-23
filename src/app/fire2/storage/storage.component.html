@@ -1,0 +1,9 @@
+<div>
+  <label for="fileupload">Upload</label>
+  <input type="file" (change)="onFilePicker($event)"/>
+</div>
+<div>
+  <label for="filedownload">Download</label>
+  <img src="{{getDownloadUrl}}" />
+</div>
+{{diagDownload}}
