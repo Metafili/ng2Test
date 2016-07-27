@@ -13,6 +13,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  *    key {{keyValuePair.key}} and value {{keyValuePair.value}}
  *  </div>
  *
+ * Create a Globally Available Custom Pipe in Angular 2
+ *  -https://codequs.com/p/HJYDyusv/create-a-globally-available-custom-pipe-in-angular-2
  */
 @Pipe({
   name: 'mapToIterable'
