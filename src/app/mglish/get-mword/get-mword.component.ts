@@ -67,6 +67,7 @@ export class GetMwordComponent implements OnInit {
 
   update( updateMword:NewMword ) {
     console.log("updateMword: " + this.word );
+    this.word = updateMword.word;
 
     // let newWord: Mword = new Mword( this.word, newMword.pronun, "", "" );
     this.mdicSvc.updateMword( this.word, updateMword );
