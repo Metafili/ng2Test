@@ -11,10 +11,10 @@ import { StorageComponent }     from './fire2/storage/storage.component';
 import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
-import { HeroFormComponent }    from './basics/hero-form/hero-form.component';
+import { HeroFormComponent }           from './basics/hero-form/hero-form.component';
 import { ModelDrivenFormComponent }    from './basics/forms/model-driven-form/model-driven-form.component';
 import { TemplateDrivenFormComponent } from './basics/forms/template-driven-form/template-driven-form.component';
-import { CustomFormComponent }    from './basics/forms/custom-form/custom-form.component';
+import { CustomFormComponent }         from './basics/forms/custom-form/custom-form.component';
 
 import { ContentProjectionComponent } from './basics/content-projection/content-projection.component';
 import { WordListComponent }    from './mglish/word-list/word-list.component';

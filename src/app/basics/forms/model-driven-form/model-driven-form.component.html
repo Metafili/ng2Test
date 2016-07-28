@@ -1,3 +1,41 @@
 <p>
-  model-driven-form works!
+  model-driven-form:<br>
+  --> formControlName == name="firstname" ngModel of template-driven form
 </p>
+
+<b>For Model Driven Form</b>
+<form #form="ngForm" [formGroup]="registerForm" (submit)="logForm(form.value)">
+  <label>Firstname:</label>
+  <input type="text" class="form-control" formControlName="firstname">
+
+  <fieldset formGroupName="address">
+    <label>Street:</label>
+    <input type="text" class="form-control" formControlName="street">
+  </fieldset>
+
+  <button type="submit">Submit</button>
+</form>
+<br>
+
+<b>For FormBuilder</b>
+<form #formBilder="ngForm" [formGroup]="registerFormBuilder" (submit)="logForm(formBilder.value)">
+  <label>Firstname:</label>
+  <input type="text" class="form-control" formControlName="firstname">
+  <p *ngIf="registerFormBuilder.controls.firstname.errors">This field is required!</p>
+
+  <label>Lastname:</label>
+  <input type="text" fclass="form-control" formControlName="lastname">
+
+  <fieldset formGroupName="address">
+    <label>Street:</label>
+    <input type="text" class="form-control" formControlName="street">
+  </fieldset>
+
+  <button type="submit">Submit</button>
+</form>
+<br>
+
+<b>Forms with a single control</b>
+<!-- no surrounding form -->
+<input #searchForm type="search" [formControl]="seachControl" (search)="onSearch(searchForm.value)" >
+<br>
