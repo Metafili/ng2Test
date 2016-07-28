@@ -63,6 +63,9 @@ const barrels: string[] = [
   'app/fire2/offline',
   'app/mglish/disp-mword',
   'app/fire2/storage',
+  'app/basics/forms/custom-form',
+  'app/basics/forms/template-driven',
+  'app/basics/forms/template-driven-form',
   /** @cli-barrel */
 ];
 

@@ -1,0 +1,68 @@
+<p>
+  template-driven-form!
+</p>
+
+<b>Unregistered Form</b>
+<form #form="ngForm" (submit)="logForm(form.value)">
+  <label>Firstname:</label>
+  <input type="text" class="form-control" >
+  <!--
+  <label>Lastname:</label>
+  <input type="text" class="form-control" >
+
+  <label>Street:</label>
+  <input type="text" class="form-control" >
+  <label>Zip:</label>
+  <input type="text" class="form-control" >
+  <label>City:</label>
+  <input type="text" class="form-control" >
+  -->
+  <button type="submit">Submit</button>
+</form>
+<br>
+
+<b>Registered Form</b>
+<form #regform="ngForm" (submit)="logForm(regform.value)">
+  <label>Firstname:</label>
+  <input type="text" class="form-control" name="firstname" ngModel>
+
+  <!--
+  <label>Street:</label>
+  <input type="text" class="form-control" name="street" ngModel>
+  -->
+  <button type="submit">Submit</button>
+</form>
+<br>
+
+<b>Grouped Form</b>
+<form #groupForm="ngForm" (submit)="logForm(groupForm.value)">
+  <fieldset ngModelGroup="name">
+    <label>Firstname:</label>
+    <input type="text" class="form-control" name="firstname" ngModel>
+  </fieldset>
+
+  <fieldset ngModelGroup="address">
+    <label>Street:</label>
+    <input type="text" class="form-control" name="street" ngModel>
+  </fieldset>
+
+  <button type="submit">Submit</button>
+</form>
+<br>
+
+<b>Form with tow-bind ngModel</b>
+<form #expreForm="ngForm" (submit)="logForm(expreForm.value)">
+  <fieldset ngModelGroup="name">
+    <label>Firstname:</label>
+    <input type="text" name="firstname" [(ngModel)]="firstname">
+    <p>You entered {{firstname}}</p>
+
+    <label>Lastname:</label>
+    <input type="text" name="lastname" [(ngModel)]="lastname">
+    <p>You entered {{lastname}}</p>
+  </fieldset>
+
+  <button type="submit">Submit</button>
+</form>
+{{diagLogForm}}
+
