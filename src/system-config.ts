@@ -66,6 +66,7 @@ const barrels: string[] = [
   'app/basics/forms/custom-form',
   'app/basics/forms/template-driven',
   'app/basics/forms/template-driven-form',
+  'app/basics/forms/model-driven-form',
   /** @cli-barrel */
 ];
 

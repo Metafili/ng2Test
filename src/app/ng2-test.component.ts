@@ -12,7 +12,8 @@ import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
 import { HeroFormComponent }    from './basics/hero-form/hero-form.component';
-import { TemplateDrivenFormComponent }    from './basics/forms/template-driven-form/template-driven-form.component';
+import { ModelDrivenFormComponent }    from './basics/forms/model-driven-form/model-driven-form.component';
+import { TemplateDrivenFormComponent } from './basics/forms/template-driven-form/template-driven-form.component';
 import { CustomFormComponent }    from './basics/forms/custom-form/custom-form.component';
 
 import { ContentProjectionComponent } from './basics/content-projection/content-projection.component';
@@ -30,6 +31,7 @@ import { LoginComponent }       from './login/login.component';
   {path: '/wikisearch',       name: 'WikiSearch',  component: WikiSearchComponent },
   {path: '/gestures',         name: 'MdGestures',  component: GesturesComponent },
   {path: '/basicform',        name: 'BasicForms',   component: HeroFormComponent },
+  {path: '/modelform',        name: 'ModelForm',    component: ModelDrivenFormComponent },
   {path: '/templateform',     name: 'TemplateForm', component: TemplateDrivenFormComponent },
   {path: '/customform',       name: 'CustomForm',   component: CustomFormComponent },
   {path: '/contentproject',   name: 'ContentProjection',  component: ContentProjectionComponent },
