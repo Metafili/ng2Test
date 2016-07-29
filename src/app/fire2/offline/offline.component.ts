@@ -19,8 +19,15 @@ import 'rxjs/add/operator/filter';
 // gitter: https://github.com/easierbycode/af2-wtf/commit/1c7184411f4bec8fa2b1b206b4f5b803e677f9d3
 
 // var myConnectionsRef: any; === static myConnectionsRef: any in Class
-// staticㅇ은 template에서 access할 수 없음. <--Security?
+// static은 template에서 access할 수 없음. <--Security?
 // https://github.com/angular/angular/issues/6429
+//
+// Lexical Closure: this/self: Getting Out of Binding Situations in JavaScript
+// http://alistapart.com/article/getoutbindingsituations
+// https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures
+// http://stackoverflow.com/questions/12930272/javascript-closures-vs-anonymous-functions
+// http://stackoverflow.com/questions/17279437/lexical-scope-closures-in-javascript
+// https://spin.atomicobject.com/2014/10/20/javascript-scope-closures/
 
 @Component({
   moduleId: module.id,
@@ -38,17 +45,17 @@ export class OfflineComponent implements OnInit {
   lastOnline$: FirebaseObjectObservable<any>;
   connected$: FirebaseObjectObservable<any>;
 
-  static myConnectionsRef:any;
-  static lastOnlineRef: any;
-  static connectedRef: any;
-  static myConnections:any;
-  static lastOnline:any;
-  static connedted:any;
-  static test:string = "TEST";
-  
+  myConnectionsRef:any;
+  lastOnlineRef: any;
+  connectedRef: any;
+  myConnections:any;
+  lastOnline:any;
+  connedted:any;
+  test:string = "TEST";
+
   // Firebase: constructor(@Inject(FirebaseRef) ref:Firebase) {
-  constructor( 
-    @Inject(FirebaseApp) firebaseApp: firebase.app.App, 
+  constructor(
+    @Inject(FirebaseApp) firebaseApp: firebase.app.App,
     af: AngularFire ) {
 
     this.myConnections$ = af.database.list('/users/edicon/connections');
@@ -57,9 +64,9 @@ export class OfflineComponent implements OnInit {
 
     this.app = firebaseApp;
     this.rootRef = this.app.database().ref();
-    OfflineComponent.myConnectionsRef = this.app.database().ref('/users/edicon/connections');
-    OfflineComponent.lastOnlineRef = this.app.database().ref('/users/edicon/lastOnline');
-    OfflineComponent.connectedRef = this.app.database().ref('/.info/connected');
+    this.myConnectionsRef = this.app.database().ref('/users/edicon/connections');
+    this.lastOnlineRef = this.app.database().ref('/users/edicon/lastOnline');
+    this.connectedRef = this.app.database().ref('/.info/connected');
 
     this.rootRef.on('value', this.doSomething);
   }
@@ -69,7 +76,7 @@ export class OfflineComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+      var ngThis = this;
     /*
     this.connected$
     .filter( snap => snap.$value == true )
@@ -98,25 +105,28 @@ export class OfflineComponent implements OnInit {
       console.log("offsetRef: offset --> " + estimatedServerTimeMs + " : " + offset );
     });
 
-    OfflineComponent.myConnectionsRef.on('value', function(snap) {
-      OfflineComponent.myConnections = snap.val();
-      console.log("myConnections: " + OfflineComponent.myConnections);
+    this.myConnectionsRef.on('value', function(snap) {
+      var that = ngThis;
+      that.myConnections = snap.val();
+      console.log("myConnections: " + that.myConnections);
     });
 
-    OfflineComponent.lastOnlineRef.on('value', function(snap) {
-      OfflineComponent.lastOnline = snap.val();
-      console.log("lastOnlineRef: " + OfflineComponent.lastOnline);
+    this.lastOnlineRef.on('value', function(snap) {
+      var that = ngThis;
+      that.lastOnline = snap.val();
+      console.log("lastOnlineRef: " + that.lastOnline);
     });
 
-    OfflineComponent.connectedRef.on('value', function(snap) {
-      OfflineComponent.connedted = snap.val();
-      console.log("connected: " + OfflineComponent.connedted);
+    this.connectedRef.on('value', function(snap) {
+      var that = ngThis;
+      that.connedted = snap.val();
+      console.log("connected: " + that.connedted);
       if (snap.val() === true) {
         // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
 
         // add this device to my connections list
         // this value could contain info about the device or a timestamp too
-        var con = OfflineComponent.myConnectionsRef.push(true);
+        var con = that.myConnectionsRef.push(true);
 
         // when I disconnect, remove this device
         con.onDisconnect().remove(function(e) {
@@ -126,17 +136,17 @@ export class OfflineComponent implements OnInit {
         });
 
         // when I disconnect, update the last time I was seen online
-        OfflineComponent.lastOnlineRef.onDisconnect().set(firebase.database['ServerValue'].TIMESTAMP);
+        that.lastOnlineRef.onDisconnect().set(firebase.database['ServerValue'].TIMESTAMP);
       }
     });
   }
   get lastOnlineiValue():string {
-    return OfflineComponent.lastOnline;
+    return this.lastOnline;
   }
   get connectedValue():boolean {
-    return OfflineComponent.connedted;
+    return this.connedted;
   }
   get testValue():string {
-    return OfflineComponent.test;
+    return this.test;
   }
 }
