@@ -27,7 +27,7 @@ import 'rxjs/add/operator/filter';
 //  -https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures
 //  -http://stackoverflow.com/questions/12930272/javascript-closures-vs-anonymous-functions
 //  -http://stackoverflow.com/questions/17279437/lexical-scope-closures-in-javascript
-//  -https://spin.atomicobject.com/2014/10/20/javascript-scope-closures/
+//  **-https://spin.atomicobject.com/2014/10/20/javascript-scope-closures/
 
 @Component({
   moduleId: module.id,
