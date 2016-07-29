@@ -23,11 +23,11 @@ import 'rxjs/add/operator/filter';
 // https://github.com/angular/angular/issues/6429
 //
 // Lexical Closure: this/self: Getting Out of Binding Situations in JavaScript
-// http://alistapart.com/article/getoutbindingsituations
-// https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures
-// http://stackoverflow.com/questions/12930272/javascript-closures-vs-anonymous-functions
-// http://stackoverflow.com/questions/17279437/lexical-scope-closures-in-javascript
-// https://spin.atomicobject.com/2014/10/20/javascript-scope-closures/
+//  -http://alistapart.com/article/getoutbindingsituations
+//  -https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures
+//  -http://stackoverflow.com/questions/12930272/javascript-closures-vs-anonymous-functions
+//  -http://stackoverflow.com/questions/17279437/lexical-scope-closures-in-javascript
+//  -https://spin.atomicobject.com/2014/10/20/javascript-scope-closures/
 
 @Component({
   moduleId: module.id,
@@ -45,6 +45,7 @@ export class OfflineComponent implements OnInit {
   lastOnline$: FirebaseObjectObservable<any>;
   connected$: FirebaseObjectObservable<any>;
 
+  // static myConnections to lexical closures
   myConnectionsRef:any;
   lastOnlineRef: any;
   connectedRef: any;

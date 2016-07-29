@@ -6,9 +6,9 @@ import {
 import { StorageService } from './storage.service';
 
 // Angular2 File upload from input type=file
-// http://stackoverflow.com/questions/35399617/angular-2-file-upload-from-input-type-file
+//  -http://stackoverflow.com/questions/35399617/angular-2-file-upload-from-input-type-file
 // Using Firebase 3 in Angular 2 and Ionic 2
-// https://webcake.co/using-firebase-3-in-angular-2-and-ionic-2/
+//  -https://webcake.co/using-firebase-3-in-angular-2-and-ionic-2/
 
 @Component({
   moduleId: module.id,
@@ -21,8 +21,8 @@ export class StorageComponent implements OnInit {
 
   storage:firebase.storage.Storage;
   storageRef:firebase.storage.Reference;
-  static storageSvc:StorageService; // Nested Access of this
-  
+  storageSvc:StorageService; // Nested Access of this
+
   db:firebase.database.Database;
 
   // Upload
@@ -33,15 +33,15 @@ export class StorageComponent implements OnInit {
   // uploadTask:firebase.storage.UploadTask;
 
   // Download
-  static downloadUrl:string;
-  
-  constructor( 
-    @Inject(FirebaseApp) firebaseApp: firebase.app.App, 
+  downloadUrl:string;
+
+  constructor(
+    @Inject(FirebaseApp) firebaseApp: firebase.app.App,
     af: AngularFire, storageSvc:StorageService ) {
 
     this.storage = firebase.storage();
     this.storageRef = this.storage.ref();
-    StorageComponent.storageSvc = storageSvc;
+    this.storageSvc = storageSvc;
 
     this.db = firebase.database();
   }
@@ -59,8 +59,8 @@ export class StorageComponent implements OnInit {
   }
 
   upload( storageRef, path:string, file:File, metadata:firebase.storage.UploadMetadata ) {
-
-    let uploadTask = StorageComponent.storageSvc.upload( storageRef, path, file, metadata );
+    var that = this;
+    let uploadTask = this.storageSvc.upload( storageRef, path, file, metadata );
     uploadTask.on('state_changed', function(snapshot){
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
@@ -89,15 +89,16 @@ export class StorageComponent implements OnInit {
       console.log("Upload: URL: " + downloadURL );
 
       // Download for Testing
-      StorageComponent.download( storageRef, path, file.name, metadata );
+      that.download( storageRef, path, file.name, metadata );
     });
   }
 
-  public static download( storageRef, path:string, file:string, metadata:any ) {
-    let downPromise = StorageComponent.storageSvc.download( storageRef, path, file, metadata );
+  download( storageRef, path:string, file:string, metadata:any ) {
+    var that =  this;
+    let downPromise = this.storageSvc.download( storageRef, path, file, metadata );
     downPromise.then(function(url) {
-    // Insert url into an <img> tag to "download"
-      StorageComponent.downloadUrl = url; // Nested Access of this
+      // Insert url into an <img> tag to "download"
+      that.downloadUrl = url; // Nested Access of this
       console.log("Download: URL: " + url );
     }).catch(function(error) {
       switch (error) {
@@ -115,14 +116,13 @@ export class StorageComponent implements OnInit {
       console.log('Error: ' + error);
     });
   }
-  
+
   get getDownloadUrl() {
-    return StorageComponent.downloadUrl;
+    return this.downloadUrl;
   }
 
-  // Debugging 
+  // Debugging
   get diagDownload() {
-    return StorageComponent.downloadUrl;
+    return this.downloadUrl;
   }
-
 }
