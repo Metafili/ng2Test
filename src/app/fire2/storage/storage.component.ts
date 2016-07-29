@@ -98,7 +98,7 @@ export class StorageComponent implements OnInit {
     let downPromise = this.storageSvc.download( storageRef, path, file, metadata );
     downPromise.then(function(url) {
       // Insert url into an <img> tag to "download"
-      that.downloadUrl = url; // Nested Access of this
+      that.downloadUrl = url; // lexical closures scope
       console.log("Download: URL: " + url );
     }).catch(function(error) {
       switch (error) {
