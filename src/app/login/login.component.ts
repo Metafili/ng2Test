@@ -22,7 +22,7 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
   ]
 })
 export class LoginComponent implements OnInit {
-  title = 'Login';e
+  title = 'Login';
   private emailId: string;
   private password: string;
   private focused: boolean;
@@ -52,8 +52,9 @@ export class LoginComponent implements OnInit {
     this.af.auth.login({
       provider: AuthProviders.Anonymous,
       method: AuthMethods.Anonymous
-    }).then(_ => console.log("Guest Login: OK"))
-      .catch( e => console.log("Guest Login: Failed: " + e ));
+    })
+    .then(_ => console.log("Guest Login: OK"))
+    .catch( e => console.log("Guest Login: Failed: " + e ));
   }
 
   // Email and password
@@ -61,8 +62,9 @@ export class LoginComponent implements OnInit {
     this.af.auth.login({
       // email: 'hslee.edicon@gmail.com', password: '1234'
       email: this.emailId, password: this.password
-    }).then( _ => console.log("Email Login: OK"))
-      .catch( e => console.log("Email Login: Failed: " + e ));
+    })
+    .then( _ => console.log("Email Login: OK"))
+    .catch( e => console.log("Email Login: Failed: " + e ));
   }
 
 
@@ -77,8 +79,9 @@ export class LoginComponent implements OnInit {
     this.af.auth.login({
       provider: AuthProviders.Twitter,
       method: AuthMethods.Popup
-    }).then( _ => console.log("Twitter Login: OK"))
-      .catch( e => console.log("Twitter Login: Failed: " + e ));
+    })
+    .then( _ => console.log("Twitter Login: OK"))
+    .catch( e => console.log("Twitter Login: Failed: " + e ));
   }
 
   // Facebook: https://developers.facebook.com/
