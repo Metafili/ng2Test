@@ -117,7 +117,8 @@ export class LoginComponent implements OnInit {
     // let p =  firebase.auth.EmailAuthProvider.PROVIDER_ID; // "password"
     let p = this.af.auth.getAuth().auth.providerId;    // "firebase"
     let provider:firebase.auth.AuthCredential = { provider:p} ;
-    this.af.auth.getAuth().auth.reauthenticate( provider )
+    firebase.auth().currentUser.reauthenticate( provider )
+    // this.af.auth.getAuth().auth.reauthenticate( provider )
     .then( _ => { 
       console.log("reAuthenticate: OK")
       this.deleteUser();
