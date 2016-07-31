@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable,
-  AuthMethods, AuthProviders  } from 'angularfire2';
+  FirebaseAuthState, FirebaseAuth,
+  /*AuthCredential,*/ AuthMethods, AuthProviders } from 'angularfire2';
 import {MdButton} from '@angular2-material/button';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
+import 'rxjs/add/operator/do';
+
+declare var Zone: any;
 
 @Component({
   moduleId: module.id,
@@ -23,16 +27,102 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
+  user: FirebaseAuthState;
+  auth: FirebaseAuth;
   private emailId: string;
   private password: string;
   private focused: boolean;
   private custToken: any;
 
   constructor( public af: AngularFire ) {
-    this.af.auth.subscribe(auth => { console.log(auth); });
+    af.auth
+      .do( v => console.log("onAuth: ", v ))
+      /* .map( u => {
+        return Object.assign({}, u, {
+          auth: null  // makes easier to convert to json
+        })
+      }) */
+      .subscribe((user:any) => {
+        this.user = user;
+        console.log('zone: ', Zone.current.name );
+        // console.log('user: ', user );
+        if( user ) {
+          this.printUserData(user);
+        } else {
+          console.log("No Login: ", user );
+        }
+      });
   }
 
   ngOnInit() {
+  }
+
+  printUserData( user: any ) {
+      console.log("User: ", user.uid + '/' +  user.provider );
+      if( user.auth.providerData.length != 0 ) {
+        user.auth.providerData.forEach(function (profile) {
+          console.log("Provider: "  + profile.providerId);
+          console.log("  UID: "     + profile.uid);
+          console.log("  Name: "    + profile.displayName);
+          console.log("  Email: "   + profile.email);
+          console.log("  photoURL: "+ profile.photoURL);
+        });
+      }
+  }
+
+  updateEmail( email:string ) {
+    this.af.auth.getAuth().auth.updateEmail( email ) 
+    .then( _ => console.log("updateEmail: OK"))
+    .catch( e => console.log("updateEmail: Failed: " + e ));
+  }
+
+  updatePassword( pass:string ) {
+    this.af.auth.getAuth().auth.updatePassword( pass ) 
+    .then( _ => console.log("updatePassword: OK"))
+    .catch( e => console.log("updatePassword: Failed: " + e ));
+  }
+
+  updateProfile( displayName:string, photoUrl:string ) {
+    this.af.auth.getAuth().auth.updateProfile({
+      displayName: displayName,   // "Jane Q. User",
+      photoURL: photoUrl          // "https://example.com/jane-q-user/profile.jpg"
+    }) 
+    .then( _ => console.log("updateProfile: OK"))
+    .catch( e => console.log("updateProfile: Failed: " + e ));
+  }
+
+  sendMailNotification() {
+    this.af.auth.getAuth().auth.sendEmailVerification()
+    .then( _ => console.log("sendMailNotification: OK"))
+    .catch( e => console.log("sendMailNotification: Failed: " + e ));
+  }
+
+  // https://github.com/angular/angularfire2/issues/374
+  sendPasswordResetEmail() {
+    firebase.auth().sendPasswordResetEmail( this.emailId )
+    .then( _ => console.log("sendPasswordReset: OK"))
+    .catch( e => console.log("sendPasswordReset: Failed: " + e ));;
+  }
+
+  deleteUser() {
+    this.af.auth.getAuth().auth.delete()
+    .then( _ => console.log("deleteUser: OK"))
+    .catch( e => console.log("deleteUser: Failed: " + e ));
+  }
+
+  delReAuthenticate() {
+    // let p  = new firebase.auth.EmailAuthProvider();
+    // p.credential("hslee.edicon@gmail.com", "edcklb1107");
+    // let p = this.af.auth.getAuth().google.provider;
+    // let p =  firebase.auth.EmailAuthProvider.PROVIDER_ID; // "password"
+    let p = this.af.auth.getAuth().auth.providerId;    // "firebase"
+    let provider:firebase.auth.AuthCredential = { provider:p} ;
+    this.af.auth.getAuth().auth.reauthenticate( provider )
+    .then( _ => { 
+      console.log("reAuthenticate: OK")
+      this.deleteUser();
+    })
+    .catch( e => console.log("reAuthenticate: Failed: " + e ));
   }
 
   getEmail( email: string ) {
@@ -67,6 +157,22 @@ export class LoginComponent implements OnInit {
     .catch( e => console.log("Email Login: Failed: " + e ));
   }
 
+  createLogin() {
+    this.af.auth.createUser({
+      email: this.emailId, password: this.password
+    })
+    .then( _ => { 
+      console.log("Create Login: OK");
+      this.sendMailNotification();
+    })
+    .catch( e => console.log("Create Login: Failed: " + e ));
+  }
+
+  logOut() {
+    this.af.auth.logout();
+    console.log("logOut: OK");
+     
+  }
 
   // Twitter: Debugging할려면 Popup으로 설정하여 별도의창
   // Twitter: https://apps.twitter.com/ Login
@@ -115,5 +221,9 @@ export class LoginComponent implements OnInit {
     })
     .then( _ => console.log("Custom Login: OK"))
     .catch( e => console.log("Custom Login: Failed: " + e ));
+  }
+
+  get getUser() {
+    return JSON.stringify(this.user);
   }
 }

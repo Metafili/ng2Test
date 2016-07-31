@@ -24,12 +24,18 @@
     </md-input>
   </div>
   {{emailId}}/{{password}}
+ <!--  {{getUser}} -->
 </div>
 <div>
   <button class="login" md-raised-button color="primary" (click)="emailLogin()"><b>Login</b></button>
+  <button class="login" md-raised-button color="primary" (click)="logOut()"><b>Logout</b></button>
+  <button class="login" md-raised-button color="primary" (click)="createLogin()"><b>Create</b></button>
+  <button class="login" md-raised-button color="primary" (click)="sendPasswordResetEmail()"><b>Reset Pass</b></button>
+  <button class="login" md-raised-button color="primary" (click)="sendMailNotification()">MailNoti</button>
   <button class="login" md-raised-button color="primary" (click)="anoLogin()">Guest</button>
   <button class="login" md-raised-button color="primary" (click)="twittLogin()">Twitter</button>
   <button class="login" md-raised-button color="primary" (click)="fbLogin()">Facebook</button>
   <button class="login" md-raised-button color="primary" (click)="googleLogin()">Google</button>
   <button class="login" md-raised-button color="primary" (click)="customLogin()">Custom</button>
+  <button class="login" md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
 </div>
