@@ -5,5 +5,5 @@ export class Comment {
         public id: Date,
         public author: string,
         public text:string
-        ){}
+    ){}
 }

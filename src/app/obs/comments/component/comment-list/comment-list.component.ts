@@ -4,9 +4,9 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { CommentBoxComponent } from '../comment-box/comment-box.component';
-import { Comment } from '../comment';
-import {CommentService} from '../comment.service';
-import { EmitterService } from '../emitter.service';
+import { Comment } from '../../model/comment';
+import {CommentService} from '../../service/comment.service';
+import { EmitterService } from '../../emitter.service';
 
 // Component decorator
 @Component({

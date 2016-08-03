@@ -2,7 +2,7 @@
 // Imports
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Comment }           from './comment';
+import { Comment }           from '../model/comment';
 import {Observable} from 'rxjs/Rx';
 
 // Import RxJs required methods
@@ -11,9 +11,9 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CommentService {
-     // Resolve HTTP using the constructor
-     constructor (private http: Http) {}
-     // private instance variable to hold base url
+    // Resolve HTTP using the constructor
+    constructor (private http: Http) {}
+    // private instance variable to hold base url
     // private commentsUrl = 'http://localhost:3000/api/comments';
     // private commentsUrl = 'https://578f454de2fa491100415d08.mockapi.io/api/Comment';
     private commentsUrl = 'http://57a186adae0c8211003fbafb.mockapi.io/comment';

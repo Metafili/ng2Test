@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
-import { CommentFormComponent } from './comment-form/comment-form.component'
-import { CommentListComponent } from './comment-list/comment-list.component'
+import { CommentFormComponent } from './component/comment-form/comment-form.component'
+import { CommentListComponent } from './component/comment-list/comment-list.component'
 import {EmitterService} from './emitter.service';
 
 @Component({

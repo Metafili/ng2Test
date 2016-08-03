@@ -1,9 +1,9 @@
 // Angular 2 Tutorial: HTTP Requests with Observables
 // https://codequs.com/p/By-T81AO/angular-2-tutorial-http-requests-with-observables
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Comment } from '../comment'
-import { EmitterService } from '../emitter.service';
-import { CommentService } from '../comment.service';
+import { Comment } from '../../model/comment'
+import { EmitterService } from '../../emitter.service';
+import { CommentService } from '../../service/comment.service';
 
 // Component decorator
 @Component({
