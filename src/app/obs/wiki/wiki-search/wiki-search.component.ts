@@ -12,7 +12,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/mergemap';
 import 'rxjs/add/operator/switchMap';
 
-import { WikiServiceService } from '../../service/wiki-service.service';
+import { WikiServiceService } from '../service/wiki-service.service';
 
 @Component({
   moduleId: module.id,
@@ -27,7 +27,7 @@ import { WikiServiceService } from '../../service/wiki-service.service';
 })
 export class WikiSearchComponent implements OnInit {
   title = 'WiKi Searching using OBS';
-  // For Obserable Operator 
+  // For Obserable Operator
   wikiRawItems: Array<string>;
   wikiObsItems: Observable<Array<string>>;
 
@@ -43,7 +43,7 @@ export class WikiSearchComponent implements OnInit {
       // .mergeMap( term => this.wikiService.search(term)) // flatMap
       // .subscribe( term => this.wikiService.search(term)
       // .then( items => this.wikiItems = items));
-      .subscribe( items => this.wikiObsItems = items);
+      .subscribe( (items:Observable<Array<string>>) => this.wikiObsItems = items);
 
     // Term
     this.wikiObsItems = this.wikiService.search( this.term.valueChanges);
@@ -62,7 +62,7 @@ export class WikiSearchComponent implements OnInit {
               .map((e: any) => e.target.value ) // dot notation 이 안되는 이유는?
               // .map( e => e['target'].value )
               // .filter( value => value > 100 )
-              .map(v => { 
+              .map(v => {
                 return {
                   value : v,
                   length: v.length
