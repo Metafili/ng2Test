@@ -1,8 +1,73 @@
+/**
+* This should come as no surprise, we need to import Injectable so we can use this provider as an injectable.
+* We also need to import firebase so we can talk to our DB.
+*/
 import { Injectable } from '@angular/core';
+import {
+  AngularFire,
+  FirebaseObjectObservable, FirebaseListObservable,
+  FirebaseAuthState, FirebaseAuth,
+  /*AuthCredential,*/ AuthMethods, AuthProviders } from 'angularfire2';
+import 'rxjs/add/operator/do';
+
 
 @Injectable()
-export class ProfileDataService {
+export class ProfileData {
+  public userProfile: any; // We'll use this to create a database reference to the userProfile node.
+  public currentUser: any; // We'll use this to create an auth reference to the logged in user.
 
-  constructor() {}
 
+  constructor( public af: AngularFire ) {
+    af.auth
+      .do( v => console.log("onAuth: ", v ))
+      /* .map( u => {
+        return Object.assign({}, u, {
+          auth: null  // makes easier to convert to json
+        })
+      }) */
+      .subscribe((user:any) => {
+
+        this.currentUser = user;
+        if( user && user.auth.emailVerified ) {
+          // this.printUserData(user);
+        } else {
+          console.log("No Login: ", user );
+        }
+      });
+
+    /**
+    * Here we create the references I told you about 2 seconds ago :P
+    */
+    this.userProfile = firebase.database().ref('/userProfile');
+
+  }
+
+  /**
+  * This one should be really easy to follow, we are calling a function getUserProfile() that takes no parameters.
+  * This function returns a DATABASE reference to the userProfile/uid of the current user
+  * and we'll use it to get the user profile info in our page.
+  */
+  getUserProfile(): any {
+    return this.userProfile.child(this.currentUser.uid);
+  }
+
+  /**
+  * This one takes 2 string parameters, firstName & lastName, it just saves those 2 to the userProfile/uid node
+  * for the current user as the firstName & lastName properties.
+  */
+  updateName(firstName: string, lastName: string): any {
+    return this.userProfile.child(this.currentUser.uid).update({
+      firstName: firstName,
+      lastName: lastName,
+    });
+  }
+
+  /**
+  * Pretty much the same as before, just that instead of saving the name it's saving the date of birth
+  */
+  updateDOB(birthDate: string): any {
+    return this.userProfile.child(this.currentUser.uid).update({
+      birthDate: birthDate,
+    });
+  }
 }

@@ -13,9 +13,10 @@
             // "--remote-debugging-port=9222", //Open in port 9222 (standard chrome debug port)
             "--user-data-dir=remote-profile"
 			],
-            "webRoot": "${workspaceRoot}/dist",
+            "webRoot": "${workspaceRoot}\\dist",	// \\: For Window Path, /: Linux
             "sourceMaps": true,
 			"diagnosticLogging": true
+			// "outDir": "."
         },
         {
             "name": "Launch index.html (without sourcemaps)",

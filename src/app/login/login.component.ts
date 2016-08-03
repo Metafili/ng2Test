@@ -27,8 +27,8 @@ declare var Zone: any;
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
-  user: FirebaseAuthState;
-  auth: FirebaseAuth;
+  fireUser: FirebaseAuthState;
+  fireAuth: FirebaseAuth;
   private emailId: string;
   private password: string;
   private focused: boolean;
@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
       .subscribe((user:any) => {
         // console.log('user: ', user );
         console.log('zone: ', Zone.current.name );
-        
-        this.user = user;
+
+        this.fireUser = user;
         if( user && user.auth.emailVerified ) {
           this.printUserData(user);
         } else {
@@ -72,13 +72,13 @@ export class LoginComponent implements OnInit {
   }
 
   updateEmail( email:string ) {
-    this.af.auth.getAuth().auth.updateEmail( email ) 
+    this.af.auth.getAuth().auth.updateEmail( email )
     .then( _ => console.log("updateEmail: OK"))
     .catch( e => console.log("updateEmail: Failed: " + e ));
   }
 
   updatePassword( pass:string ) {
-    this.af.auth.getAuth().auth.updatePassword( pass ) 
+    this.af.auth.getAuth().auth.updatePassword( pass )
     .then( _ => console.log("updatePassword: OK"))
     .catch( e => console.log("updatePassword: Failed: " + e ));
   }
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
     this.af.auth.getAuth().auth.updateProfile({
       displayName: displayName,   // "Jane Q. User",
       photoURL: photoUrl          // "https://example.com/jane-q-user/profile.jpg"
-    }) 
+    })
     .then( _ => console.log("updateProfile: OK"))
     .catch( e => console.log("updateProfile: Failed: " + e ));
   }
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
     let provider:firebase.auth.AuthCredential = { provider:p} ;
     firebase.auth().currentUser.reauthenticate( provider )
     // this.af.auth.getAuth().auth.reauthenticate( provider )
-    .then( _ => { 
+    .then( _ => {
       console.log("reAuthenticate: OK")
       this.deleteUser();
     })
@@ -163,7 +163,7 @@ export class LoginComponent implements OnInit {
     this.af.auth.createUser({
       email: this.emailId, password: this.password
     })
-    .then( _ => { 
+    .then( _ => {
       console.log("Create Login: OK");
       this.sendMailNotification();
     })
@@ -173,7 +173,7 @@ export class LoginComponent implements OnInit {
   logOut() {
     this.af.auth.logout();
     console.log("logOut: OK");
-     
+
   }
 
   // Twitter: Debugging할려면 Popup으로 설정하여 별도의창
@@ -226,6 +226,6 @@ export class LoginComponent implements OnInit {
   }
 
   get getUser() {
-    return JSON.stringify(this.user);
+    return JSON.stringify(this.fireUser);
   }
 }
