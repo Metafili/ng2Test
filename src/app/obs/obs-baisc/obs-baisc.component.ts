@@ -25,7 +25,8 @@ import 'rxjs/add/operator/publish';
 })
 export class ObsBaiscComponent implements OnInit {
 
-  private data: Observable<Array<number>>;
+  // private data: Observable<Array<number>>;
+  private data: Observable<any>;
   private values: Array<number> = [];
   private anyErrors: any;
   private finished: boolean;
@@ -66,7 +67,7 @@ export class ObsBaiscComponent implements OnInit {
       }, 6000);
 
       this.status = 'Started';
-    }); // .publish();
+    })// .publish();
   }
 
   obsSubscription() {
