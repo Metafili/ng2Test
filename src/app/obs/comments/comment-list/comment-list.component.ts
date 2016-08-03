@@ -22,7 +22,7 @@ export class CommentListComponent implements OnInit, OnChanges{
     // Constructor with injected service
     constructor(
         private commentService: CommentService
-        ){}
+    ){}
     // Local properties
     comments: Comment[];
     // Input properties
@@ -32,19 +32,18 @@ export class CommentListComponent implements OnInit, OnChanges{
     loadComments(){
         // Get all comments
          this.commentService.getComments()
-                           .subscribe(
-                               comments => this.comments = comments, //Bind to view
-                                err => {
-                                    // Log errors if any
-                                    console.log(err);
-                                });
+            .subscribe(
+                comments => this.comments = comments, //Bind to view
+                err => {
+                    // Log errors if any
+                    console.log(err);
+            });
     }
 
     ngOnInit(){
-            // Load comments
-            this.loadComments()
+        // Load comments
+        this.loadComments()
     }
-
 
     ngOnChanges(changes:any) {
         // Listen to the 'list'emitted event so as populate the model

@@ -15,13 +15,15 @@ export class CommentService {
      constructor (private http: Http) {}
      // private instance variable to hold base url
     // private commentsUrl = 'http://localhost:3000/api/comments';
-    private commentsUrl = 'https://578f454de2fa491100415d08.mockapi.io/api/Comment';
+    // private commentsUrl = 'https://578f454de2fa491100415d08.mockapi.io/api/Comment';
+    private commentsUrl = 'http://57a186adae0c8211003fbafb.mockapi.io/comment';
 
      // Fetch all existing comments
      getComments() : Observable<Comment[]>{
          // ...using get request
          return this.http.get(this.commentsUrl)
                         // ...and calling .json() on the response to return data
+                         .do( r => console.log(r))
                          .map((res:Response) => res.json())
                          //...errors if any
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));

@@ -25,9 +25,9 @@ import { CommentService } from '../comment.service';
 // Component class
 export class CommentBoxComponent {
     // Constructor
-     constructor(
+    constructor(
         private commentService: CommentService
-        ){}
+    ){}
     // Define input properties
     @Input() comment: Comment;
     @Input() listId: string;
@@ -41,14 +41,14 @@ export class CommentBoxComponent {
     deleteComment(id:string){
         // Call removeComment() from CommentService to delete comment
         this.commentService.removeComment(id).subscribe(
-                                comments => {
-                                    // Emit list event
-                                    EmitterService.get(this.listId).emit(comments);
-                                },
-                                err => {
-                                    // Log errors if any
-                                    console.log(err);
-                                });
+            comments => {
+                // Emit list event
+                EmitterService.get(this.listId).emit(comments);
+            },
+            err => {
+                // Log errors if any
+                console.log(err);
+            });
     }
  }
 
