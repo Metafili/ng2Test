@@ -70,6 +70,9 @@ const barrels: string[] = [
   'app/login/profile',
   'app/login/reset-password',
   'app/login/signup',
+  'app/obs/comments/comment-box',
+  'app/obs/comments/comment-form',
+  'app/obs/comments/comment-list',
   /** @cli-barrel */
 ];
 

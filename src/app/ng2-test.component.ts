@@ -9,6 +9,7 @@ import { Fire2Component }       from './fire2/fire2.component';
 import { OfflineComponent }     from './fire2/offline/offline.component';
 import { StorageComponent }     from './fire2/storage/storage.component';
 import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
+import { CommentComponent }    from  './obs/comments/index';
 import { WikiSearchComponent }  from './obs/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
 import { HeroFormComponent }           from './basics/hero-form/hero-form.component';
@@ -23,21 +24,22 @@ import { LoginComponent }       from './login/login.component';
 
 
 @RouteConfig([
-  {path: '/',                 name: 'Root',        component: ObsBaiscComponent, useAsDefault: true },
-  {path: '/fire2',            name: 'Fire2',       component: Fire2Component },
-  {path: '/fire2offline',     name: 'Fire2Offline',component: OfflineComponent },
-  {path: '/fire2storage',     name: 'Fire2Storage',component: StorageComponent },
-  {path: '/observable',       name: 'Observabe',   component: ObsBaiscComponent },
-  {path: '/wikisearch',       name: 'WikiSearch',  component: WikiSearchComponent },
-  {path: '/gestures',         name: 'MdGestures',  component: GesturesComponent },
+  {path: '/',                 name: 'Root',         component: ObsBaiscComponent, useAsDefault: true },
+  {path: '/fire2',            name: 'Fire2',        component: Fire2Component },
+  {path: '/fire2offline',     name: 'Fire2Offline', component: OfflineComponent },
+  {path: '/fire2storage',     name: 'Fire2Storage', component: StorageComponent },
+  {path: '/observable',       name: 'Observabe',    component: ObsBaiscComponent },
+  {path: '/obscomment',       name: 'ObsComments',  component: CommentComponent },
+  {path: '/wikisearch',       name: 'WikiSearch',   component: WikiSearchComponent },
+  {path: '/gestures',         name: 'MdGestures',   component: GesturesComponent },
   {path: '/basicform',        name: 'BasicForms',   component: HeroFormComponent },
   {path: '/modelform',        name: 'ModelForm',    component: ModelDrivenFormComponent },
   {path: '/templateform',     name: 'TemplateForm', component: TemplateDrivenFormComponent },
   {path: '/customform',       name: 'CustomForm',   component: CustomFormComponent },
-  {path: '/contentproject',   name: 'ContentProjection',  component: ContentProjectionComponent },
-  {path: '/wordlist',         name: 'WordList',    component: WordListComponent },
-  {path: '/getmword',         name: 'GetMword',    component: GetMwordComponent },
-  {path: '/login',            name: 'Login',       component: LoginComponent }
+  {path: '/contentproject',   name: 'ContentProjection',component: ContentProjectionComponent },
+  {path: '/wordlist',         name: 'WordList',     component: WordListComponent },
+  {path: '/getmword',         name: 'GetMword',     component: GetMwordComponent },
+  {path: '/login',            name: 'Login',        component: LoginComponent }
 ])
 
 
