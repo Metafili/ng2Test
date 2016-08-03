@@ -7,8 +7,15 @@
             "request": "launch",
             "url": "http://localhost:4200/index.html",
 			"port":4200,
+			"runtimeArgs": [
+            // "--new-window", //Open in new window
+			// "--user-data-dir=C:/temp/"
+            // "--remote-debugging-port=9222", //Open in port 9222 (standard chrome debug port)
+            "--user-data-dir=remote-profile"
+			],
             "webRoot": "${workspaceRoot}/dist",
-            "sourceMaps": true
+            "sourceMaps": true,
+			"diagnosticLogging": true
         },
         {
             "name": "Launch index.html (without sourcemaps)",
