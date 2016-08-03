@@ -3,7 +3,7 @@ import { NgForm }    from '@angular/common';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
-import { Hero } from '../hero';
+import { Hero } from './model/hero';
 
 /*
  * Introduction to Angular 2 Forms - Template Driven, Model Driven or In-Between
