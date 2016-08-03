@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
         })
       }) */
       .subscribe((user:any) => {
-        this.user = user;
-        console.log('zone: ', Zone.current.name );
         // console.log('user: ', user );
-        if( user ) {
+        console.log('zone: ', Zone.current.name );
+        
+        this.user = user;
+        if( user && user.auth.emailVerified ) {
           this.printUserData(user);
         } else {
           console.log("No Login: ", user );
