@@ -5,7 +5,8 @@
 const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
   'angularfire2': 'vendor/angularfire2',
-  '@angular2-material': 'vendor/@angular2-material'
+  '@angular2-material': 'vendor/@angular2-material',
+  'angular2-modal': 'vendor/angular2-modal'
 };
 
 /** User packages configuration. */
@@ -13,6 +14,10 @@ const packages: any = {
   angularfire2: {
     defaultExtension: 'js',
     main: 'angularfire2.js'
+  },
+  'angular2-modal': {
+    defaultExtension: 'js',
+    main: 'index.js'
   }
 };
 

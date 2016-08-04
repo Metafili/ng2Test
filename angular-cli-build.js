@@ -18,7 +18,9 @@ module.exports = function(defaults) {
       // Material2
       '@angular2-material/**/*.+(js|js.map)*',
       // Gestures
-      'hammerjs/*.min.+(js|js.map)'
+      'hammerjs/*.min.+(js|js.map)',
+      // Modal
+      'angular2-modal/**/*.+(ts|js|js.map)'
     ]
   });
 };

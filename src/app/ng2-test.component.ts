@@ -5,9 +5,6 @@ import {
   ROUTER_PROVIDERS } from '@angular/router-deprecated';
 // import { Router, Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
-// https://github.com/shlomiassaf/angular2-modal/blob/master/QUICKTHROUGH.md
-import {MODAL_BROWSER_PROVIDERS} from 'angular2-modal/platform-browser';
-
 import { Fire2Component }       from './fire2/fire2.component';
 import { OfflineComponent }     from './fire2/offline/offline.component';
 import { StorageComponent }     from './fire2/storage/storage.component';
@@ -24,7 +21,6 @@ import { ContentProjectionComponent } from './basics/content-projection/content-
 import { WordListComponent }    from './mglish/word-list/word-list.component';
 import { GetMwordComponent }    from './mglish/get-mword/get-mword.component';
 import { LoginComponent }       from './login/login.component';
-
 
 @RouteConfig([
   {path: '/',                 name: 'Root',         component: ObsBaiscComponent, useAsDefault: true },
@@ -52,8 +48,7 @@ import { LoginComponent }       from './login/login.component';
   templateUrl: 'ng2-test.component.html',
   styleUrls: ['ng2-test.component.css'],
   providers: [
-    ROUTER_PROVIDERS,
-    MODAL_BROWSER_PROVIDERS
+    ROUTER_PROVIDERS
   ],
   directives: [
     ROUTER_DIRECTIVES

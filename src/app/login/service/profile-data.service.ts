@@ -10,36 +10,28 @@ import {
   /*AuthCredential,*/ AuthMethods, AuthProviders } from 'angularfire2';
 import 'rxjs/add/operator/do';
 
-
 @Injectable()
-export class ProfileData {
+export class ProfileDataService {
   public userProfile: any; // We'll use this to create a database reference to the userProfile node.
   public currentUser: any; // We'll use this to create an auth reference to the logged in user.
 
-
   constructor( public af: AngularFire ) {
     af.auth
-      .do( v => console.log("onAuth: ", v ))
-      /* .map( u => {
-        return Object.assign({}, u, {
-          auth: null  // makes easier to convert to json
-        })
-      }) */
+      // .do( v => console.log("onAuth: ", v ))
       .subscribe((user:any) => {
-
         this.currentUser = user;
-        if( user && user.auth.emailVerified ) {
+        if( user ) {
           // this.printUserData(user);
         } else {
-          console.log("No Login: ", user );
+          console.log("ProfileDataService: No Login: ", user );
         }
       });
 
-    /**
-    * Here we create the references I told you about 2 seconds ago :P
-    */
     this.userProfile = firebase.database().ref('/userProfile');
+  }
 
+  createUserProfile( uid: string) {
+    return this.userProfile.child(this.currentUser.uid);
   }
 
   /**

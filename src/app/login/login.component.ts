@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import {
+  Router,
+  RouteParams
+} from '@angular/router-deprecated';
 import {
   AngularFire,
-  FirebaseObjectObservable, FirebaseListObservable,
-  FirebaseAuthState, FirebaseAuth,
-  /*AuthCredential,*/ AuthMethods, AuthProviders } from 'angularfire2';
+  FirebaseAuthState, FirebaseAuth
+} from 'angularfire2';
+
 import {MdButton} from '@angular2-material/button';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
-import 'rxjs/add/operator/do';
 
-declare var Zone: any;
+// https://github.com/shlomiassaf/angular2-modal/blob/master/QUICKTHROUGH.md
+import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap/index';
+import {AuthDataService} from './service/auth-data.service';
+import {ProfileDataService} from './service/profile-data.service';
+
+import 'rxjs/add/operator/do';
 
 @Component({
   moduleId: module.id,
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
+  viewProviders: [ ...BS_MODAL_PROVIDERS ],
   providers: [
-    MdIconRegistry
+    MdIconRegistry,
+    AuthDataService,
+    ProfileDataService
   ],
   directives: [
     MD_INPUT_DIRECTIVES,
@@ -27,35 +38,225 @@ declare var Zone: any;
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
-  fireUser: FirebaseAuthState;
-  fireAuth: FirebaseAuth;
   private emailId: string;
   private password: string;
   private focused: boolean;
   private custToken: any;
 
-  constructor( public af: AngularFire ) {
-    af.auth
-      .do( v => console.log("onAuth: ", v ))
-      /* .map( u => {
-        return Object.assign({}, u, {
-          auth: null  // makes easier to convert to json
-        })
-      }) */
-      .subscribe((user:any) => {
-        // console.log('user: ', user );
-        console.log('zone: ', Zone.current.name );
+  constructor(
+    private router: Router,
+    private authService: AuthDataService,
+    private profileService: ProfileDataService,
+    private modal: Modal,  viewContainer: ViewContainerRef ) {
 
-        this.fireUser = user;
-        if( user && user.auth.emailVerified ) {
-          this.printUserData(user);
-        } else {
-          console.log("No Login: ", user );
-        }
-      });
+    modal.defaultViewContainer = viewContainer;
   }
 
   ngOnInit() {
+    // this.popupAlert("Test", "This is a test alert");
+  }
+
+  gotoHome( loginType: string ) {
+    console.log( loginType + ": OK");
+    this.router.navigate(['Root']);
+  }
+
+  loginError( loginType: string, e:any ) {
+    console.log( loginType + ": FAIL: " + e );
+    this.popupAlert( loginType, "FAIL: " + e );
+  }
+
+  loginMessage( loginType: string, msg:any ) {
+    console.log( loginType + ": " + msg );
+    this.popupAlert( loginType, msg );
+  }
+
+  loginTwitter() {
+    this.authService.loginTwitter()
+      .then( authState_ => {
+        this.gotoHome("Twitter");
+      })
+      .catch((e:any)=> {
+        this.loginError("Login Twitter", e );
+      });
+  }
+
+  loginFaceBook() {
+    this.authService.loginFaceBook()
+      .then( authState_ => {
+        this.gotoHome("FaceBook");
+      })
+      .catch((e:any)=> {
+        this.loginError("Login FaceBook", e );
+      });
+  }
+
+  loginGoogle() {
+    this.authService.loginGoogle()
+      .then( authState => {
+        // console.log(authState);
+        this.gotoHome("Google");
+      })
+      .catch((e:any)=> {
+        this.loginError("Login Google", e );
+      });
+  }
+
+  // Custom
+  loginCustom() {
+    this.authService.loginGoogle()
+      .then( authState_ => {
+        this.gotoHome("Custom Login");
+      })
+      .catch((e:any)=> {
+        this.loginError("Login Custom", e );
+      });
+  }
+
+  // Anonymous
+  loginGuest() {
+    this.authService.loginGuest()
+      .then( authState_ => {
+        this.gotoHome("Guest Login");
+      })
+      .catch((e:any)=> {
+        this.loginError("Guest Login", e);
+    });
+  }
+
+  // Email and password
+  loginUser() {
+    this.authService.loginUser( this.emailId, this.password )
+      .then( authStatee => {
+        this.gotoHome("Login");
+      })
+      .catch((e:any) => {
+        this.loginError("Login", e);
+    });
+  }
+
+  createUser() {
+    this.authService.createUser( this.emailId, this.password )
+      .then( authState => {
+        // Send notification mail
+        this.sendMailNotification();
+        // Create User Profile
+        // this.createUserProfile( authState.uid );
+      })
+      .catch((e:any)=> {
+        this.loginError("Sineup", e);
+      });
+  }
+
+  sendMailNotification() {
+    this.authService.sendMailNotification()
+      .then( _ => {
+        this.loginMessage("Notification Mail", "Notification email is sent.\nPlease checks the email")
+      })
+      .catch((e:any) => {
+        this.loginError("Notification Mail", e );
+    });
+  }
+
+  createUserProfile( uid: any ) {
+    this.profileService.createUserProfile(uid)
+      .then( _ => {
+        this.gotoHome("Login");
+        })
+      .catch((e:any) => {
+        this.loginError("User Profile", e );
+      });
+  }
+
+  sendPasswordResetEmail() {
+    this.authService.sendPasswordResetEmail( this.emailId )
+    .then( _ => {
+      let message: "We just sent you a reset link to your email";
+      this.loginMessage("Reset Password", message);
+    }, (e:any) => {
+      var errorMessage: string;
+      switch (e.code) {
+        case "auth/invalid-email":
+          errorMessage = "You'll need to write a valid email address";
+          break;
+        case "auth/user-not-found":
+          errorMessage = "That user does not exist";
+          break;
+        case "auth/no-login":
+          errorMessage = "That user is not login";
+          break;
+        default:
+          errorMessage = e.message;
+      }
+      this.loginError("Reset Password", errorMessage);
+    });
+  }
+
+  deleteUser() {
+    this.authService.deleteUser()
+      .then( _ => {
+        this.loginMessage("Delete User", "Your login account is removed.");
+      })
+      .catch((e:any)=> {
+        this.loginError("Delete User", e );
+      });
+  }
+
+  delReAuthenticate() {
+    this.authService.deleteUser()
+      .then( _ => {
+        this.deleteUser();
+      })
+      .catch((e:any) => {
+        this.loginError("Re-Authenticat", e );
+      });
+  }
+
+  logoutUser() {
+    this.authService.logoutUser();
+  }
+
+  // Firebase Profile
+  updateEmail( email:string ) {
+    this.authService.updateEmail( email )
+    .then( _ => {
+      this.loginMessage("Update Email", "Your email is updated.");
+    })
+    .catch((e:any)=> {
+      this.loginError("Update Email", e );
+    });
+  }
+
+  updatePassword( pass:string ) {
+    this.authService.updatePassword( pass )
+    .then( _ => {
+      this.loginMessage("Update Password", "Your password is updated.");
+    })
+    .catch((e:any)=> {
+      this.loginError("Update Password", e );
+    });
+  }
+
+  updateProfile( displayName:string, photoUrl:string ) {
+    this.authService.updateProfile( displayName, photoUrl )
+    .then( _ => {
+      this.loginMessage("Update Profile", "Your profile is updated.");
+    })
+    .catch((e:any)=> {
+      this.loginError("Update Profile", e );
+    });
+  }
+
+  getEmail( email: string ) {
+    this.emailId = email;
+    this.focused = true;
+    console.log("email: " + email );
+  }
+
+  getPass( pass: string ) {
+    this.password = pass;
+    console.log("pass: " + pass );
+    // this.emailLogin();
   }
 
   printUserData( user: any ) {
@@ -71,161 +272,22 @@ export class LoginComponent implements OnInit {
       }
   }
 
-  updateEmail( email:string ) {
-    this.af.auth.getAuth().auth.updateEmail( email )
-    .then( _ => console.log("updateEmail: OK"))
-    .catch( e => console.log("updateEmail: Failed: " + e ));
+  popupAlert( title:string, e:string ) {
+      this.modal.alert()
+          .title(title)
+          .body( e )
+          .open();
   }
 
-  updatePassword( pass:string ) {
-    this.af.auth.getAuth().auth.updatePassword( pass )
-    .then( _ => console.log("updatePassword: OK"))
-    .catch( e => console.log("updatePassword: Failed: " + e ));
+  get getUserId() {
+    return this.authService.getUserId();
   }
 
-  updateProfile( displayName:string, photoUrl:string ) {
-    this.af.auth.getAuth().auth.updateProfile({
-      displayName: displayName,   // "Jane Q. User",
-      photoURL: photoUrl          // "https://example.com/jane-q-user/profile.jpg"
-    })
-    .then( _ => console.log("updateProfile: OK"))
-    .catch( e => console.log("updateProfile: Failed: " + e ));
-  }
-
-  sendMailNotification() {
-    this.af.auth.getAuth().auth.sendEmailVerification()
-    .then( _ => console.log("sendMailNotification: OK"))
-    .catch( e => console.log("sendMailNotification: Failed: " + e ));
-  }
-
-  // https://github.com/angular/angularfire2/issues/374
-  sendPasswordResetEmail() {
-    firebase.auth().sendPasswordResetEmail( this.emailId )
-    .then( _ => console.log("sendPasswordReset: OK"))
-    .catch( e => console.log("sendPasswordReset: Failed: " + e ));;
-  }
-
-  deleteUser() {
-    this.af.auth.getAuth().auth.delete()
-    .then( _ => console.log("deleteUser: OK"))
-    .catch( e => console.log("deleteUser: Failed: " + e ));
-  }
-
-  delReAuthenticate() {
-    // let p  = new firebase.auth.EmailAuthProvider();
-    // p.credential("hslee.edicon@gmail.com", "edcklb1107");
-    // let p = this.af.auth.getAuth().google.provider;
-    // let p =  firebase.auth.EmailAuthProvider.PROVIDER_ID; // "password"
-    let p = this.af.auth.getAuth().auth.providerId;    // "firebase"
-    let provider:firebase.auth.AuthCredential = { provider:p} ;
-    firebase.auth().currentUser.reauthenticate( provider )
-    // this.af.auth.getAuth().auth.reauthenticate( provider )
-    .then( _ => {
-      console.log("reAuthenticate: OK")
-      this.deleteUser();
-    })
-    .catch( e => console.log("reAuthenticate: Failed: " + e ));
-  }
-
-  getEmail( email: string ) {
-    this.emailId = email;
-    this.focused = true;
-    console.log("email: " + email );
-  }
-
-  getPass( pass: string ) {
-    this.password = pass;
-    console.log("pass: " + pass );
-    // this.emailLogin();
-  }
-
-  // Anonymous
-  anoLogin() {
-    this.af.auth.login({
-      provider: AuthProviders.Anonymous,
-      method: AuthMethods.Anonymous
-    })
-    .then(_ => console.log("Guest Login: OK"))
-    .catch( e => console.log("Guest Login: Failed: " + e ));
-  }
-
-  // Email and password
-  emailLogin() {
-    this.af.auth.login({
-      // email: 'hslee.edicon@gmail.com', password: '1234'
-      email: this.emailId, password: this.password
-    })
-    .then( _ => console.log("Email Login: OK"))
-    .catch( e => console.log("Email Login: Failed: " + e ));
-  }
-
-  createLogin() {
-    this.af.auth.createUser({
-      email: this.emailId, password: this.password
-    })
-    .then( _ => {
-      console.log("Create Login: OK");
-      this.sendMailNotification();
-    })
-    .catch( e => console.log("Create Login: Failed: " + e ));
-  }
-
-  logOut() {
-    this.af.auth.logout();
-    console.log("logOut: OK");
-
-  }
-
-  // Twitter: Debugging할려면 Popup으로 설정하여 별도의창
-  // Twitter: https://apps.twitter.com/ Login
-  //  1. Details: App Name --> Description --> Website(with http)
-  //  2. Twitter: Setting: Callback URL <-- Firebase: Callback 주소 복사
-  // Firebase:
-  //  1. API Key: Twitter App API Key 복사
-  //  2. API Secret: Consumer Key API: Twitter
-  twittLogin() {
-    this.af.auth.login({
-      provider: AuthProviders.Twitter,
-      method: AuthMethods.Popup
-    })
-    .then( _ => console.log("Twitter Login: OK"))
-    .catch( e => console.log("Twitter Login: Failed: " + e ));
-  }
-
-  // Facebook: https://developers.facebook.com/
-  //  1. RightTop: 검색옆 --> 내앱 --> 새앱추가
-  //  2. 앱 ID --> 앱시크릿코드 --> Firebas: API Key/Secret에 복사
-  //  3. 제품추가 --> Facebook Login 추가 --> Client OAuth 설정 --> Redirection URL --> 저장
-  fbLogin() {
-    this.af.auth.login({
-      provider: AuthProviders.Facebook,
-      method: AuthMethods.Popup // Redirect: Debugging할려면 Popup으로 설정하여 별도의창
-    })
-    .then( _ => console.log("FB Login: OK"))
-    .catch( e => console.log("FB Login: Failed: " + e ));
-  }
-
-  // Google: 자동설정됨
-  googleLogin() {
-    this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup // Redirect: Debugging할려면 Popup으로 설정하여 별도의창
-    })
-    .then( _ => console.log("Google Login: OK"))
-    .catch( e => console.log("Google Login: Failed: " + e ));
-  }
-
-  // Custom
-  customLogin() {
-    this.af.auth.login( this.custToken, {
-      provider: AuthProviders.Custom,
-      method: AuthMethods.CustomToken
-    })
-    .then( _ => console.log("Custom Login: OK"))
-    .catch( e => console.log("Custom Login: Failed: " + e ));
+  get getEmailVerified() {
+    return this.authService.getEmailVerified();
   }
 
   get getUser() {
-    return JSON.stringify(this.fireUser);
+    return JSON.stringify(this.authService.getUser());
   }
 }

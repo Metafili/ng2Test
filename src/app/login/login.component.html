@@ -8,7 +8,7 @@
   -** https://webcake.co/object-properties-in-angular-2s-ngfor/
 
 -->
-<div>Auth.uid: {{ (af.auth | async)?.uid }} </div>
+<div>Auth.UserId: {{getUserId}}/{{getEmailVerified}}</div>
 <div>
   <div>
     <md-input class="email" #email placeholder="email"
@@ -19,7 +19,7 @@
   <div>
     <md-input class="pass" #pass  placeholder="pass" type="password"
         [focus]="focused"
-        (keyup.enter)="password=pass.value; emailLogin()"
+        (keyup.enter)="password=pass.value; loginUser()"
         (blur)="getPass(pass.value)" >
     </md-input>
   </div>
@@ -27,15 +27,15 @@
  <!--  {{getUser}} -->
 </div>
 <div>
-  <button class="login" md-raised-button color="primary" (click)="emailLogin()"><b>Login</b></button>
-  <button class="login" md-raised-button color="primary" (click)="logOut()"><b>Logout</b></button>
-  <button class="login" md-raised-button color="primary" (click)="createLogin()"><b>Create</b></button>
+  <button class="login" md-raised-button color="primary" (click)="loginGuest()">Guest</button>
+  <button class="login" md-raised-button color="primary" (click)="loginUser()"><b>Login</b></button>
+  <button class="login" md-raised-button color="primary" (click)="logoutUser()"><b>Logout</b></button>
+  <button class="login" md-raised-button color="primary" (click)="createUser()"><b>Create</b></button>
   <button class="login" md-raised-button color="primary" (click)="sendPasswordResetEmail()"><b>Reset Pass</b></button>
-  <button class="login" md-raised-button color="primary" (click)="sendMailNotification()">MailNoti</button>
-  <button class="login" md-raised-button color="primary" (click)="anoLogin()">Guest</button>
-  <button class="login" md-raised-button color="primary" (click)="twittLogin()">Twitter</button>
-  <button class="login" md-raised-button color="primary" (click)="fbLogin()">Facebook</button>
-  <button class="login" md-raised-button color="primary" (click)="googleLogin()">Google</button>
-  <button class="login" md-raised-button color="primary" (click)="customLogin()">Custom</button>
+  <button class="login" md-raised-button color="primary" (click)="sendMailNotification()">Mail Noti</button>
+  <button class="login" md-raised-button color="primary" (click)="loginTwitter()">Twitter</button>
+  <button class="login" md-raised-button color="primary" (click)="loginFaceBook()">Facebook</button>
+  <button class="login" md-raised-button color="primary" (click)="loginGoogle()">Google</button>
+  <button class="login" md-raised-button color="primary" (click)="loginCustom()">Custom</button>
   <button class="login" md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
 </div>
