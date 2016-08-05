@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import {
+  REACTIVE_FORM_DIRECTIVES, // for binding FormGroup/FormControl to template
+  FormBuilder,              // for FormBuilder
+  Validators,               // For validator
+  FormGroup, FormControl
+} from '@angular/forms';
+import {
   Router,
   RouteParams
 } from '@angular/router-deprecated';
@@ -8,7 +14,9 @@ import {
   FirebaseAuthState, FirebaseAuth
 } from 'angularfire2';
 
+import {MdToolbar} from '@angular2-material/toolbar';
 import {MdButton} from '@angular2-material/button';
+import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 
@@ -31,7 +39,10 @@ import 'rxjs/add/operator/do';
     ProfileDataService
   ],
   directives: [
+    REACTIVE_FORM_DIRECTIVES,
     MD_INPUT_DIRECTIVES,
+    MD_CARD_DIRECTIVES,
+    MdToolbar,
     MdButton,
     MdIcon,
   ]
@@ -43,7 +54,18 @@ export class LoginComponent implements OnInit {
   private focused: boolean;
   private custToken: any;
 
+  user: {
+    email: string
+    password: string
+  } = {
+    email: '',
+    password: '',
+  }
+
+  loginFormBuilder:FormGroup;
+
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthDataService,
     private profileService: ProfileDataService,
@@ -53,9 +75,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginFormBuilder = this.formBuilder.group({
+      email:['', Validators.required], // first: value, second: sync validator, third: asysnc validator
+      password:[]
+    });
     // this.popupAlert("Test", "This is a test alert");
   }
 
+  loginSubmit() {
+    console.log(this.user.email + '/' + this.user.password);
+    this.loginUser( this.user.email,  this.user.password )
+  }
   gotoHome( loginType: string ) {
     console.log( loginType + ": OK");
     this.router.navigate(['Root']);
@@ -125,8 +155,8 @@ export class LoginComponent implements OnInit {
   }
 
   // Email and password
-  loginUser() {
-    this.authService.loginUser( this.emailId, this.password )
+  loginUser( email, password ) {
+    this.authService.loginUser( email, password )
       .then( authStatee => {
         this.gotoHome("Login");
       })
@@ -138,13 +168,25 @@ export class LoginComponent implements OnInit {
   createUser() {
     this.authService.createUser( this.emailId, this.password )
       .then( authState => {
-        // Send notification mail
-        this.sendMailNotification();
         // Create User Profile
-        // this.createUserProfile( authState.uid );
+        this.createUserProfile( this.emailId );
       })
       .catch((e:any)=> {
         this.loginError("Sineup", e);
+      });
+  }
+
+  createUserProfile( mail: any ) {
+    this.profileService.createUserProfile(mail)
+      .then( _ => {
+        // Send notification mail
+        this.sendMailNotification();
+        // this.gotoHome("Login");
+        })
+      .catch((e:any) => {
+        // Send if failed on CreateProfile
+        this.sendMailNotification();
+        this.loginError("Create Profile", e );
       });
   }
 
@@ -156,16 +198,6 @@ export class LoginComponent implements OnInit {
       .catch((e:any) => {
         this.loginError("Notification Mail", e );
     });
-  }
-
-  createUserProfile( uid: any ) {
-    this.profileService.createUserProfile(uid)
-      .then( _ => {
-        this.gotoHome("Login");
-        })
-      .catch((e:any) => {
-        this.loginError("User Profile", e );
-      });
   }
 
   sendPasswordResetEmail() {
@@ -218,9 +250,17 @@ export class LoginComponent implements OnInit {
 
   // Firebase Profile
   updateEmail( email:string ) {
+    // Update firebase email
     this.authService.updateEmail( email )
     .then( _ => {
-      this.loginMessage("Update Email", "Your email is updated.");
+      // Update profile email
+      this.profileService.updateEmail(email)
+        .then( _ => {
+          this.loginMessage("Update Email", "Your email is updated.");
+        })
+        .catch((e:any)=> {
+          this.loginError("Update Email", e );
+        });
     })
     .catch((e:any)=> {
       this.loginError("Update Email", e );

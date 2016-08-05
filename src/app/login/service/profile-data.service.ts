@@ -30,8 +30,11 @@ export class ProfileDataService {
     this.userProfile = firebase.database().ref('/userProfile');
   }
 
-  createUserProfile( uid: string) {
-    return this.userProfile.child(this.currentUser.uid);
+  // Firebase 3.x SDK: .set for create a node
+  createUserProfile( email: string): Promise<any> {
+    return this.userProfile.child(this.currentUser.uid).set({
+      email:email
+    });
   }
 
   /**
@@ -60,6 +63,12 @@ export class ProfileDataService {
   updateDOB(birthDate: string): any {
     return this.userProfile.child(this.currentUser.uid).update({
       birthDate: birthDate,
+    });
+  }
+
+  updateEmail(email: string): any {
+    return this.userProfile.child(this.currentUser.uid).update({
+      email: email
     });
   }
 }

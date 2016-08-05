@@ -1,8 +1,43 @@
-button.login {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  margin-right: 10px;
+md-card {
+    margin: 10px;
+}
+
+md-card img {
+    display: block;
+    height: 300px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+md-card-title {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 22px;
+    text-align: center;
+    color: #ff9900;
+}
+
+md-card form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+md-card md-card-actions button {
+    display: block;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.sns-login {
+  display: flex;
+  margin-top: 30px;
+}
+
+:host(.hidden) {
+    display: block;
 }
 
 md-input {
@@ -16,7 +51,15 @@ md-input.email:focus {
   /* background-color: red; */
 }
 
-md-input.pass {
+md-input.password {
   width: 100%;
   margin-right: 10px;
+}
+
+md-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 5px;
+  height: 16px;
+  width: 16px;
 }

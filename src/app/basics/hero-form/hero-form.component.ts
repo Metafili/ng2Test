@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm }    from '@angular/common';
+import {
+  NgForm,
+  REACTIVE_FORM_DIRECTIVES, // for binding FormGroup/FormControl to template
+  FormBuilder,              // for FormBuilder
+  Validators,               // For validator
+  FormGroup, FormControl
+} from '@angular/forms';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 

@@ -9,33 +9,52 @@
 
 -->
 <div>Auth.UserId: {{getUserId}}/{{getEmailVerified}}</div>
-<div>
-  <div>
-    <md-input class="email" #email placeholder="email"
-        (keyup.enter)="getEmail(email.value)"
-        (blur)="getEmail(email.value)">
-    </md-input>
-  </div>
-  <div>
-    <md-input class="pass" #pass  placeholder="pass" type="password"
-        [focus]="focused"
-        (keyup.enter)="password=pass.value; loginUser()"
-        (blur)="getPass(pass.value)" >
-    </md-input>
-  </div>
-  {{emailId}}/{{password}}
- <!--  {{getUser}} -->
-</div>
-<div>
-  <button class="login" md-raised-button color="primary" (click)="loginGuest()">Guest</button>
-  <button class="login" md-raised-button color="primary" (click)="loginUser()"><b>Login</b></button>
-  <button class="login" md-raised-button color="primary" (click)="logoutUser()"><b>Logout</b></button>
-  <button class="login" md-raised-button color="primary" (click)="createUser()"><b>Create</b></button>
-  <button class="login" md-raised-button color="primary" (click)="sendPasswordResetEmail()"><b>Reset Pass</b></button>
-  <button class="login" md-raised-button color="primary" (click)="sendMailNotification()">Mail Noti</button>
-  <button class="login" md-raised-button color="primary" (click)="loginTwitter()">Twitter</button>
-  <button class="login" md-raised-button color="primary" (click)="loginFaceBook()">Facebook</button>
-  <button class="login" md-raised-button color="primary" (click)="loginGoogle()">Google</button>
-  <button class="login" md-raised-button color="primary" (click)="loginCustom()">Custom</button>
-  <button class="login" md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
-</div>
+<md-card class=“login-card”>
+  <img (click)="goMglish()" md-card-image src="images/mglish_logo.png" />
+  <md-card-content>
+    <md-card-title>Login</md-card-title>
+  </md-card-content>
+  <form #loginForm="ngForm" (submit)="loginSubmit()">
+      <md-input class="email"
+                #email required
+                type="email" name="email"
+                placeholder="Email"
+                [(ngModel)]="user.email">
+      </md-input>
+      <md-input class="password"
+                #password required
+                type="password" name="password"
+                placeholder="Password"
+                [(ngModel)]="user.password">
+      </md-input>
+      <button type="submit" md-raised-button color="primary">
+        <md-icon class="md-24" svgSrc="/images/auth_service_email.svg" ></md-icon>Login
+      </button>
+      <button class="login" md-raised-button color="" (click)="createUser()">New User</button>
+      <button class="login" md-raised-button color="" (click)="sendPasswordResetEmail()">Reset Password</button>
+      <!-- SNS Login -->
+      <div class="sns-login">
+        <button md-raised-button color="primary" (click)="loginTwitter()" >
+          <md-icon class="md-24" svgSrc="/images/auth_service_twitter.svg" ></md-icon>Twitter
+        </button>
+        <button md-raised-button color="primary" (click)="loginFaceBook()" >
+          <md-icon class="md-24" svgSrc="/images/auth_service_facebook.svg" ></md-icon>Facebook
+        </button>
+        <button md-raised-button color="primary" (click)="loginGoogle()">
+          <md-icon class="md-24" svgSrc="/images/auth_service_google.svg" ></md-icon>Google
+        </button>
+      </div>
+  </form>
+</md-card>
+<md-card class=“sns-card”>
+  <md-card-actions >
+    <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
+    <button md-raised-button color="primary" (click)="logoutUser()"><b>Logout</b></button>
+    <button md-raised-button color="primary" (click)="sendMailNotification()">Mail Noti</button>
+    <button md-raised-button color="primary" (click)="loginCustom()">Custom</button>
+    <button md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
+    <button md-raised-button color="primary" (click)="updateEmail()">Update Email</button>
+    <button md-raised-button color="primary" (click)="updatePassword()">Update Pass</button>
+    <button md-raised-button color="primary" (click)="updateProfile()">Update Profile</button>
+  </md-card-actions>
+</md-card>
