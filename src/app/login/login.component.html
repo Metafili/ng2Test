@@ -31,7 +31,7 @@
         <md-icon class="md-24" svgSrc="/images/auth_service_email.svg" ></md-icon>Login
       </button>
       <button class="login" md-raised-button color="" (click)="createUser()">New User</button>
-      <button class="login" md-raised-button color="" (click)="sendPasswordResetEmail()">Reset Password</button>
+      <button class="login" md-raised-button color="" (click)="sendPasswordResetEmail()">Forgot Password</button>
       <!-- SNS Login -->
       <div class="sns-login">
         <button md-raised-button color="primary" (click)="loginTwitter()" >
@@ -46,15 +46,23 @@
       </div>
   </form>
 </md-card>
-<md-card class=“sns-card”>
-  <md-card-actions >
+
+<!-- Misc Login Function -->
+<md-card class=“profile-card”>
+    <md-card-content>
+      <md-card-title>Profile</md-card-title>
+    </md-card-content>
+    <button md-raised-button color="primary" (click)="updateEmail()">Update Email</button>
+    <button md-raised-button color="primary" (click)="updatePassword()">Update Passward</button>
+    <button md-raised-button color="primary" (click)="updateProfile()">Update Profile</button>
+</md-card>
+
+<md-card >
+  <div class="misc-card">
     <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
     <button md-raised-button color="primary" (click)="logoutUser()"><b>Logout</b></button>
+    <button md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
     <button md-raised-button color="primary" (click)="sendMailNotification()">Mail Noti</button>
     <button md-raised-button color="primary" (click)="loginCustom()">Custom</button>
-    <button md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
-    <button md-raised-button color="primary" (click)="updateEmail()">Update Email</button>
-    <button md-raised-button color="primary" (click)="updatePassword()">Update Pass</button>
-    <button md-raised-button color="primary" (click)="updateProfile()">Update Profile</button>
-  </md-card-actions>
+  </div>
 </md-card>

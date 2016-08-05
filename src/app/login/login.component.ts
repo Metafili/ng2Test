@@ -49,8 +49,7 @@ import 'rxjs/add/operator/do';
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
-  private emailId: string;
-  private password: string;
+
   private focused: boolean;
   private custToken: any;
 
@@ -82,10 +81,6 @@ export class LoginComponent implements OnInit {
     // this.popupAlert("Test", "This is a test alert");
   }
 
-  loginSubmit() {
-    console.log(this.user.email + '/' + this.user.password);
-    this.loginUser( this.user.email,  this.user.password )
-  }
   gotoHome( loginType: string ) {
     console.log( loginType + ": OK");
     this.router.navigate(['Root']);
@@ -154,6 +149,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Submit Login form
+  loginSubmit() {
+    console.log(this.user.email + '/' + this.user.password);
+    this.loginUser( this.user.email,  this.user.password )
+  }
+
   // Email and password
   loginUser( email, password ) {
     this.authService.loginUser( email, password )
@@ -166,10 +167,16 @@ export class LoginComponent implements OnInit {
   }
 
   createUser() {
-    this.authService.createUser( this.emailId, this.password )
+    if( this.user.email === undefined || this.user.email == "" ||
+        this.user.password == undefined || this.user.password == "" ) {
+      this.loginMessage("New User", "Input your email and password to create.")
+      return;
+    }
+
+    this.authService.createUser( this.user.email, this.user.password )
       .then( authState => {
         // Create User Profile
-        this.createUserProfile( this.emailId );
+        this.createUserProfile( this.user.email );
       })
       .catch((e:any)=> {
         this.loginError("Sineup", e);
@@ -201,7 +208,12 @@ export class LoginComponent implements OnInit {
   }
 
   sendPasswordResetEmail() {
-    this.authService.sendPasswordResetEmail( this.emailId )
+    if( this.user.email === null || this.user.email == "" ) {
+      this.loginMessage("Reset Password", "Input your email to reset.")
+      return;
+    }
+
+    this.authService.sendPasswordResetEmail( this.user.email )
     .then( _ => {
       let message: "We just sent you a reset link to your email";
       this.loginMessage("Reset Password", message);
@@ -250,6 +262,20 @@ export class LoginComponent implements OnInit {
 
   // Firebase Profile
   updateEmail( email:string ) {
+    if( this.user.email === null || this.user.email == "" ) {
+      this.loginMessage("Update Profile", "Input your email to update.")
+      return;
+    }
+    if( this.authService.getUserId() === undefined ) {
+      this.loginMessage("Update Profile", "Login first!!!");
+      return;
+    }
+
+    if( this.authService.getUserId() === undefined ) {
+      this.loginMessage("Update Profile", "Login first!!!");
+      return;
+    }
+
     // Update firebase email
     this.authService.updateEmail( email )
     .then( _ => {
@@ -268,6 +294,15 @@ export class LoginComponent implements OnInit {
   }
 
   updatePassword( pass:string ) {
+    if( this.user.password === null || this.user.password == "" ) {
+      this.loginMessage("Update Profile", "Input your password to update.")
+      return;
+    }
+    if( this.authService.getUserId() === undefined ) {
+      this.loginMessage("Update Profile", "Login first!!!");
+      return;
+    }
+
     this.authService.updatePassword( pass )
     .then( _ => {
       this.loginMessage("Update Password", "Your password is updated.");
@@ -278,6 +313,17 @@ export class LoginComponent implements OnInit {
   }
 
   updateProfile( displayName:string, photoUrl:string ) {
+    if( displayName === null || displayName === undefined || displayName == ""
+     || photoUrl === null || photoUrl === undefined || photoUrl == "" ) {
+      this.loginMessage("Update Profile", "Input your name and url to update.")
+      return;
+    }
+
+    if( this.authService.getUserId() === undefined ) {
+      this.loginMessage("Update Profile", "Login first!!!");
+      return;
+    }
+
     this.authService.updateProfile( displayName, photoUrl )
     .then( _ => {
       this.loginMessage("Update Profile", "Your profile is updated.");
@@ -285,18 +331,6 @@ export class LoginComponent implements OnInit {
     .catch((e:any)=> {
       this.loginError("Update Profile", e );
     });
-  }
-
-  getEmail( email: string ) {
-    this.emailId = email;
-    this.focused = true;
-    console.log("email: " + email );
-  }
-
-  getPass( pass: string ) {
-    this.password = pass;
-    console.log("pass: " + pass );
-    // this.emailLogin();
   }
 
   printUserData( user: any ) {

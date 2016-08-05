@@ -13,8 +13,13 @@ md-card img {
 md-card-title {
     font-family: "Times New Roman", Times, serif;
     font-size: 22px;
-    text-align: center;
+    text-align: left;
     color: #ff9900;
+}
+
+.sns-login {
+  display: flex;
+  margin-top: 30px;
 }
 
 md-card form button {
@@ -24,16 +29,12 @@ md-card form button {
     margin-right: 10px;
 }
 
-md-card md-card-actions button {
-    display: block;
-    width: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-.sns-login {
-  display: flex;
-  margin-top: 30px;
+md-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 5px;
+  height: 16px;
+  width: 16px;
 }
 
 :host(.hidden) {
@@ -56,10 +57,14 @@ md-input.password {
   margin-right: 10px;
 }
 
-md-icon {
+.profile-card button {
   display: inline-flex;
-  vertical-align: middle;
-  margin-right: 5px;
-  height: 16px;
-  width: 16px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.misc-card button {
+  display: inline-flex;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }

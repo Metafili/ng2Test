@@ -159,6 +159,9 @@ export class AuthDataService {
 
   logoutUser(): void {
     console.log("logoutUser: OK");
+    this.userId = undefined;
+    this.emailVerified = false;
+    this.fireUser = undefined;
     return this.af.auth.logout();
   }
 
