@@ -80,6 +80,7 @@ const barrels: string[] = [
   'app/obs/comments/comment-box',
   'app/obs/comments/comment-form',
   'app/obs/comments/comment-list',
+  'app/basics/external-lib',
   /** @cli-barrel */
 ];
 

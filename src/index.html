@@ -12,6 +12,9 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!--KaKao Login -->
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
   <!-- Service worker support is disabled by default.
        Install the worker script and uncomment to enable.
        Only enable service workers in production.
@@ -26,6 +29,24 @@
   -->
 </head>
 <body>
+  <!--KaKao Auth I/F: Move to External-Lib for testing
+  <a id="kakao-login-btn"></a>
+  <a href="http://alpha-developers.kakao.com/logout"></a>
+  <!--
+  <script type='text/javascript'>
+    Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+        alert(JSON.stringify(authObj));
+      },
+      fail: function(err) {
+         alert(JSON.stringify(err));
+      }
+    });
+  </script>
+  --->
+
   <ng2-test-app>Loading...</ng2-test-app>
 
   <script src="vendor/es6-shim/es6-shim.js"></script>
@@ -33,6 +54,12 @@
   <script src="vendor/systemjs/dist/system.src.js"></script>
   <script src="vendor/zone.js/dist/zone.js"></script>
   <script src="vendor/hammerjs/hammer.min.js"></script>
+
+<!-- include External JavaScript Libraries In An Angular 2 TypeScript Project
+  -https://www.thepolyglotdeveloper.com/2016/01/include-external-javascript-libraries-in-an-angular-2-typescript-project/
+  -<script src="js/sha.js"></script> <-- Local == Remote
+-->
+  <script src ="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js"></script>
 
   <script>
     System.import('system-config.js').then(function () {

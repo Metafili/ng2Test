@@ -16,6 +16,7 @@ import { HeroFormComponent }           from './basics/hero-form/hero-form.compon
 import { ModelDrivenFormComponent }    from './basics/forms/model-driven-form/model-driven-form.component';
 import { TemplateDrivenFormComponent } from './basics/forms/template-driven-form/template-driven-form.component';
 import { CustomFormComponent }         from './basics/forms/custom-form/custom-form.component';
+import { ExternalLibComponent }        from './basics/external-lib/external-lib.component';
 
 import { ContentProjectionComponent } from './basics/content-projection/content-projection.component';
 import { WordListComponent }    from './mglish/word-list/word-list.component';
@@ -38,9 +39,9 @@ import { LoginComponent }       from './login/login.component';
   {path: '/contentproject',   name: 'ContentProjection',component: ContentProjectionComponent },
   {path: '/wordlist',         name: 'WordList',     component: WordListComponent },
   {path: '/getmword',         name: 'GetMword',     component: GetMwordComponent },
+  {path: '/externallib',      name: 'ExtLib',       component: ExternalLibComponent },
   {path: '/login',            name: 'Login',        component: LoginComponent }
 ])
-
 
 @Component({
   moduleId: module.id,
@@ -59,7 +60,7 @@ import { LoginComponent }       from './login/login.component';
 export class Ng2TestAppComponent implements OnInit {
   title = 'Ng2 Test';
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     console.log("ngOnInit: ");

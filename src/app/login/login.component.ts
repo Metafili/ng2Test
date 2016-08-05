@@ -79,6 +79,8 @@ export class LoginComponent implements OnInit {
       password:[]
     });
     // this.popupAlert("Test", "This is a test alert");
+    // this.popupPrompt("Test", "This is a test alert");
+
   }
 
   gotoHome( loginType: string ) {
@@ -350,6 +352,12 @@ export class LoginComponent implements OnInit {
       this.modal.alert()
           .title(title)
           .body( e )
+          .open();
+  }
+  popupPrompt( title:string, e:string ) {
+      this.modal.prompt()
+          .title(title)
+          // .dialogClass('popupAlert')
           .open();
   }
 
