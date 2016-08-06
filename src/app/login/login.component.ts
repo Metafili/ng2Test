@@ -27,6 +27,8 @@ import {ProfileDataService} from './service/profile-data.service';
 
 import 'rxjs/add/operator/do';
 
+declare var Kakao: any;
+
 @Component({
   moduleId: module.id,
   selector: 'app-login',
@@ -78,6 +80,11 @@ export class LoginComponent implements OnInit {
       email:['', Validators.required], // first: value, second: sync validator, third: asysnc validator
       password:[]
     });
+
+    // AccessToken: is not compatabile 
+    // this.initKakao();
+    // this.loginKakao();
+
     // this.popupAlert("Test", "This is a test alert");
     // this.popupPrompt("Test", "This is a test alert");
 
@@ -332,6 +339,33 @@ export class LoginComponent implements OnInit {
     })
     .catch((e:any)=> {
       this.loginError("Update Profile", e );
+    });
+  }
+
+  // Kakao Login
+  initKakao() {
+    Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
+  }
+
+  loginKakao() {
+    var that = this;
+    // Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+        console.log("AccessToken: " + authObj.access_token );
+        alert(JSON.stringify(authObj));
+        that.authService.loginCustom( authObj.access_token /*.refresh_token*/ )
+          .then(( user:any ) => {
+            console.log("Kakao: User: " + user );
+          })
+          .catch(( e:any) => {
+            console.log("Kakao: Fail: ", e.code + ' ' + e.message);
+          })
+      },
+      fail: function(err) {
+         alert(JSON.stringify(err));
+      }
     });
   }
 

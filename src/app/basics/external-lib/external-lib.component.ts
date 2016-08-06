@@ -23,14 +23,12 @@ export class ExternalLibComponent implements OnInit {
     this.shaObj = new jsSHA("SHA-512", "TEXT");
     this.shaObj.update("This is a test");
     this.hash = this.shaObj.getHash("HEX");
-
-
   }
 
   ngOnInit() {
      this.initKakao()
-     // this.loginKakao();
-     this.loginWithKakao();
+     this.loginKakao();
+     // this.loginWithKakao();
   }
 
 /**
@@ -66,6 +64,7 @@ export class ExternalLibComponent implements OnInit {
 
   loginWithKakao() {
      // Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
+     console.log("loginWithKakao: called");
      Kakao.Auth.login({
         success: function(authObj) {
           alert(JSON.stringify(authObj));

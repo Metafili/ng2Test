@@ -85,11 +85,14 @@ export class AuthDataService {
     });
   }
 
-  loginCustom(): Promise<FirebaseAuthState>  {
-    return this.af.auth.login({
+  loginCustom( accessToken: string ): Promise<firebase.User>  {
+    /*
+    return this.af.auth.login( accessToken, {
       provider: AuthProviders.Custom,
       method: AuthMethods.CustomToken
     });
+    */
+    return firebase.auth().signInWithCustomToken(accessToken);
   }
 
   loginGuest(): Promise<FirebaseAuthState>  {
