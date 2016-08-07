@@ -22,6 +22,7 @@ import { ContentProjectionComponent } from './basics/content-projection/content-
 import { WordListComponent }    from './mglish/word-list/word-list.component';
 import { GetMwordComponent }    from './mglish/get-mword/get-mword.component';
 import { LoginComponent }       from './login/login.component';
+import { CustomLoginComponent }       from './login/test/custom-login/custom-login.component';
 
 @RouteConfig([
   {path: '/',                 name: 'Root',         component: ObsBaiscComponent, useAsDefault: true },
@@ -40,7 +41,8 @@ import { LoginComponent }       from './login/login.component';
   {path: '/wordlist',         name: 'WordList',     component: WordListComponent },
   {path: '/getmword',         name: 'GetMword',     component: GetMwordComponent },
   {path: '/externallib',      name: 'ExtLib',       component: ExternalLibComponent },
-  {path: '/login',            name: 'Login',        component: LoginComponent }
+  {path: '/login',            name: 'Login',        component: LoginComponent },
+  {path: '/customlogin',      name: 'CustomLogin',  component: CustomLoginComponent }
 ])
 
 @Component({
