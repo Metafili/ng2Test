@@ -82,12 +82,11 @@ export class LoginComponent implements OnInit {
     });
 
     // AccessToken: is not compatabile 
-    // this.initKakao();
-    // this.loginKakao();
+    this.initKakao();
+    this.loginKakao();
 
     // this.popupAlert("Test", "This is a test alert");
     // this.popupPrompt("Test", "This is a test alert");
-
   }
 
   gotoHome( loginType: string ) {
@@ -350,14 +349,16 @@ export class LoginComponent implements OnInit {
   loginKakao() {
     var that = this;
     // Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
+    // Custom Token
+    var customToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOiJoc2xlZS5lZGljb25AZ21haWwuY29tIiwiaWF0IjoxNDcwNTMxMjIwLCJleHAiOjE0NzA1MzQ4MjAsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoibmdmaXJlMnRlc3RAdml2aWQtdG9yY2gtMzA1Mi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInN1YiI6Im5nZmlyZTJ0ZXN0QHZpdmlkLXRvcmNoLTMwNTIuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.CkqAHmF7VWzbfBHT-KnP0qGWtZBXsXQ-YDVdZo8XR0anZcwkIDQI0YHaIfdARXl4_mn_UyNtdha-vJp7qVw6_A3rcAlFQKc1UD5xWhY8kz_Nr8-9fRgY1bAqqlKa2wAn8NIkqn2MSLelQU7IIxxBJEC9i6JKeA4ncEwjxJZD6_WFiKdHge_1n9z7d1p1qT7BoQBK6hZniVWEp5scjuTrXtHTZ0c1HnkNfwqDL_Zd2HyeP5yUdVMBKM52C9Lurgp-K5kW7TO6l3aSG-zLSCXlDXSdqQlAIW3dq5eLxw_Qoh5EBNCyj8GVNJ7yv7veCVTC5f3oDmx3YsbS8g7t9A1drQ";
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: function(authObj) {
         console.log("AccessToken: " + authObj.access_token );
         alert(JSON.stringify(authObj));
-        that.authService.loginCustom( authObj.access_token /*.refresh_token*/ )
-          .then(( user:any ) => {
-            console.log("Kakao: User: " + user );
+        that.authService.loginCustom( customToken /*authObj.access_token*/ )
+          .then(( user:firebase.User ) => {
+            console.log("Kakao: User: " + user.uid );
           })
           .catch(( e:any) => {
             console.log("Kakao: Fail: ", e.code + ' ' + e.message);
