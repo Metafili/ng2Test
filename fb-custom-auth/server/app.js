@@ -56,6 +56,7 @@ app.post('/login', (req, res, next) => {
 
     const username = req.body.username;
     const password = req.body.password;
+    console.log(username + '/' + password );
 
     // finding which account will match the
     // supplied credentials
