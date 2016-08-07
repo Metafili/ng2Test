@@ -3,6 +3,8 @@
 * We also need to import firebase so we can talk to our DB.
 */
 import { Injectable } from '@angular/core';
+
+
 import {
   AngularFire,
   FirebaseObjectObservable, FirebaseListObservable,
@@ -33,6 +35,12 @@ export class ProfileDataService {
   // Firebase 3.x SDK: .set for create a node
   createUserProfile( email: string): Promise<any> {
     return this.userProfile.child(this.currentUser.uid).set({
+      email:email
+    });
+  }
+  
+  createCustomUserProfile( uid:string, email: string): Promise<any> {
+    return this.userProfile.child(uid).set({
       email:email
     });
   }

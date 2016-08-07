@@ -46,6 +46,10 @@ export class AuthDataService {
     return this.userId;
   }
 
+  setUserId(uid) {
+    this.userId = uid;
+  }
+
   getEmailVerified() {
     return this.emailVerified;
   }
@@ -85,14 +89,15 @@ export class AuthDataService {
     });
   }
 
-  loginCustom( accessToken: string ): Promise<firebase.User>  {
-    /*
+  loginFirebaseCustom( accessToken: string ): Promise<firebase.User>  {
+    return firebase.auth().signInWithCustomToken(accessToken);
+  }
+
+  loginFire2Custom( accessToken: string ): Promise<FirebaseAuthState>  {
     return this.af.auth.login( accessToken, {
       provider: AuthProviders.Custom,
       method: AuthMethods.CustomToken
     });
-    */
-    return firebase.auth().signInWithCustomToken(accessToken);
   }
 
   loginGuest(): Promise<FirebaseAuthState>  {
@@ -176,10 +181,20 @@ export class AuthDataService {
     return this.af.auth.getAuth().auth.updatePassword( pass );
   }
 
+  // Use firebase skd 3.x because of signInWithCustomToken use sdk 3.x
   updateProfile( displayName:string, photoUrl:string ): Promise<void> {
-    return this.af.auth.getAuth().auth.updateProfile({
-      displayName: displayName,   // "Jane Q. User",
-      photoURL: photoUrl          // "https://example.com/jane-q-user/profile.jpg"
+    return firebase.auth().currentUser.updateProfile(
+    {
+      displayName: displayName,
+      photoURL: photoUrl 
+    });
+  }
+  // Use fire2
+  updateProfile2( displayName:string, photoUrl:string ): Promise<void> {
+    return this.af.auth.getAuth().auth.updateProfile(
+    {
+      displayName: displayName,
+      photoURL: photoUrl
     });
   }
 

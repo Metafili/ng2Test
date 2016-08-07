@@ -13,6 +13,7 @@ import {
   AngularFire,
   FirebaseAuthState, FirebaseAuth
 } from 'angularfire2';
+import {JSONP_PROVIDERS, Jsonp} from '@angular/http';
 
 import {MdToolbar} from '@angular2-material/toolbar';
 import {MdButton} from '@angular2-material/button';
@@ -24,6 +25,7 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap/index';
 import {AuthDataService} from './service/auth-data.service';
 import {ProfileDataService} from './service/profile-data.service';
+import {KakaoDataService} from './service/kakao-data.service';
 
 import 'rxjs/add/operator/do';
 
@@ -38,7 +40,9 @@ declare var Kakao: any;
   providers: [
     MdIconRegistry,
     AuthDataService,
-    ProfileDataService
+    ProfileDataService,
+    KakaoDataService,
+    JSONP_PROVIDERS
   ],
   directives: [
     REACTIVE_FORM_DIRECTIVES,
@@ -70,6 +74,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthDataService,
     private profileService: ProfileDataService,
+    private kakaoService: KakaoDataService,
     private modal: Modal,  viewContainer: ViewContainerRef ) {
 
     modal.defaultViewContainer = viewContainer;
@@ -135,17 +140,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  // Custom
-  loginCustom() {
-    this.authService.loginGoogle()
-      .then( authState_ => {
-        this.gotoHome("Custom Login");
-      })
-      .catch((e:any)=> {
-        this.loginError("Login Custom", e );
-      });
-  }
-
   // Anonymous
   loginGuest() {
     this.authService.loginGuest()
@@ -195,7 +189,23 @@ export class LoginComponent implements OnInit {
     this.profileService.createUserProfile(mail)
       .then( _ => {
         // Send notification mail
+        if( mail !== null && mail !== undefined )
+          this.sendMailNotification();
+        // this.gotoHome("Login");
+        })
+      .catch((e:any) => {
+        // Send if failed on CreateProfile
         this.sendMailNotification();
+        this.loginError("Create Profile", e );
+      });
+  }
+  
+  createCustomUserProfile( uid:string, mail: any ) {
+    this.profileService.createCustomUserProfile( uid, mail)
+      .then( _ => {
+        // Send notification mail
+        if( mail !== null && mail !== undefined && mail !== "" )
+          this.sendMailNotification();
         // this.gotoHome("Login");
         })
       .catch((e:any) => {
@@ -279,11 +289,6 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if( this.authService.getUserId() === undefined ) {
-      this.loginMessage("Update Profile", "Login first!!!");
-      return;
-    }
-
     // Update firebase email
     this.authService.updateEmail( email )
     .then( _ => {
@@ -326,11 +331,13 @@ export class LoginComponent implements OnInit {
       this.loginMessage("Update Profile", "Input your name and url to update.")
       return;
     }
-
+    /* 
+    // firebase sdk 3.x is not use Observable, so update current uid by manually
     if( this.authService.getUserId() === undefined ) {
       this.loginMessage("Update Profile", "Login first!!!");
       return;
     }
+    */
 
     this.authService.updateProfile( displayName, photoUrl )
     .then( _ => {
@@ -341,33 +348,96 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  updateProfile2( displayName:string, photoUrl:string ) {
+    if( displayName === null || displayName === undefined || displayName == ""
+     || photoUrl === null || photoUrl === undefined || photoUrl == "" ) {
+      this.loginMessage("Update Profile", "Input your name and url to update.")
+      return;
+    }
+    /* 
+    // firebase sdk 3.x is not use Observable, so update current uid by manually
+    if( this.authService.getUserId() === undefined ) {
+      this.loginMessage("Update Profile", "Login first!!!");
+      return;
+    }
+    */
+
+    this.authService.updateProfile2( displayName, photoUrl )
+    .then( _ => {
+      this.loginMessage("Update Profile", "Your profile is updated.");
+    })
+    .catch((e:any)=> {
+      this.loginError("Update Profile", e );
+    });
+  }
+
   // Kakao Login
   initKakao() {
-    Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
+    let KakoDev_Angular2Login_JavaScript_Key = "d3dbe68b215fa7ddc7b19707f56bb88d";
+    this.kakaoService.initKaka(KakoDev_Angular2Login_JavaScript_Key);
   }
 
   loginKakao() {
-    var that = this;
-    // Kakao.init('d3dbe68b215fa7ddc7b19707f56bb88d');
-    // Custom Token
-    var customToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOiJoc2xlZS5lZGljb25AZ21haWwuY29tIiwiaWF0IjoxNDcwNTMxMjIwLCJleHAiOjE0NzA1MzQ4MjAsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoibmdmaXJlMnRlc3RAdml2aWQtdG9yY2gtMzA1Mi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInN1YiI6Im5nZmlyZTJ0ZXN0QHZpdmlkLXRvcmNoLTMwNTIuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.CkqAHmF7VWzbfBHT-KnP0qGWtZBXsXQ-YDVdZo8XR0anZcwkIDQI0YHaIfdARXl4_mn_UyNtdha-vJp7qVw6_A3rcAlFQKc1UD5xWhY8kz_Nr8-9fRgY1bAqqlKa2wAn8NIkqn2MSLelQU7IIxxBJEC9i6JKeA4ncEwjxJZD6_WFiKdHge_1n9z7d1p1qT7BoQBK6hZniVWEp5scjuTrXtHTZ0c1HnkNfwqDL_Zd2HyeP5yUdVMBKM52C9Lurgp-K5kW7TO6l3aSG-zLSCXlDXSdqQlAIW3dq5eLxw_Qoh5EBNCyj8GVNJ7yv7veCVTC5f3oDmx3YsbS8g7t9A1drQ";
-    Kakao.Auth.createLoginButton({
-      container: '#kakao-login-btn',
-      success: function(authObj) {
-        console.log("AccessToken: " + authObj.access_token );
-        alert(JSON.stringify(authObj));
-        that.authService.loginCustom( customToken /*authObj.access_token*/ )
-          .then(( user:firebase.User ) => {
-            console.log("Kakao: User: " + user.uid );
+    let that = this;
+    that.kakaoService.getAuth()
+      .then( auth => {
+        alert(JSON.stringify(auth));
+        // Get User Profile
+        that.kakaoService.getUserInfo()
+          .then( user => {
+            console.log("Kakao: User: " + JSON.stringify(user));
+            // Login Kakao 
+            that.loginCustom( user );
           })
-          .catch(( e:any) => {
-            console.log("Kakao: Fail: ", e.code + ' ' + e.message);
-          })
-      },
-      fail: function(err) {
-         alert(JSON.stringify(err));
-      }
+          .catch( e => {
+            that.loginError("Kakao Login", e );
+          });
+      })
+      .catch( e => { 
+        that.loginError("Kakao Login", e );
     });
+  }
+
+  loginCustom( kakao: any ) {
+    let firebase = 1;
+
+    let id = kakao.id;
+    let customToken = this.kakaoService.getCustomTokenWithId(id);
+    console.log("Custom Token: " + customToken );
+
+    // Use firebase sdk 3.x
+    if( firebase === 1 )
+    this.authService.loginFirebaseCustom( customToken )
+      .then(( user:firebase.User ) => { 
+        console.log("Kako User: " + JSON.stringify(kakao));
+        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
+
+        this.authService.setUserId(id);
+        this.updateProfile( kakao.properties.nickname, kakao.properties.profile_image );
+        this.createCustomUserProfile("kakao:"+id, "");
+        
+      })
+      .catch(( e:any) => {
+        console.log("Kakao: Fail: ", e.code + ' ' + e.message);
+        this.loginError("Kakao Login", e );
+      });
+
+    // Use fire2, ERROR: providerId: undefined
+    // https://github.com/angular/angularfire2/issues/286
+    if( firebase === 2 )
+    this.authService.loginFire2Custom( customToken )
+      .then(( user:FirebaseAuthState ) => { // Use fire2: user:FirebaseAuthStater  */
+        console.log("Kako User: " + JSON.stringify(kakao));
+        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
+
+        // ToDo: Check Observable Update: this.authService.setUserId(id);
+        // this.updateProfile2( kakao.properties.nickname, kakao.properties.profile_image );
+        // this.createCustomUserProfile("kakao:"+id, "");
+      })
+      .catch(( e:any) => {
+        console.log("Kakao: Fail: ", e.code + ' ' + e.message);
+        this.loginError("Kakao Login", e );
+      });
   }
 
   printUserData( user: any ) {
