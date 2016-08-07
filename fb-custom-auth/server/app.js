@@ -9,7 +9,12 @@ const restify = require('restify');
 const firebase = require('firebase');
 const _ = require('lodash');
 
-const app = restify.createServer();
+const app = restify.createServer(
+    {
+        name: 'custom login',
+        version: '1.0.0'
+    }
+);
 app.use(restify.acceptParser(app.acceptable));
 app.use(restify.authorizationParser());
 app.use(restify.dateParser());
@@ -79,4 +84,6 @@ app.post('/login', (req, res, next) => {
 
 });
 
-app.listen(8080, () => console.log('Listening ...'));
+app.listen(8080, () => { 
+    console.log('%s listening at %s', app.name, app.url)
+});
