@@ -38,8 +38,25 @@ export class AuthDataService {
           this.emailVerified = user.auth.emailVerified;
         } else {
           console.log("AuthDataService: No Login: ", user );
+
         }
       });
+
+    // Callback for catching signInWithCustomToken() using firebase sdk 3.x
+    // ToDo: Remove after upgrade bug of Fire2 CustomToken
+    // firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged( user => {
+      if (user) {
+        var profile = localStorage.getItem('profile');
+        profile = JSON.parse(profile);
+        console.log(user);
+        this.fireUser = user;
+        this.userId = user.uid;
+        alert("Auth: OK");
+      } else {
+        alert("Auth: Fail");
+      }
+    });
   }
 
   getUserId() {
@@ -186,7 +203,7 @@ export class AuthDataService {
     return firebase.auth().currentUser.updateProfile(
     {
       displayName: displayName,
-      photoURL: photoUrl 
+      photoURL: photoUrl
     });
   }
   // Use fire2
@@ -199,15 +216,15 @@ export class AuthDataService {
   }
 
   printUserData( user: any ) {
-      console.log("User: ", user.uid + '/' +  user.provider );
-      if( user.auth.providerData.length != 0 ) {
-        user.auth.providerData.forEach(function (profile) {
-          console.log("Provider: "  + profile.providerId);
-          console.log("  UID: "     + profile.uid);
-          console.log("  Name: "    + profile.displayName);
-          console.log("  Email: "   + profile.email);
-          console.log("  photoURL: "+ profile.photoURL);
-        });
-      }
+    console.log("User: ", user.uid + '/' +  user.provider );
+    if( user.auth.providerData.length != 0 ) {
+      user.auth.providerData.forEach(function (profile) {
+        console.log("Provider: "  + profile.providerId);
+        console.log("  UID: "     + profile.uid);
+        console.log("  Name: "    + profile.displayName);
+        console.log("  Email: "   + profile.email);
+        console.log("  photoURL: "+ profile.photoURL);
+      });
+    }
   }
 }

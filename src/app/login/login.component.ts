@@ -56,8 +56,6 @@ declare var Kakao: any;
 export class LoginComponent implements OnInit {
   title = 'Login';
 
-  private focused: boolean;
-  private custToken: any;
   public static kakaoInit:boolean = false;
 
   user: {
@@ -115,7 +113,8 @@ export class LoginComponent implements OnInit {
 
   loginTwitter() {
     this.authService.loginTwitter()
-      .then( authState_ => {
+      .then( authState => {
+        console.log(authState);
         this.gotoHome("Twitter");
       })
       .catch((e:any)=> {
@@ -125,7 +124,8 @@ export class LoginComponent implements OnInit {
 
   loginFaceBook() {
     this.authService.loginFaceBook()
-      .then( authState_ => {
+      .then( authState => {
+        console.log(authState);
         this.gotoHome("FaceBook");
       })
       .catch((e:any)=> {
@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
   loginGoogle() {
     this.authService.loginGoogle()
       .then( authState => {
-        // console.log(authState);
+        console.log(authState);
         this.gotoHome("Google");
       })
       .catch((e:any)=> {
@@ -147,7 +147,8 @@ export class LoginComponent implements OnInit {
   // Anonymous
   loginGuest() {
     this.authService.loginGuest()
-      .then( authState_ => {
+      .then( authState => {
+        console.log(authState);
         this.gotoHome("Guest Login");
       })
       .catch((e:any)=> {
@@ -164,8 +165,12 @@ export class LoginComponent implements OnInit {
   // Email and password
   loginUser( email, password ) {
     this.authService.loginUser( email, password )
-      .then( authStatee => {
-        this.gotoHome("Login");
+      .then( authState => {
+        console.log(authState);
+        if(authState.auth.emailVerified)
+          this.gotoHome("Login");
+        else
+          this.loginMessage("Login Error", "Checks your email for verification.")
       })
       .catch((e:any) => {
         this.loginError("Login", e);
@@ -286,7 +291,6 @@ export class LoginComponent implements OnInit {
   initKakao() {
     let KakoDev_Angular2Login_JavaScript_Key = "d3dbe68b215fa7ddc7b19707f56bb88d";
     this.kakaoService.initKaka(KakoDev_Angular2Login_JavaScript_Key);
-    // Kakao.init( KakoDev_Angular2Login_JavaScript_Key );
   }
 
   loginKakao() {
@@ -339,7 +343,7 @@ export class LoginComponent implements OnInit {
       .then( response => response.json() )
       .then((data:any)=> {
         customToken = data.token;
-        console.log("Custom Token: " + customToken );
+        // console.log("Custom Token: " + customToken );
         this.loginFirebaseCustom(kakao, customToken);
       })
       .catch( e => {
@@ -348,7 +352,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginFirebaseCustom(kakao:KakaoUserInfo, customToken:string ) {
-
     let firebase = 1;
     let id = kakao.id;
 
@@ -357,11 +360,13 @@ export class LoginComponent implements OnInit {
     this.authService.loginFirebaseCustom( customToken )
       .then(( user:firebase.User ) => {
         console.log("Kako User: " + JSON.stringify(kakao));
-        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
+        console.log("Kakao: Firebase.User: " + user.uid /* JSON.stringify(user) */ );
 
         this.authService.setUserId("kakao" + id);
         this.updateProfile( kakao.properties.nickname, kakao.properties.profile_image );
         this.createCustomUserProfile("kakao:" + id, "");
+
+        this.gotoHome("Kakao");
 
       })
       .catch(( e:any) => {

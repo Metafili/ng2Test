@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Headers, Jsonp, Http, Response, RequestOptions } from '@angular/http';
+import {
+  AngularFire,
+  FirebaseObjectObservable, FirebaseListObservable,
+  FirebaseAuthState, FirebaseAuth,
+  /*AuthCredential,*/ AuthMethods, AuthProviders } from 'angularfire2';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 declare var Kakao: any;
 
@@ -15,7 +22,24 @@ export interface KakaoUserInfo {
 @Injectable()
 export class KakaoDataService {
 
-  constructor( private http:Http, private jsonp: Jsonp ) {
+  public userId: string;
+  public emailVerified: boolean;
+
+  public fireUser: FirebaseAuthState;
+  public fireAuth: FirebaseAuth;
+
+  constructor( public af: AngularFire, private http:Http, private jsonp: Jsonp ) {
+    af.auth
+      .subscribe((user:any) => {
+        this.fireUser = user;
+        if( user  ) {
+          this.printUserData(user);
+          this.userId = user.uid;
+          this.emailVerified = user.auth.emailVerified;
+        } else {
+          console.log("AuthDataService: No Login: ", user );
+        }
+      });
   }
 
   initKaka( appKey: string ) {
@@ -77,6 +101,9 @@ export class KakaoDataService {
         .toPromise();
     }
 
+  // $curl -H "Content-Type: application/json" \
+  //  -X POST -d '{"username":"hslee@gmail.com","password":"1234"}' \
+  //  http://localhost:8080/login
   getCustomTokenWithId( kakao:KakaoUserInfo ): Promise<Response> {
     const body = {
       uid: kakao.id,
@@ -88,13 +115,21 @@ export class KakaoDataService {
 
     return this.http.post(
       'http://localhost:8080/kakao', // URL
-      JSON.stringify(body),                // Body
-      { headers: headers })                // Header
+      JSON.stringify(body),          // Body
+      { headers: headers })          // Header
       .toPromise();
-    /*
-    // Expired..So, Refresh for testing...
-    let customToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOiJoc2xlZS5lZGljb25AZ21haWwuY29tIiwiaWF0IjoxNDcwNTYyNTQxLCJleHAiOjE0NzA1NjYxNDEsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoibmdmaXJlMnRlc3RAdml2aWQtdG9yY2gtMzA1Mi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInN1YiI6Im5nZmlyZTJ0ZXN0QHZpdmlkLXRvcmNoLTMwNTIuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.Z_ipUb2Au2u0FDwA54BReQA2L5Ib_vKsnQtBQrby29u2Yl8be9dGX6_sCNbGJKYdh36mwWXEtYk5JDP3OyOHfdIWJoBf1Q5Cb_NJDwUvc66FWSovNiBR7JkVbYgHYTefo8sHrmBYgaESBTydwhyTJ9B5PyOeROdN6lMnKDqP5UuPfKZMdEaQtr0DabSbgOA4em_B8HZY_6PR6UxuDTeTXfGOLBfft9uo_iqiJc63EM22C5h1lJbuA9y2usI0jDQVS7sn9qnXUDCTwiXlrrRijsG2wOTJBMHo7stOUb0z9n-4BRU_SNcV-ODeYTJ1NkZv3XYJLkRuposQzPuVrN3O9w";
-    return customToken;
-    */
+  }
+
+  printUserData( user: any ) {
+    console.log("User: ", user.uid + '/' +  user.provider );
+    if( user.auth.providerData.length != 0 ) {
+      user.auth.providerData.forEach(function (profile) {
+        console.log("Provider: "  + profile.providerId);
+        console.log("  UID: "     + profile.uid);
+        console.log("  Name: "    + profile.displayName);
+        console.log("  Email: "   + profile.email);
+        console.log("  photoURL: "+ profile.photoURL);
+      });
+    }
   }
 }
