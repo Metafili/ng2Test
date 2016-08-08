@@ -38,23 +38,24 @@ export class AuthDataService {
           this.emailVerified = user.auth.emailVerified;
         } else {
           console.log("AuthDataService: No Login: ", user );
-
         }
       });
 
     // Callback for catching signInWithCustomToken() using firebase sdk 3.x
     // ToDo: Remove after upgrade bug of Fire2 CustomToken
-    // firebase.auth().onAuthStateChanged(function(user) {
+    //  -https://github.com/auth0-blog/fireteller
+    //  -https://github.com/auth0-blog/fireteller/blob/master/public/app.js
+    //  -https://dzone.com/articles/firebase-authentication-with-the-firebase-30-sdk-a
     firebase.auth().onAuthStateChanged( user => {
+      this.fireUser = user;
       if (user) {
         var profile = localStorage.getItem('profile');
         profile = JSON.parse(profile);
         console.log(user);
-        this.fireUser = user;
         this.userId = user.uid;
-        alert("Auth: OK");
+        // alert("Auth: OK");
       } else {
-        alert("Auth: Fail");
+        // alert("Auth: Fail");
       }
     });
   }
