@@ -296,7 +296,7 @@ export class LoginComponent implements OnInit {
       container: '#kakao-login-btn',
       success: function(auth) {
         console.log("Kakao Auth: " + JSON.stringify(auth));
-        alert(JSON.stringify(auth));
+        // alert(JSON.stringify(auth));
         // Call Kakao User Info
         that.kakaoService.getUserInfo()
           .then( user => {
