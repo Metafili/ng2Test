@@ -25,7 +25,7 @@ import {MD_INPUT_DIRECTIVES} from '@angular2-material/input';
 import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap/index';
 import {AuthDataService} from './service/auth-data.service';
 import {ProfileDataService} from './service/profile-data.service';
-import {KakaoDataService} from './service/kakao-data.service';
+import {KakaoDataService, KakaoUserInfo } from './service/kakao-data.service';
 
 import 'rxjs/add/operator/do';
 
@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
 
   private focused: boolean;
   private custToken: any;
+  public static kakaoInit:boolean = false;
 
   user: {
     email: string
@@ -86,8 +87,11 @@ export class LoginComponent implements OnInit {
       password:[]
     });
 
-    // AccessToken: is not compatabile 
-    this.initKakao();
+    // AccessToken: is not compatabile
+    if( !LoginComponent.kakaoInit ) {
+      this.initKakao();
+      LoginComponent.kakaoInit = true;
+    }
     this.loginKakao();
 
     // this.popupAlert("Test", "This is a test alert");
@@ -199,7 +203,7 @@ export class LoginComponent implements OnInit {
         this.loginError("Create Profile", e );
       });
   }
-  
+
   createCustomUserProfile( uid:string, mail: any ) {
     this.profileService.createCustomUserProfile( uid, mail)
       .then( _ => {
@@ -278,6 +282,112 @@ export class LoginComponent implements OnInit {
     this.authService.logoutUser();
   }
 
+
+  // Kakao Login
+  initKakao() {
+    let KakoDev_Angular2Login_JavaScript_Key = "d3dbe68b215fa7ddc7b19707f56bb88d";
+    this.kakaoService.initKaka(KakoDev_Angular2Login_JavaScript_Key);
+    // Kakao.init( KakoDev_Angular2Login_JavaScript_Key );
+  }
+
+  loginKakao() {
+    let that = this;
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(auth) {
+        console.log("Kakao Auth: " + JSON.stringify(auth));
+        alert(JSON.stringify(auth));
+        // Call Kakao User Info
+        that.kakaoService.getUserInfo()
+          .then( user => {
+            console.log("Kakao: User: " + JSON.stringify(user));
+            // Login Kakao
+            that.loginCustom( user );
+          })
+          .catch( e => {
+            that.loginError("Kakao Login", e );
+          });
+      },
+      fail: function(e) {
+        console.log("Kako Auth: Error: " + e.message );
+        that.loginError("Kakao Login", e );
+      }
+    });
+    /*
+    that.kakaoService.getAuth()
+      .then( auth => {
+        alert(JSON.stringify(auth));
+        // Get User Profile
+        that.kakaoService.getUserInfo()
+          .then( user => {
+            console.log("Kakao: User: " + JSON.stringify(user));
+            // Login Kakao
+            that.loginCustom( user );
+          })
+          .catch( e => {
+            that.loginError("Kakao Login", e );
+          });
+      })
+      .catch( e => {
+        that.loginError("Kakao Login", e );
+    });
+    */
+  }
+
+  loginCustom( kakao: KakaoUserInfo ) {
+    let customToken;
+    this.kakaoService.getCustomTokenWithId(kakao)
+      .then( response => response.json() )
+      .then((data:any)=> {
+        customToken = data.token;
+        console.log("Custom Token: " + customToken );
+        this.loginFirebaseCustom(kakao, customToken);
+      })
+      .catch( e => {
+        this.loginError("Kakao Login", e );
+    });
+  }
+
+  loginFirebaseCustom(kakao:KakaoUserInfo, customToken:string ) {
+
+    let firebase = 1;
+    let id = kakao.id;
+
+    // Use firebase sdk 3.x
+    if( firebase === 1 )
+    this.authService.loginFirebaseCustom( customToken )
+      .then(( user:firebase.User ) => {
+        console.log("Kako User: " + JSON.stringify(kakao));
+        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
+
+        this.authService.setUserId("kakao" + id);
+        this.updateProfile( kakao.properties.nickname, kakao.properties.profile_image );
+        this.createCustomUserProfile("kakao:" + id, "");
+
+      })
+      .catch(( e:any) => {
+        console.log("Kakao: Fail: ", e.code + ' ' + e.message);
+        this.loginError("Kakao Login", e );
+      });
+
+    // Use fire2, ERROR: providerId: undefined
+    // https://github.com/angular/angularfire2/issues/286
+    if( firebase === 2 )
+    this.authService.loginFire2Custom( customToken )
+      .then(( user:FirebaseAuthState ) => { // Use fire2: user:FirebaseAuthStater  */
+        console.log("Kako User: " + JSON.stringify(kakao));
+        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
+
+        // ToDo: Check Observable Update: this.authService.setUserId(id);
+        // this.updateProfile2( kakao.properties.nickname, kakao.properties.profile_image );
+        // this.createCustomUserProfile("kakao:"+id, "");
+      })
+      .catch(( e:any) => {
+        console.log("Kakao: Fail: ", e.code + ' ' + e.message);
+        this.loginError("Kakao Login", e );
+      });
+  }
+
   // Firebase Profile
   updateEmail( email:string ) {
     if( this.user.email === null || this.user.email == "" ) {
@@ -331,7 +441,7 @@ export class LoginComponent implements OnInit {
       this.loginMessage("Update Profile", "Input your name and url to update.")
       return;
     }
-    /* 
+    /*
     // firebase sdk 3.x is not use Observable, so update current uid by manually
     if( this.authService.getUserId() === undefined ) {
       this.loginMessage("Update Profile", "Login first!!!");
@@ -354,7 +464,7 @@ export class LoginComponent implements OnInit {
       this.loginMessage("Update Profile", "Input your name and url to update.")
       return;
     }
-    /* 
+    /*
     // firebase sdk 3.x is not use Observable, so update current uid by manually
     if( this.authService.getUserId() === undefined ) {
       this.loginMessage("Update Profile", "Login first!!!");
@@ -369,75 +479,6 @@ export class LoginComponent implements OnInit {
     .catch((e:any)=> {
       this.loginError("Update Profile", e );
     });
-  }
-
-  // Kakao Login
-  initKakao() {
-    let KakoDev_Angular2Login_JavaScript_Key = "d3dbe68b215fa7ddc7b19707f56bb88d";
-    this.kakaoService.initKaka(KakoDev_Angular2Login_JavaScript_Key);
-  }
-
-  loginKakao() {
-    let that = this;
-    that.kakaoService.getAuth()
-      .then( auth => {
-        alert(JSON.stringify(auth));
-        // Get User Profile
-        that.kakaoService.getUserInfo()
-          .then( user => {
-            console.log("Kakao: User: " + JSON.stringify(user));
-            // Login Kakao 
-            that.loginCustom( user );
-          })
-          .catch( e => {
-            that.loginError("Kakao Login", e );
-          });
-      })
-      .catch( e => { 
-        that.loginError("Kakao Login", e );
-    });
-  }
-
-  loginCustom( kakao: any ) {
-    let firebase = 1;
-
-    let id = kakao.id;
-    let customToken = this.kakaoService.getCustomTokenWithId(id);
-    console.log("Custom Token: " + customToken );
-
-    // Use firebase sdk 3.x
-    if( firebase === 1 )
-    this.authService.loginFirebaseCustom( customToken )
-      .then(( user:firebase.User ) => { 
-        console.log("Kako User: " + JSON.stringify(kakao));
-        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
-
-        this.authService.setUserId(id);
-        this.updateProfile( kakao.properties.nickname, kakao.properties.profile_image );
-        this.createCustomUserProfile("kakao:"+id, "");
-        
-      })
-      .catch(( e:any) => {
-        console.log("Kakao: Fail: ", e.code + ' ' + e.message);
-        this.loginError("Kakao Login", e );
-      });
-
-    // Use fire2, ERROR: providerId: undefined
-    // https://github.com/angular/angularfire2/issues/286
-    if( firebase === 2 )
-    this.authService.loginFire2Custom( customToken )
-      .then(( user:FirebaseAuthState ) => { // Use fire2: user:FirebaseAuthStater  */
-        console.log("Kako User: " + JSON.stringify(kakao));
-        console.log("Kakao: Firebase.User: " + JSON.stringify(user) /* user.uid */ );
-
-        // ToDo: Check Observable Update: this.authService.setUserId(id);
-        // this.updateProfile2( kakao.properties.nickname, kakao.properties.profile_image );
-        // this.createCustomUserProfile("kakao:"+id, "");
-      })
-      .catch(( e:any) => {
-        console.log("Kakao: Fail: ", e.code + ' ' + e.message);
-        this.loginError("Kakao Login", e );
-      });
   }
 
   printUserData( user: any ) {

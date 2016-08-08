@@ -1,7 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Headers, Jsonp, Http, URLSearchParams, RequestOptions } from '@angular/http';
+import { Headers, Jsonp, Http, Response, RequestOptions } from '@angular/http';
 
 declare var Kakao: any;
+
+export interface KakaoUserInfo {
+  "id":string,
+  "properties": {
+      "nickname":string,
+      "thumbnail_image":string,
+      "profile_image":string,
+  }
+}
 
 @Injectable()
 export class KakaoDataService {
@@ -10,9 +19,11 @@ export class KakaoDataService {
   }
 
   initKaka( appKey: string ) {
-    Kakao.init( appKey ); 
+    Kakao.init( appKey );
   }
 
+  // ERROR: 1번째 Call에서 Callback이 getAuth로 됨.
+  // #kakao-login-btn을 Call한 Context로 Callback이 설정됨.
   getAuth(): Promise<any> {
     let that = this;
     return new Promise( function( resolve, reject ) {
@@ -24,9 +35,9 @@ export class KakaoDataService {
           // that.getUserInfo();
           resolve(auth);
         },
-        fail: function(err) {
-          console.log("Kako Auth: Error: " + err.message );
-          reject(err);
+        fail: function(e) {
+          console.log("Kako Auth: Error: " + e.message );
+          reject(e);
         }
         });
     });
@@ -40,7 +51,7 @@ export class KakaoDataService {
         url : "/v1/user/me",
         success : function(result){
           // console.log("Kakao: UserInfo: " + JSON.stringify(result));
-          resolve(result); 
+          resolve(result);
         },
         fail : function(e){
           console.log(e);
@@ -57,7 +68,7 @@ export class KakaoDataService {
   getUserInfo2( accessToken:string ): any {
     let kakaoUserInfoUrl = 'https://kapi.kakao.com/v1/user/me ';
     let body = JSON.stringify({});
-    let headers = new Headers({ 
+    let headers = new Headers({
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         'Authorization': 'Bearer ' + accessToken
         });
@@ -66,9 +77,24 @@ export class KakaoDataService {
         .toPromise();
     }
 
-  getCustomTokenWithId( id ) {
+  getCustomTokenWithId( kakao:KakaoUserInfo ): Promise<Response> {
+    const body = {
+      uid: kakao.id,
+      username: kakao.properties.nickname,
+    };
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(
+      'http://localhost:8080/kakao', // URL
+      JSON.stringify(body),                // Body
+      { headers: headers })                // Header
+      .toPromise();
+    /*
     // Expired..So, Refresh for testing...
     let customToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOiJoc2xlZS5lZGljb25AZ21haWwuY29tIiwiaWF0IjoxNDcwNTYyNTQxLCJleHAiOjE0NzA1NjYxNDEsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoibmdmaXJlMnRlc3RAdml2aWQtdG9yY2gtMzA1Mi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInN1YiI6Im5nZmlyZTJ0ZXN0QHZpdmlkLXRvcmNoLTMwNTIuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.Z_ipUb2Au2u0FDwA54BReQA2L5Ib_vKsnQtBQrby29u2Yl8be9dGX6_sCNbGJKYdh36mwWXEtYk5JDP3OyOHfdIWJoBf1Q5Cb_NJDwUvc66FWSovNiBR7JkVbYgHYTefo8sHrmBYgaESBTydwhyTJ9B5PyOeROdN6lMnKDqP5UuPfKZMdEaQtr0DabSbgOA4em_B8HZY_6PR6UxuDTeTXfGOLBfft9uo_iqiJc63EM22C5h1lJbuA9y2usI0jDQVS7sn9qnXUDCTwiXlrrRijsG2wOTJBMHo7stOUb0z9n-4BRU_SNcV-ODeYTJ1NkZv3XYJLkRuposQzPuVrN3O9w";
     return customToken;
+    */
   }
 }

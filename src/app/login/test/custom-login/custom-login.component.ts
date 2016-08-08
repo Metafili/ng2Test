@@ -96,7 +96,10 @@ export class CustomLoginComponent implements OnInit {
           provider: AuthProviders.Custom,
           method: AuthMethods.CustomToken
         });
+      })
+      .catch( e => {
+        console.log(e);
       });
-  }
+    }
 }
 

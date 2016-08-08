@@ -11,7 +11,7 @@ const _ = require('lodash');
 
 const app = restify.createServer(
     {
-        name: 'custom login',
+        name: 'Custom Login',
         version: '1.0.0'
     }
 );
@@ -37,9 +37,9 @@ const fbAppRef = firebase.initializeApp({
 
 // pre-created accounts (in real life they will be in some database)
 const account1 = {
-    name: 'Kapil Sachdeva',
-    username: 'ksachdeva@someemail.com',
-    password: 'password1',
+    name: 'HyunSoo Lee',
+    username: 'hslee@gmail.com',
+    password: '1234',
     uuid: '596677b3-b6e6-4405-80ae-4c75928df132'
 };
 
@@ -52,14 +52,21 @@ const account2 = {
 
 const dbAccounts = [account1, account2];
 
-app.post('/login', (req, res, next) => {
+/*
+app.get('/', (req, res, next) => {
+    res.send("hello: req: " + req.body );
+});
+app.get('/login', (req, res, next) => {
+    res.send("hello: req: " + req );
+});
+*/
 
+app.post('/login', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
     console.log(username + '/' + password );
 
-    // finding which account will match the
-    // supplied credentials
+    // finding which account will match the upplied credentials
     const accounts = _.filter(dbAccounts, {
         username: username,
         password: password
@@ -69,7 +76,6 @@ app.post('/login', (req, res, next) => {
         res.send(400);
         return next();
     }
-
     // should be the only one in the array
     const theAccount = accounts[0];
 
@@ -78,13 +84,40 @@ app.post('/login', (req, res, next) => {
     const token = fbAppAuth.createCustomToken(theAccount.uuid, {
         name: theAccount.name
     });
+    console.log("Token: " + token );
 
     res.send({
         token
     });
-
 });
 
-app.listen(8080, () => { 
+app.post('/kakao', (req, res, next) => {
+    const uid = "kakao" + req.body.uid; // Number 경우, ERROR
+    const username = req.body.username;
+    console.log(uid + '/' + username );
+
+    if (uid === undefined || uid === null ) {
+        res.send(400);
+        return next();
+    }
+
+    // finally we are using firebase to generate the custom token
+    const fbAppAuth = fbAppRef.auth();
+    const token = fbAppAuth.createCustomToken(uid, {
+        name: username
+    });
+    // console.log("Token: " + token );
+
+    res.send({
+        token
+    });
+});
+
+// For Stack Trace
+app.on('uncaughtException', function (req, res, route, err) {
+    console.log('uncaughtException', err.stack);
+});
+
+app.listen(8080, () => {
     console.log('%s listening at %s', app.name, app.url)
 });
