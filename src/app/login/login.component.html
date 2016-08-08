@@ -52,21 +52,26 @@
 </md-card>
 
 <!-- Misc Login Function -->
-<md-card class=“profile-card”>
+<md-card class="profile-card">
     <md-card-content>
       <md-card-title>Profile</md-card-title>
     </md-card-content>
-    <button md-raised-button color="primary" (click)="updateEmail()">Update Email</button>
-    <button md-raised-button color="primary" (click)="updatePassword()">Update Passward</button>
-    <button md-raised-button color="primary" (click)="updateProfile()">Update Profile</button>
+    <div class="profile-btn">
+      <button md-raised-button color="primary" (click)="updateEmail()">Email</button>
+      <button md-raised-button color="primary" (click)="updatePassword()">Passward</button>
+      <button md-raised-button color="primary" (click)="updateProfile()">Profile</button>
+    </div>
 </md-card>
 
-<md-card >
-  <div class="misc-card">
-    <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
-    <button md-raised-button color="primary" (click)="logoutUser()"><b>Logout</b></button>
-    <button md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
-    <button md-raised-button color="primary" (click)="sendMailNotification()">Mail Noti</button>
+<md-card class="misc-card">
+    <md-card-content>
+      <md-card-title>Misc</md-card-title>
+    </md-card-content>
+    <div class="misc-btn">
+      <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
+      <button md-raised-button color="primary" (click)="logoutUser()">Logout</button>
+      <button md-raised-button color="primary" (click)="delReAuthenticate()">Delete</button>
+      <button md-raised-button color="primary" (click)="sendMailNotification()">Mail Noti</button>
     <!--<button md-raised-button color="primary" (click)="loginCustom()">Custom</button>-->
-  </div>
+    </div>
 </md-card>

@@ -282,7 +282,6 @@ export class LoginComponent implements OnInit {
     this.authService.logoutUser();
   }
 
-
   // Kakao Login
   initKakao() {
     let KakoDev_Angular2Login_JavaScript_Key = "d3dbe68b215fa7ddc7b19707f56bb88d";

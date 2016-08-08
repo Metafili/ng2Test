@@ -56,11 +56,13 @@ const dbAccounts = [account1, account2];
 app.get('/', (req, res, next) => {
     res.send("hello: req: " + req.body );
 });
-app.get('/login', (req, res, next) => {
-    res.send("hello: req: " + req );
-});
 */
 
+// How to POST JSON data with Curl from Terminal/Commandline to Test Spring REST?
+//  -http://stackoverflow.com/questions/7172784/how-to-post-json-data-with-curl-from-terminal-commandline-to-test-spring-rest
+// $curl -H "Content-Type: application/json" \
+//  -X POST -d '{"username":"hslee@gmail.com","password":"1234"}' \
+//  http://localhost:8080/login
 app.post('/login', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
