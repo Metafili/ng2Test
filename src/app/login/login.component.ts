@@ -26,6 +26,7 @@ import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap/index'
 import {AuthDataService} from './service/auth-data.service';
 import {ProfileDataService} from './service/profile-data.service';
 import {KakaoDataService, KakaoUserInfo } from './service/kakao-data.service';
+import {Auth0 } from './service/auth0-lock.service';
 
 import 'rxjs/add/operator/do';
 
@@ -42,7 +43,8 @@ declare var Kakao: any;
     AuthDataService,
     ProfileDataService,
     KakaoDataService,
-    JSONP_PROVIDERS
+    JSONP_PROVIDERS,
+    Auth0
   ],
   directives: [
     REACTIVE_FORM_DIRECTIVES,
@@ -69,6 +71,7 @@ export class LoginComponent implements OnInit {
   loginFormBuilder:FormGroup;
 
   constructor(
+    private auth0: Auth0,
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthDataService,
@@ -115,6 +118,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginTwitter()
       .then( authState => {
         console.log(authState);
+        this.saveAuthState( authState );
         this.gotoHome("Twitter");
       })
       .catch((e:any)=> {
@@ -125,7 +129,7 @@ export class LoginComponent implements OnInit {
   loginFaceBook() {
     this.authService.loginFaceBook()
       .then( authState => {
-        console.log(authState);
+        this.saveAuthState( authState );
         this.gotoHome("FaceBook");
       })
       .catch((e:any)=> {
@@ -136,7 +140,7 @@ export class LoginComponent implements OnInit {
   loginGoogle() {
     this.authService.loginGoogle()
       .then( authState => {
-        console.log(authState);
+        this.saveAuthState( authState );
         this.gotoHome("Google");
       })
       .catch((e:any)=> {
@@ -148,7 +152,7 @@ export class LoginComponent implements OnInit {
   loginGuest() {
     this.authService.loginGuest()
       .then( authState => {
-        console.log(authState);
+        this.saveAuthState( authState );
         this.gotoHome("Guest Login");
       })
       .catch((e:any)=> {
@@ -166,7 +170,7 @@ export class LoginComponent implements OnInit {
   loginUser( email, password ) {
     this.authService.loginUser( email, password )
       .then( authState => {
-        console.log(authState);
+        this.saveAuthState( authState );
         if(authState.auth.emailVerified)
           this.gotoHome("Login");
         else
@@ -180,14 +184,14 @@ export class LoginComponent implements OnInit {
   createUser() {
     if( this.user.email === undefined || this.user.email == "" ||
         this.user.password == undefined || this.user.password == "" ) {
-      this.loginMessage("New User", "Input your email and password to create.")
+      ; // this.loginMessage("New User", "Input your email and password to create.")
       return;
     }
 
     this.authService.createUser( this.user.email, this.user.password )
       .then( authState => {
-        // Create User Profile
-        this.createUserProfile( this.user.email );
+        this.saveAuthState( authState );
+        this.createUserProfile( this.user.email ); // Create User Profile
       })
       .catch((e:any)=> {
         this.loginError("Sineup", e);
@@ -197,13 +201,11 @@ export class LoginComponent implements OnInit {
   createUserProfile( mail: any ) {
     this.profileService.createUserProfile(mail)
       .then( _ => {
-        // Send notification mail
         if( mail !== null && mail !== undefined )
           this.sendMailNotification();
-        // this.gotoHome("Login");
         })
       .catch((e:any) => {
-        // Send if failed on CreateProfile
+        // Send even if failed on CreateProfile
         this.sendMailNotification();
         this.loginError("Create Profile", e );
       });
@@ -212,13 +214,11 @@ export class LoginComponent implements OnInit {
   createCustomUserProfile( uid:string, mail: any ) {
     this.profileService.createCustomUserProfile( uid, mail)
       .then( _ => {
-        // Send notification mail
         if( mail !== null && mail !== undefined && mail !== "" )
           this.sendMailNotification();
-        // this.gotoHome("Login");
         })
       .catch((e:any) => {
-        // Send if failed on CreateProfile
+        // Send even if failed on CreateProfile
         this.sendMailNotification();
         this.loginError("Create Profile", e );
       });
@@ -236,7 +236,7 @@ export class LoginComponent implements OnInit {
 
   sendPasswordResetEmail() {
     if( this.user.email === null || this.user.email == "" ) {
-      this.loginMessage("Reset Password", "Input your email to reset.")
+      ; // this.loginMessage("Reset Password", "Input your email to reset.")
       return;
     }
 
@@ -284,6 +284,7 @@ export class LoginComponent implements OnInit {
   }
 
   logoutUser() {
+    this.removeAuthState();
     this.authService.logoutUser();
   }
 
@@ -362,6 +363,7 @@ export class LoginComponent implements OnInit {
         console.log("Kako User: " + JSON.stringify(kakao));
         console.log("Kakao: Firebase.User: " + user.uid /* JSON.stringify(user) */ );
 
+        this.saveSdk3AuthState( user );
         this.authService.setUserId("kakao" + id);
         this.updateProfile( kakao.properties.nickname, kakao.properties.profile_image );
         this.createCustomUserProfile("kakao:" + id, "");
@@ -485,6 +487,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  auth0Login() {
+    this.auth0.login();
+  }
+
+  saveAuthState( authState:FirebaseAuthState ) {
+    localStorage.setItem('profile', authState.uid );
+  }
+
+  saveSdk3AuthState( user:firebase.User ) {
+    localStorage.setItem('profile', user.uid );
+  }
+
+  removeAuthState() {
+    localStorage.removeItem('profile');
+  }
+
   printUserData( user: any ) {
       console.log("User: ", user.uid + '/' +  user.provider );
       if( user.auth.providerData.length != 0 ) {
@@ -496,6 +514,10 @@ export class LoginComponent implements OnInit {
           console.log("  photoURL: "+ profile.photoURL);
         });
       }
+  }
+
+  printCustomUserData( user: firebase.User ) {
+      console.log(user);
   }
 
   popupAlert( title:string, e:string ) {

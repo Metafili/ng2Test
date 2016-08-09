@@ -6,7 +6,8 @@ const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
   'angularfire2': 'vendor/angularfire2',
   '@angular2-material': 'vendor/@angular2-material',
-  'angular2-modal': 'vendor/angular2-modal'
+  'angular2-modal': 'vendor/angular2-modal',
+  'angular2-jwt': 'vendor/angular2-jwt'
 };
 
 /** User packages configuration. */
@@ -18,6 +19,9 @@ const packages: any = {
   'angular2-modal': {
     defaultExtension: 'js',
     main: 'index.js'
+  },
+  'angular2-jwt': {
+    main: 'angular2-jwt.js'
   }
 };
 
@@ -82,6 +86,7 @@ const barrels: string[] = [
   'app/obs/comments/comment-list',
   'app/basics/external-lib',
   'app/login/test/custom-login',
+  'app/login/jwt',
   /** @cli-barrel */
 ];
 

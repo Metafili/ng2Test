@@ -1,6 +1,6 @@
 import { bootstrap }      from '@angular/platform-browser-dynamic';
 import { provide, enableProdMode } from '@angular/core';
-import { HTTP_PROVIDERS  } from '@angular/http';
+import { Http, HTTP_PROVIDERS  } from '@angular/http';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {MdGestureConfig} from '@angular2-material/core/gestures/MdGestureConfig';
 // New Forms API
@@ -17,6 +17,9 @@ import {
   AuthMethods,
   AuthProviders,
   firebaseAuthConfig} from 'angularfire2'
+
+// JWT
+import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
 if (environment.production) {
   enableProdMode();
@@ -41,5 +44,13 @@ bootstrap(Ng2TestAppComponent, [
     method: AuthMethods.Password
     // provider: AuthProviders.Google,
     // method: AuthMethods.Redirect
+  }),
+  provide(AuthHttp, {
+      useFactory: (http) => {
+        return new AuthHttp(new AuthConfig({
+          tokenName: 'jwt'
+        }), http);
+      },
+      deps: [Http]
   })
 ]);

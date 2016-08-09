@@ -23,6 +23,7 @@ import { WordListComponent }    from './mglish/word-list/word-list.component';
 import { GetMwordComponent }    from './mglish/get-mword/get-mword.component';
 import { LoginComponent }       from './login/login.component';
 import { CustomLoginComponent }       from './login/test/custom-login/custom-login.component';
+import {LoggedInRouterOutlet} from './login/LoggedInRouterOutlet';
 
 @RouteConfig([
   {path: '/',                 name: 'Root',         component: ObsBaiscComponent, useAsDefault: true },
@@ -54,7 +55,8 @@ import { CustomLoginComponent }       from './login/test/custom-login/custom-log
     ROUTER_PROVIDERS
   ],
   directives: [
-    ROUTER_DIRECTIVES
+    ROUTER_DIRECTIVES,
+    // LoggedInRouterOutlet
   ]
 })
 

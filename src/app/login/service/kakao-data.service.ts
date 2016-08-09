@@ -37,7 +37,7 @@ export class KakaoDataService {
           this.userId = user.uid;
           this.emailVerified = user.auth.emailVerified;
         } else {
-          console.log("AuthDataService: No Login: ", user );
+          console.log("KakaoDataService: No Login: ", user );
         }
       });
   }

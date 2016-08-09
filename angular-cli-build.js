@@ -20,7 +20,10 @@ module.exports = function(defaults) {
       // Gestures
       'hammerjs/*.min.+(js|js.map)',
       // Modal
-      'angular2-modal/**/*.+(ts|js|js.map)'
+      'angular2-modal/**/*.+(ts|js|js.map)',
+      // JWT & Auth0
+      'angular2-jwt/**/*.+(js|js.map)',
+      'auth0-lock/**/*.+(js|js.map)'
     ]
   });
 };
