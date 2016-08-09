@@ -67,4 +67,5 @@ md-input.password {
 .misc-btn button {
   display: inline-block;
   width: 24%;
+  margin-top: 10px;
 }

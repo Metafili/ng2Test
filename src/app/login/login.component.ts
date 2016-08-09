@@ -59,6 +59,8 @@ export class LoginComponent implements OnInit {
   title = 'Login';
 
   public static kakaoInit:boolean = false;
+  public hideProfile:boolean = false;
+  public hideMisc:boolean = false;
 
   user: {
     email: string
@@ -531,6 +533,15 @@ export class LoginComponent implements OnInit {
           .title(title)
           // .dialogClass('popupAlert')
           .open();
+  }
+
+  showProfile() {
+    this.hideProfile = !this.hideProfile;
+    console.log("showProfile: " + this.hideProfile );
+  }
+  showMisc() {
+    this.hideMisc = !this.hideMisc;
+    console.log("showMisc: " + this.hideMisc );
   }
 
   get getUserId() {

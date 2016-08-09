@@ -1,5 +1,5 @@
 <b>
-  {{title}}
+{{title}}: Auth.UserId: {{getUserId}}/{{getEmailVerified}}
 </b>
 <!-- (?.): Safe Navigation Operator(Elvis Operator)
   -http://www.bennadel.com/blog/3043-providing-default-values-for-the-safe-navigation-operator-in-angular-2-beta-8.htm
@@ -8,7 +8,7 @@
   -** https://webcake.co/object-properties-in-angular-2s-ngfor/
 
 -->
-<div>Auth.UserId: {{getUserId}}/{{getEmailVerified}}</div>
+
 <md-card class=“login-card”>
   <img (click)="goMglish()" md-card-image src="images/mglish_logo.png" />
   <md-card-content>
@@ -52,22 +52,24 @@
 </md-card>
 
 <!-- Misc Login Function -->
-<md-card class="profile-card">
+<md-card class="profile-card"  >
     <md-card-content>
-      <md-card-title>Profile</md-card-title>
+      <md-card-title (click)="showProfile()">Profile
+        <!-- md-icon class="hide" (click)="showProfile()">add</md-icon> -->
+      </md-card-title>
     </md-card-content>
-    <div class="profile-btn">
+    <div class="profile-btn" *ngIf="hideProfile" >
       <button md-raised-button color="primary" (click)="updateEmail()">Email</button>
       <button md-raised-button color="primary" (click)="updatePassword()">Passward</button>
       <button md-raised-button color="primary" (click)="updateProfile()">Profile</button>
     </div>
 </md-card>
 
-<md-card class="misc-card">
+<md-card class="misc-card" >
     <md-card-content>
-      <md-card-title>Misc</md-card-title>
+      <md-card-title (click)="showMisc()" >Misc</md-card-title>
     </md-card-content>
-    <div class="misc-btn">
+    <div class="misc-btn" *ngIf="hideMisc" >
       <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
       <button md-raised-button color="primary" (click)="logoutUser()">Logout</button>
       <button md-raised-button color="primary" (click)="auth0Login()">Auth0</button>

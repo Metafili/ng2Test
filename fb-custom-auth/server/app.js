@@ -94,7 +94,7 @@ app.post('/login', (req, res, next) => {
 });
 
 app.post('/kakao', (req, res, next) => {
-    const uid = "kakao" + req.body.uid; // Number 경우, ERROR
+    const uid = "kakao" + req.body.uid; // uid가 Number 경우, ERROR
     const username = req.body.username;
     console.log(uid + '/' + username );
 
