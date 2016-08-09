@@ -7,7 +7,8 @@ const map: any = {
   'angularfire2': 'vendor/angularfire2',
   '@angular2-material': 'vendor/@angular2-material',
   'angular2-modal': 'vendor/angular2-modal',
-  'angular2-jwt': 'vendor/angular2-jwt'
+  'angular2-jwt': 'vendor/angular2-jwt',
+  // Not Yet.: 'auth0-lock': 'vendor/auth0-lock'
 };
 
 /** User packages configuration. */
@@ -22,7 +23,10 @@ const packages: any = {
   },
   'angular2-jwt': {
     main: 'angular2-jwt.js'
-  }
+  },
+  /* 'auth0-lock': {
+    main: 'index.js'
+  } */
 };
 
 const materialPkgs:string[] = [

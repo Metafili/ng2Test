@@ -26,7 +26,7 @@ import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap/index'
 import {AuthDataService} from './service/auth-data.service';
 import {ProfileDataService} from './service/profile-data.service';
 import {KakaoDataService, KakaoUserInfo } from './service/kakao-data.service';
-import {Auth0 } from './service/auth0-lock.service';
+import {Auth0LockService } from './service/auth0-lock.service';
 
 import 'rxjs/add/operator/do';
 
@@ -44,7 +44,7 @@ declare var Kakao: any;
     ProfileDataService,
     KakaoDataService,
     JSONP_PROVIDERS,
-    Auth0
+    Auth0LockService
   ],
   directives: [
     REACTIVE_FORM_DIRECTIVES,
@@ -71,12 +71,12 @@ export class LoginComponent implements OnInit {
   loginFormBuilder:FormGroup;
 
   constructor(
-    private auth0: Auth0,
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthDataService,
     private profileService: ProfileDataService,
     private kakaoService: KakaoDataService,
+    private auth0LockService: Auth0LockService,
     private modal: Modal,  viewContainer: ViewContainerRef ) {
 
     modal.defaultViewContainer = viewContainer;
@@ -488,7 +488,7 @@ export class LoginComponent implements OnInit {
   }
 
   auth0Login() {
-    this.auth0.login();
+    this.auth0LockService.login();
   }
 
   saveAuthState( authState:FirebaseAuthState ) {
