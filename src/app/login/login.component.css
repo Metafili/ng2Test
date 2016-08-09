@@ -59,6 +59,7 @@ md-input.password {
 .profile-btn button {
   display: inline-block;
   width: 32%;
+  margin-bottom: 10px;
 }
 
 .misc-btn {
@@ -67,5 +68,5 @@ md-input.password {
 .misc-btn button {
   display: inline-block;
   width: 24%;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
