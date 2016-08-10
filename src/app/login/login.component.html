@@ -69,7 +69,7 @@
     <md-card-content>
       <md-card-title (click)="showMisc()" >Misc</md-card-title>
     </md-card-content>
-    <div class="misc-btn" *ngIf="hideMisc" >
+      <div class="misc-btn" *ngIf="hideMisc" >
       <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
       <button md-raised-button color="primary" (click)="logoutUser()">Logout</button>
       <button md-raised-button color="primary" (click)="auth0Login()">Auth0</button>

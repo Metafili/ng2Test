@@ -1,0 +1,12 @@
+<p>Animation: {{demoAniMode}} </p>
+<p  @scaleUp="aniMode">Animation Area </p>
+<p  @flyInOut="aniMode" *ngIf="showFly" >Animation: flyInOut </p>
+<p  @heroState="aniMode">Animation: heroState </p>
+<p  @shrinkOut="aniMode" *ngIf="showShrink" >Animation: shrinkOut </p>
+<p  @parallelInOut="aniMode" *ngIf="showParallel" >Animation: ParallelInOut </p>
+
+<button (click)='aniActiveMode()'>Active</button>
+<button (click)='aniFlyMode("in")'>Fly:InOut</button>
+<button (click)='aniHeroMode("in")' >Hero:InOut</button>
+<button (click)='aniShrinkMode("in")' >Shrink:InOut</button>
+<button (click)='aniParallelMode("in")'>Parallel:InOut</button>

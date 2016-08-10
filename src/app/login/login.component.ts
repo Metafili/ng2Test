@@ -53,7 +53,7 @@ declare var Kakao: any;
     MdToolbar,
     MdButton,
     MdIcon,
-  ]
+  ],
 })
 export class LoginComponent implements OnInit {
   title = 'Login';

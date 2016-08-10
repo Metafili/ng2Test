@@ -91,6 +91,7 @@ const barrels: string[] = [
   'app/basics/external-lib',
   'app/login/test/custom-login',
   'app/login/jwt',
+  'app/design/animation',
   /** @cli-barrel */
 ];
 

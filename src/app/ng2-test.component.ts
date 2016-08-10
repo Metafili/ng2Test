@@ -23,7 +23,8 @@ import { WordListComponent }    from './mglish/word-list/word-list.component';
 import { GetMwordComponent }    from './mglish/get-mword/get-mword.component';
 import { LoginComponent }       from './login/login.component';
 import { CustomLoginComponent }       from './login/test/custom-login/custom-login.component';
-import {LoggedInRouterOutlet} from './login/LoggedInRouterOutlet';
+import {LoggedInRouterOutlet} from   './login/LoggedInRouterOutlet';
+import {AnimationComponent} from     './design/animation/animation.component';
 
 @RouteConfig([
   {path: '/',                 name: 'Root',         component: ObsBaiscComponent, useAsDefault: true },
@@ -43,7 +44,8 @@ import {LoggedInRouterOutlet} from './login/LoggedInRouterOutlet';
   {path: '/getmword',         name: 'GetMword',     component: GetMwordComponent },
   {path: '/externallib',      name: 'ExtLib',       component: ExternalLibComponent },
   {path: '/login',            name: 'Login',        component: LoginComponent },
-  {path: '/customlogin',      name: 'CustomLogin',  component: CustomLoginComponent }
+  {path: '/customlogin',      name: 'CustomLogin',  component: CustomLoginComponent },
+  {path: '/animation',        name: 'Ani',          component: AnimationComponent }
 ])
 
 @Component({
