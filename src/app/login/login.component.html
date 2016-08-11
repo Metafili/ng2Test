@@ -58,7 +58,7 @@
         <!-- md-icon class="hide" (click)="showProfile()">add</md-icon> -->
       </md-card-title>
     </md-card-content>
-    <div class="profile-btn" *ngIf="hideProfile" >
+    <div class="profile-btn" *ngIf="hideProfile" @shrinkOut="aniMode" >
       <button md-raised-button color="primary" (click)="updateEmail()">Email</button>
       <button md-raised-button color="primary" (click)="updatePassword()">Passward</button>
       <button md-raised-button color="primary" (click)="updateProfile()">Profile</button>
@@ -69,7 +69,7 @@
     <md-card-content>
       <md-card-title (click)="showMisc()" >Misc</md-card-title>
     </md-card-content>
-      <div class="misc-btn" *ngIf="hideMisc" >
+      <div class="misc-btn" *ngIf="hideMisc" @shrinkOut="aniMode" >
       <button md-raised-button color="primary" (click)="loginGuest()">Guest</button>
       <button md-raised-button color="primary" (click)="logoutUser()">Logout</button>
       <button md-raised-button color="primary" (click)="auth0Login()">Auth0</button>

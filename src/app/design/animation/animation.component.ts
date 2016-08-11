@@ -107,8 +107,8 @@ export class AnimationComponent implements OnInit {
   ngOnInit() {
   }
 
-  aniActiveMode(aniMode:string) {
-    this.aniMode = aniMode;
+  aniActiveMode(aniMode?:string) {
+    // this.aniMode = aniMode;
     if( this.aniMode === "active" )
       this.aniMode = "inactive";
     else

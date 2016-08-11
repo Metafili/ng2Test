@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef,
+  trigger,
+  state,
+  style,
+  transition,
+  group,
+  animate } from '@angular/core';
 import {
   REACTIVE_FORM_DIRECTIVES, // for binding FormGroup/FormControl to template
   FormBuilder,              // for FormBuilder
@@ -54,6 +60,15 @@ declare var Kakao: any;
     MdButton,
     MdIcon,
   ],
+  animations: [
+    trigger('shrinkOut', [
+      state('in', style({height: '*'})),
+      transition('* => void', [
+        style({height: '*'}),
+        animate(250, style({height: 0}))
+      ])
+    ]),
+  ]
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
@@ -61,6 +76,7 @@ export class LoginComponent implements OnInit {
   public static kakaoInit:boolean = false;
   public hideProfile:boolean = false;
   public hideMisc:boolean = false;
+  public aniMode:string;
 
   user: {
     email: string
@@ -536,10 +552,13 @@ export class LoginComponent implements OnInit {
   }
 
   showProfile() {
+    this.aniMode = "in";
     this.hideProfile = !this.hideProfile;
     console.log("showProfile: " + this.hideProfile );
   }
+
   showMisc() {
+    this.aniMode = "in";
     this.hideMisc = !this.hideMisc;
     console.log("showMisc: " + this.hideMisc );
   }
