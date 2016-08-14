@@ -8,9 +8,11 @@ module.exports = function(defaults) {
       'systemjs/dist/system-polyfills.js',
       'systemjs/dist/system.src.js',
       'zone.js/dist/**/*.+(js|js.map)',
-      'es6-shim/es6-shim.js',
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/*.+(js|js.map)',
+      // https://github.com/hansl/angular-cli/commit/84490ae0351f383deb19591e2de1c329df2d0d99
+      // 'es6-shim/es6-shim.js',
+      'core-js/client/shim.min.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
       // Angularfire2
       'firebase/*.+(js|js.map)',
