@@ -1,6 +1,8 @@
-/** Server: Custom Token Generator
+/** 
+ * Server: Custom Token Generator
  *  -https://github.com/ksachdeva/firebase-custom-auth-example
- *  Running
+ * 
+ * Running
  *  $npm install
  *  $nodemon app.js
  */
