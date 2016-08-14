@@ -12,7 +12,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/mergemap';
 import 'rxjs/add/operator/switchMap';
 
-import { WikiServiceService } from '../service/wiki-service.service';
+import { WikiServiceService } from './service/wiki-service.service';
 
 @Component({
   moduleId: module.id,

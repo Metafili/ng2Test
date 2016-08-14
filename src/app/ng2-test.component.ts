@@ -9,8 +9,9 @@ import { Fire2Component }       from './fire2/fire2.component';
 import { OfflineComponent }     from './fire2/offline/offline.component';
 import { StorageComponent }     from './fire2/storage/storage.component';
 import { ObsBaiscComponent }    from './obs/obs-baisc/obs-baisc.component';
+import { HttpComponent }        from './basics/http/http.component';
+import { WikiSearchComponent }  from './basics/http/wiki/wiki-search.component';
 import { CommentComponent }     from './obs/comments/comment.Component';
-import { WikiSearchComponent }  from './obs/wiki/wiki-search/wiki-search.component';
 import { GesturesComponent }    from './material2/gestures/gestures.component';
 import { HeroFormComponent }           from './basics/hero-form/hero-form.component';
 import { ModelDrivenFormComponent }    from './basics/forms/model-driven-form/model-driven-form.component';
@@ -32,6 +33,7 @@ import {AnimationComponent} from     './design/animation/animation.component';
   {path: '/fire2offline',     name: 'Fire2Offline', component: OfflineComponent },
   {path: '/fire2storage',     name: 'Fire2Storage', component: StorageComponent },
   {path: '/observable',       name: 'Observabe',    component: ObsBaiscComponent },
+  {path: '/http',             name: 'Http',         component: HttpComponent },
   {path: '/obscomment',       name: 'ObsComments',  component: CommentComponent },
   {path: '/wikisearch',       name: 'WikiSearch',   component: WikiSearchComponent },
   {path: '/gestures',         name: 'MdGestures',   component: GesturesComponent },
