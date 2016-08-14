@@ -13,6 +13,12 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
+  /*
+  '@angular/router': {
+    defaultExtension: 'js',
+    main: 'index.js'
+  },
+  */
   angularfire2: {
     defaultExtension: 'js',
     main: 'angularfire2.js'
@@ -93,6 +99,7 @@ const barrels: string[] = [
   'app/login/test/custom-login',
   'app/login/jwt',
   'app/design/animation',
+  'app/basics/route/child-route',
   /** @cli-barrel */
 ];
 

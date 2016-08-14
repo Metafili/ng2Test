@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+// import { ROUTER_DIRECTIVES } from '@angular/router';
+/*
+*/
 import {
   Router, RouteConfig,
   ROUTER_DIRECTIVES,
   ROUTER_PROVIDERS } from '@angular/router-deprecated';
-// import { Router, Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 import { Fire2Component }       from './fire2/fire2.component';
 import { OfflineComponent }     from './fire2/offline/offline.component';
