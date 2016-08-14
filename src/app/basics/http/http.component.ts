@@ -8,7 +8,8 @@ import 'rxjs/add/operator/mergemap'; // flatMap
 import 'rxjs/add/operator/filter';
 
 /**
- * https://github.com/thelgevold/angular-2-samples
+ * Torgeir Helgevold: Angular 2.0 And Http
+ *  -https://github.com/thelgevold/angular-2-samples
  */
 @Component({
   moduleId: module.id,
