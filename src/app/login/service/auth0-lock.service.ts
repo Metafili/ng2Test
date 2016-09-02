@@ -11,7 +11,10 @@ export class Auth0LockService {
   // Auth0: Dashboard:Clients:Default App
   // Tutorial: https://auth0.com/docs/quickstart/spa/angular2
   // ***Restrict: https://auth0.com/docs/quickstart/spa/angular2/07-authorization
-  //    https://toddmotto.com/angular-2-authentication
+  //   -https://toddmotto.com/angular-2-authentication
+  // Passwordless Authentication with React and Auth0
+  //   -https://medium.com/javascript-scene/passwordless-authentication-with-react-and-auth0-c4cb003c7cde#.wv94uqhwn
+
 
   YOUR_CLIENT_ID:string  = 'RZuJRpKJZszsRJ19O0LqGJEfyS1BRdf7';
   YOUR_DOMAIN:string     = 'edicon.eu.auth0.com';
